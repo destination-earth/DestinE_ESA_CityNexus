@@ -19,5 +19,15 @@ The CityNexus platform, designed for the Copenhagen Greater Metropolitan Area, a
 4.	**Public Environmental Health**: The platform assesses how air pollution affects public health, including the incidence of diseases associated with exposure to different pollutants.
 5.	**Service Accessibility**: It evaluates the availability, accessibility, and equity of key urban services such as transportation, healthcare, education, workplaces, commercial, and recreational facilities.
 
+<div>
+<p align="center">
+  <img style="vertical-align:middle" src="citynexus_rendering.png" width="300" title="">
+   <img style="vertical-align:middle" src="citynexus_rendering.png" width="300" title="">
+ </p>
+</div>
+
+Furthermore, CityNexus offers functionalities for generating "what if" simulations based on four transformation scenarios, aligned with the development options being considered by the Municipality. These scenarios include high-speed road redesign, promoting electric and low-emission vehicles, creating Low Emission Zones, and adjusting road speed limits. Each scenario aims to contribute to a more sustainable, healthy, and livable urban environment in Copenhagen.
+
+In particular, CityNexus will employ the Cloud Infrastructure, Data & User Workflow, Dashboard, Traceability and Data Visualization Services of the  Destination Earth Service Platform DESP to deploy the application and provide access to the users. The use of explainable AI (XAI) ensures transparency and helps foster policy adoption. Users can assess the effects of different interventions on targeted KPIs and explore their compound effects in a risk-free virtual environment before real-world implementation.
 
 
