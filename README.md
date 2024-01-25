@@ -1,1 +1,3 @@
-# DestinE_ESA_CityNexus
+# CITYNEXUS 
+# A novel urban digital twin application
+
