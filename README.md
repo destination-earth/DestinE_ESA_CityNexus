@@ -22,12 +22,26 @@ The CityNexus platform, designed for the Copenhagen Greater Metropolitan Area, a
 <div>
 <p align="center">
   <img style="vertical-align:middle" src="citynexus_rendering.png" width="300" title="">
-   <img style="vertical-align:middle" src="citynexus_rendering.png" width="300" title="">
+   <img style="vertical-align:middle" src="citynexus_rendering_2.png" height="263" title="">
  </p>
 </div>
 
-Furthermore, CityNexus offers functionalities for generating "what if" simulations based on four transformation scenarios, aligned with the development options being considered by the Municipality. These scenarios include high-speed road redesign, promoting electric and low-emission vehicles, creating Low Emission Zones, and adjusting road speed limits. Each scenario aims to contribute to a more sustainable, healthy, and livable urban environment in Copenhagen.
+Furthermore, CityNexus offers functionalities for generating **"what if" simulations** based on four transformation scenarios, aligned with the development options being considered by the Municipality. These scenarios include high-speed road redesign, promoting electric and low-emission vehicles, creating Low Emission Zones, and adjusting road speed limits. Each scenario aims to contribute to a more sustainable, healthy, and livable urban environment in Copenhagen.
 
-In particular, CityNexus will employ the Cloud Infrastructure, Data & User Workflow, Dashboard, Traceability and Data Visualization Services of the  Destination Earth Service Platform DESP to deploy the application and provide access to the users. The use of explainable AI (XAI) ensures transparency and helps foster policy adoption. Users can assess the effects of different interventions on targeted KPIs and explore their compound effects in a risk-free virtual environment before real-world implementation.
+In particular, CityNexus will employ the Cloud Infrastructure, Data & User Workflow, Dashboard, Traceability and Data Visualization Services of the **Destination Earth Service Platform DESP** to deploy the application and provide access to the users. The use of explainable AI (XAI) ensures transparency and helps foster policy adoption. Users can assess the effects of different interventions on targeted KPIs and explore their compound effects in a risk-free virtual environment before real-world implementation.
+
+This approach provides policymakers a collaborative platform to experiment with various strategies and solutions, considering diverse factors and variables crucial for successful and sustainable urban interventions, thereby facilitating a coordinated approach to decision-making.
+
+<h2>Impact</h2>
+
+The implementation of CityNexus and its "what-if" scenario capabilities is expected to have a profound and multi-faceted impact on users, particularly in terms of urban planning, environmental sustainability, transportation, and public health policies. In the short term, users, including urban planners, policymakers, and the public, will gain a powerful tool for visualizing and understanding the potential impacts of various urban development decisions. This interactive and participatory approach to planning will allow for more informed and community-driven decisions. By simulating different scenarios, CityNexus provides insights into how changes in infrastructure, such as transforming high-speed thoroughfares or promoting electric vehicles, can influence human mobility, air quality, and public health. This ability to evaluate the potential outcomes of various initiatives before implementation will be instrumental in guiding effective policy decisions and urban development strategies.
+
+In the long-term, CityNexus is expected to significantly contribute to Copenhagen's journey towards a more sustainable, healthy, and smart urban future, aligning with the city's ambitious environmental and urban quality of life goals. By integrating with key policies like the Copenhagen Climate Plan and the Copenhagen Bicycle Strategy, the platform supports the city’s endeavors to become carbon-neutral by 2025 and evolve into a premier global city for cycling.
+
+Moreover, the impact of CityNexus extends beyond regional boundaries. There is a concerted effort to connect with cities participating in the EU’s 100 Climate-Neutral and Smart Cities by 2030 initiative, as well as the Covenant of Mayors. This multi-tiered strategy not only furthers Copenhagen's local sustainability goals but also aims to inspire and motivate cities across the globe. By demonstrating the effectiveness of CityNexus in achieving substantial, long-lasting urban improvements, the project positions itself as a pioneering model for integrating advanced digital tools into urban planning and policy-making. This approach underscores the potential of collaborative, data-driven strategies in realizing the vision of sustainable, smart, and climate-neutral cities, encouraging a global movement towards more sustainable urban development.
+ 
+
+
+
 
 
