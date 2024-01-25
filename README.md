@@ -39,7 +39,39 @@ The implementation of CityNexus and its "what-if" scenario capabilities is expec
 In the long-term, CityNexus is expected to significantly contribute to Copenhagen's journey towards a more sustainable, healthy, and smart urban future, aligning with the city's ambitious environmental and urban quality of life goals. By integrating with key policies like the Copenhagen Climate Plan and the Copenhagen Bicycle Strategy, the platform supports the city’s endeavors to become carbon-neutral by 2025 and evolve into a premier global city for cycling.
 
 Moreover, the impact of CityNexus extends beyond regional boundaries. There is a concerted effort to connect with cities participating in the EU’s 100 Climate-Neutral and Smart Cities by 2030 initiative, as well as the Covenant of Mayors. This multi-tiered strategy not only furthers Copenhagen's local sustainability goals but also aims to inspire and motivate cities across the globe. By demonstrating the effectiveness of CityNexus in achieving substantial, long-lasting urban improvements, the project positions itself as a pioneering model for integrating advanced digital tools into urban planning and policy-making. This approach underscores the potential of collaborative, data-driven strategies in realizing the vision of sustainable, smart, and climate-neutral cities, encouraging a global movement towards more sustainable urban development.
- 
+
+<div>
+<p align="center">
+  <img style="vertical-align:middle" src="citynexus_rendering_3.png" height="200" title="">
+   <img style="vertical-align:middle" src="citynexus_rendering_4.png" height="200" title="">
+ </p>
+</div>
+
+<h2>Policy addressed</h2>
+
+- **Urban planning** policies, intended as regulations, guidelines, and strategies formulated and implemented by government authorities, urban planners, and policymakers to manage and shape the development, growth, and sustainability of urban areas.
+- **Environmental** planning policies, intended as regulations and strategies aimed at managing and enhancing the sustainability, livability, and ecological aspects of urban areas, with a focus on urban design, transportation, and environmental quality.
+- **Transportation** Policies, intended as policies related to public transportation, traffic management, road safety, and alternative transportation modes (e.g., cycling and walking), which impact both urban and environmental planning.
+- **Public Health** Policies, intended as policies that address public health concerns associated with urban environments, specifically related to air quality regulations.                               
+
+ <h2>Data</h2>
+ Various data portfolio will be used, from DestinE, publicly available and commercial.
+
+From DestinE Portfolio:
+
+- Sentinel-5P TROPOMI Level 2 daily tropospheric NO2, SO2, CO, O3 vertical column densities
+- ECMWF's ERA5 hourly estimates for different meteorological variables
+- Copernicus Digital Elevation Model of Europe available at 10m resolution
+- CORINE Land Cover map available from the Copernicus Land Monitoring Service at 100m resolution
+
+Publicly available:
+
+- Copenhagen Air View (CAV),Near-ground air pollution levels (National and Local network), Near-ground meteorological data (National network), Road network, the OpenStreetMap (OSM), TNO/MACC-III inventory, World Settlement Footprint – WSF suite, Copenhagen’s public transportation schedule, Copenhagen’s map of municipal trees, tree canopy coverage and land use plan.
+
+Commercial:
+
+- High Frequency Location Based (HFLB) mobility data for entire Denmark for 20 months
+
 
 
 
