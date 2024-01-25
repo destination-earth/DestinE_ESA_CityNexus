@@ -74,7 +74,7 @@ Commercial:
 
 ## Contributions
 
-Tho contribute to DestinE Open Source SW collections please refer to [Rule of Participation](rule_of_participation.md)
+Tho contribute to DestinE Open Source SW collections please refer to [Rule of Participation](RULE_OF_PARTICIPATION.md)
 
 ## Code of Conduct
 
