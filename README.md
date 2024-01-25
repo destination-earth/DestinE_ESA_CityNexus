@@ -1,6 +1,6 @@
 <div>
 <p align="right">
-  <img style="vertical-align:middle" src="citynexus_logo.png" width="100" title="CityNexus logo">
+  <img style="vertical-align:middle" src="images/citynexus_logo.png" width="100" title="CityNexus logo">
   <span style=""><h1>CITYNEXUS<h1><span style="">
   <span style="">A novel urban digital twin application</span>
 </p>
@@ -21,8 +21,8 @@ The CityNexus platform, designed for the Copenhagen Greater Metropolitan Area, a
 
 <div>
 <p align="center">
-  <img style="vertical-align:middle" src="citynexus_rendering.png" width="300" title="">
-   <img style="vertical-align:middle" src="citynexus_rendering_2.png" height="263" title="">
+  <img style="vertical-align:middle" src="images/citynexus_rendering.png" width="300" title="">
+   <img style="vertical-align:middle" src="images/citynexus_rendering_2.png" height="263" title="">
  </p>
 </div>
 
@@ -42,8 +42,8 @@ Moreover, the impact of CityNexus extends beyond regional boundaries. There is a
 
 <div>
 <p align="center">
-  <img style="vertical-align:middle" src="citynexus_rendering_3.png" height="200" title="">
-   <img style="vertical-align:middle" src="citynexus_rendering_4.png" height="200" title="">
+  <img style="vertical-align:middle" src="images/citynexus_rendering_3.png" height="200" title="">
+   <img style="vertical-align:middle" src="images/citynexus_rendering_4.png" height="200" title="">
  </p>
 </div>
 
