@@ -76,6 +76,10 @@ Commercial:
 
 Tho contribute to DestinE Open Source SW collections please refer to [Rule of Participation](RULE_OF_PARTICIPATION.md)
 
+Here you can find the current [Product Backlog](https://github.com/destination-earth/DestinE_ESA_CityNexus/files/14372789/CITYNEXUS.Backlog.pdf)
+
+
+
 ## Code of Conduct
 
 DestinE open source community abide to this [Code of Conduct](CODE_OF_CONDUCT.md)
