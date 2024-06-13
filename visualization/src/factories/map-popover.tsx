@@ -200,18 +200,6 @@ function CustomMapPopoverFactory(MapPopoverContent, ...deps) {
         const moveLeft = () => setHorizontalPlacement('end');
         const moveRight = () => setHorizontalPlacement('start');
 
-        const onSetRoadType = useCallback((roadType) => {
-            layerHoverProp.layer.dataContainer._rows[layerHoverProp.data._rowIndex][4] = roadType;
-            updateVisData(instanceState.visState, {
-                datasets: {
-                    data: {
-                        fields: layerHoverProp.fields,
-                        rows: layerHoverProp.data._dataContainer._rows
-                    }
-                }
-            });
-        }, []);
-
         return (
             <RootContext.Consumer>
                 {context => (
@@ -267,24 +255,6 @@ function CustomMapPopoverFactory(MapPopoverContent, ...deps) {
                                         layerHoverProp={layerHoverProp}
                                     />
                                 </PopoverContent>
-                                {layerHoverProp?.layer?.type &&
-                                    SELECTABLE_LAYERS.includes(layerHoverProp?.layer?.type) &&
-                                    frozen ? (
-                                    <>
-                                        <StyledSelectGeometry className="select-tunnel" onClick={() => onSetRoadType('tunnel_road')}>
-                                            <Icons.CursorPoint />
-                                            Tunnel road
-                                        </StyledSelectGeometry>
-                                        <StyledSelectGeometry className="select-none" onClick={() => onSetRoadType('no_road')}>
-                                            <Icons.CursorPoint />
-                                            No road
-                                        </StyledSelectGeometry>
-                                        <StyledSelectGeometry className="select-surface" onClick={() => onSetRoadType('surface_road')}>
-                                            <Icons.CursorPoint />
-                                            Surface road
-                                        </StyledSelectGeometry>
-                                    </>
-                                ) : null}
                             </StyledMapPopover>
                         )}
                     />

@@ -1,51 +1,50 @@
-// SPDX-License-Identifier: MIT
-// Copyright contributors to the kepler.gl project
-
-import {combineReducers, createStore, applyMiddleware, compose, Reducer, CombinedState} from 'redux';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import {browserHistory, } from 'react-router';
-import {KeplerGlState, enhanceReduxMiddleware} from '@kepler.gl/reducers';
-import thunk from 'redux-thunk';
-// eslint-disable-next-line no-unused-vars
-import window from 'global/window';
-
+import {enhanceReduxMiddleware, KeplerGlState} from '@kepler.gl/reducers';
 import demoReducer, { AppState } from './reducers/index';
+import {configureStore} from "@reduxjs/toolkit";
+import userReducer from "components/user/userSlice"
 
 export type StoreData = {
   app: AppState;
-  keplerGl: KeplerGlStates;
+  demo: DemoAppState;
 };
 
-export type KeplerGlStates = {
-  map: KeplerGlState;
+export type DemoAppState = {
+  keplerGl: KeplerGlState
+}
+
+const actionSanitizer = (action) => {
+  return action.type.startsWith('@@kepler.gl') && action.payload ?
+      {...action, payload: '<< OMITTED FOR PERFORMANCE REASONS >>'} : action
 };
 
-const reducers = combineReducers({
-  demo: demoReducer,
-  routing: routerReducer
-});
+const stateSanitizer = (state) => {
+  const demo = ((state.demo && state.demo.keplerGl) ? {...state.demo, keplerGl: '<< KEPLER.GL MAP DATA - OMITTED FOR PERFORMANCE REASONS >>'} : {});
+  return state.demo ? { ...state, demo: demo } : state
+}
 
-export const middlewares = enhanceReduxMiddleware([thunk, routerMiddleware(browserHistory)]);
-
-export const enhancers = [applyMiddleware(...middlewares)];
-
-const initialState = {};
-
-// eslint-disable-next-line prefer-const
-let composeEnhancers = compose;
-
-/**
- * comment out code below to enable Redux Devtools
- */
-// console.log(window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__);
-if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-  composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    actionsBlacklist: [
+export default configureStore({
+  reducer: {
+    demo: demoReducer,
+    routing: routerReducer,
+    user: userReducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    const middlewares = enhanceReduxMiddleware([routerMiddleware(browserHistory)])
+    return getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+      actionCreatorCheck: false,
+    }).concat(middlewares);
+  },
+  devTools: {
+    actionsDenylist: [
       '@@kepler.gl/MOUSE_MOVE',
       '@@kepler.gl/UPDATE_MAP',
       '@@kepler.gl/LAYER_HOVER'
-    ]
-  });
-}
-
-export default createStore(reducers, initialState, composeEnhancers(...enhancers));
+    ],
+    actionSanitizer: actionSanitizer,
+    stateSanitizer: stateSanitizer,
+  }
+});

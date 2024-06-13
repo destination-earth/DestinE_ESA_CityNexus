@@ -92,7 +92,7 @@ const SampleMap = ({id, sample, onClick, locale}) => (
   </StyledSampleMap>
 );
 
-const SampleMapGallery = ({
+const WhatIfScenarioGallery = ({
   sampleMaps,
   onLoadSample,
   error,
@@ -131,11 +131,11 @@ const SampleMapGallery = ({
   );
 };
 
-SampleMapGallery.propTypes = {
+WhatIfScenarioGallery.propTypes = {
   sampleMaps: PropTypes.arrayOf(PropTypes.object),
   onLoadSample: PropTypes.func.isRequired,
   loadSampleConfigurations: PropTypes.func.isRequired,
   error: PropTypes.object
 };
 
-export default SampleMapGallery;
+export default WhatIfScenarioGallery;

@@ -10,6 +10,7 @@ import { Action } from 'redux';
 import { useStore } from 'react-redux';
 import { Icons } from '@kepler.gl/components';
 import { StoreData } from '../store';
+import { saveAs } from 'file-saver';
 
 const PositionedElement = styled.div`
     font-family: ff-clan-web-pro,'Helvetica Neue',Helvetica,sans-serif;
@@ -41,14 +42,21 @@ const StyledButton = styled.button`
 
 const SaveButton = () =>{
     const store = useStore<StoreData, Action>();
+
     const onSaveMap = () => {
         const currentState = store.getState();
-        const mapToSave = KeplerGlSchema.save(currentState.demo.keplerGl.map);
-        const dataToSave = KeplerGlSchema.getDatasetToSave(currentState.demo.keplerGl.map);
-        const configToSave = KeplerGlSchema.getConfigToSave(currentState.demo.keplerGl.map);
-        console.log(mapToSave);
-        console.log(dataToSave);
-        console.log(configToSave);
+        const dataToSave = currentState.demo.keplerGl.map.visState.changes;
+
+        const finalData = {
+            ...dataToSave,
+            "scenario": {
+                "bicycle percentage": 0.0,
+                "vehicle percentage": 0.0,
+                "day type": ["weekend"],
+                "time slots": [0],
+            }
+        }
+        saveAs(new Blob([JSON.stringify(finalData, null, 2)], { type: "application/json" }), "mapData.json");
     };
 
     return (

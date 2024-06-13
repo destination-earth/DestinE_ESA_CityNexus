@@ -4,9 +4,11 @@
 // Add english messages here, other languages will use these
 // if translations not available for every message
 const en = {
+  'modal.loadData.what-if': 'What-if scenarios',
+  'modal.loadData.predictions': 'Model predictions',
   'modal.loadData.remote': 'Load Map using URL',
-  'sampleMapsTab.noData': 'No data ?',
-  'sampleMapsTab.trySampleData': 'Try sample data',
+  'sampleMapsTab.noData': 'Load past data ?',
+  'sampleMapsTab.trySampleData': 'Existing Datasets',
   'sampleDataViewer.rowCount': ' {rowCount} rows',
   'loadRemoteMap.description': 'Load your map using your custom URL',
   'loadRemoteMap.message':
