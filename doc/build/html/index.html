@@ -110,26 +110,51 @@
 </section>
 <section id="user-manual">
 <h2>User Manual<a class="headerlink" href="#user-manual" title="Link to this heading"></a></h2>
-<p>Scenario Simulation Parameters:</p>
-<a class="reference internal image-reference" href="_images/citynexus_rendering_3.png"><img alt="alternate text" class="align-right" src="_images/citynexus_rendering_3.png" style="width: 358.40000000000003px; height: 288.0px;" /></a>
+<p>CITYNEXUS is deployed on cloud and offered as a service on the DestinE platform either via an API or trough a User Interface.</p>
+<p>After the login, the simulation can be run directly by providing a JSON document as input and invoking the model  via web  API (see the API definition).</p>
+<p>When using the UI, the user works with maps representing scenarios for the what-if analysis and simulation results to be analysed.</p>
+<p>Upon accessing CityNexus UI, the user is prompted to select the data they want to visualise within the application.</p>
+<p>There are 2 types of maps that can be visualized:</p>
+<ol class="arabic simple">
+<li><p><strong>“What-if” scenarios.</strong> The scenarios are maps where the user can select road segments and grid zones to create simulation inputs, by modifying the parameters associated to segments or to grid zones.</p></li>
+<li><p><strong>Predictions.</strong> The predictions are maps visualizing model predictions.</p></li>
+</ol>
+<p>Available what-if scenarios are displayed in a grid layout with thumbnails showing what the map looks like (the screenshot below uses placeholder images).</p>
+<a class="reference internal image-reference" href="_images/fig_1.png"><img alt="alternate text" class="align-center" src="_images/fig_1.png" style="width: 521.0px; height: 378.0px;" /></a>
+<p>The model predictions are displayed in a table which can be sorted and filtered to make it easier for the user to select the simulation they are interested in.</p>
+<a class="reference internal image-reference" href="_images/fig_2.png"><img alt="alternate text" class="align-center" src="_images/fig_2.png" style="width: 623.0px; height: 321.0px;" /></a>
+<p>Maps consist of road segments and/or grid squares. Each segment or square contains several parameters that describe the element. Parameter values can be changed and/or selected to define new simulation scenarios.</p>
+<a class="reference internal image-reference" href="_images/fig_3.png"><img alt="alternate text" class="align-center" src="_images/fig_3.png" style="width: 581.0px; height: 337.0px;" /></a>
+<p>Streets are selectable by segments, and each segment is labelled with information about street type, traffic allowed, maximum speed and others. The information can be modified, by modifying the parameter in the UI that appears when selecting either a single road segment or when selecting multiple road segments with an area selection.</p>
+<p>The following properties can be edited in road segments:</p>
 <ul class="simple">
-<li><p><strong>Road Segment Conversion</strong>: Modify road segments to be above ground or underground.</p></li>
-<li><p><strong>Average Speed Adjustment</strong>: Change the average speed limit of a specific road segment.</p></li>
-<li><p><strong>Road Segment Accessibility</strong>: Control access to a road segment for all or specific types of traffic.</p></li>
-<li><p><strong>Traffic Composition Weighting</strong>: Alter the proportionate impact of different vehicle types (electric vehicles, bicycles, cars) on total traffic within a segment or area.</p></li>
-<li><p><strong>Point of Interest (POI) Management</strong>: Increase or decrease the number of POIs across various categories within the simulation.</p></li>
-<li><p><strong>Population Dynamics</strong>: Adjust population levels to reflect increases or decreases in the simulated area.</p></li>
+<li><p>Closed (Boolean). This flag specifies whether the road is closed (T) or open (F)</p></li>
+<li><p>Tunnel (Boolean). This flag specifies whether the road segment is tunnelled (T) or not (F)</p></li>
+<li><p>Underground (Boolean). This flag specifies whether the road segment is underground (T) or not (F)</p></li>
+<li><p>Speed (Integer). This value defines the maximum speed allowed on the road segment.</p></li>
 </ul>
-<p>Simulation Running Options:</p>
+<a class="reference internal image-reference" href="_images/fig_3a.png"><img alt="alternate text" class="align-center" src="_images/fig_3a.png" style="width: 586.0px; height: 293.0px;" /></a>
+<p>The grid consists of 100x100m exagons, each square describing the Points of Interest in that area and the type of land usage (residential, commercial and others).</p>
+<p>The following properties can be edited in zone segments:</p>
 <ul class="simple">
-<li><p><strong>Time Slots</strong>: 8 individually selectable time windows, each representing a 3-hour block.</p></li>
-<li><p><strong>Day Selection</strong>: Option to choose between a weekday or weekend.</p></li>
+<li><p>Landuse. Defines the ratio of the area covered by 4 types of land usage: Residential, Commercial, Agricultural and Industrial</p></li>
+<li><p>Points of interest. Defines the number of points of interest in the area. Types of POIs are Food, Fun, Health, Infrastructure, School, Services, Shop, Sport, Tourism</p></li>
 </ul>
-<p>Simulation Output:</p>
+<a class="reference internal image-reference" href="_images/fig_3b.png"><img alt="alternate text" class="align-center" src="_images/fig_3b.png" style="width: 513.0px; height: 242.0px;" /></a>
+<p>These factors have effects on the simulated mobility and traffic patterns. A scenario simulation is run by specifying:</p>
 <ul class="simple">
-<li><p><strong>Pollutants Concentration</strong>: 5 different pollutants (CO2, CO, HC, NOx, PMx)</p></li>
-<li><p><strong>Statistics</strong>: (Fuel Consumption, Speed, Congestion, Traffic indiced noise)</p></li>
+<li><p>the percentage of bicycles in circulation over the total number of vehicles</p></li>
+<li><p>the percentage of electric cars in circulation over the total number of vehicles</p></li>
+<li><p>the type of the day (weekday or weekend)</p></li>
+<li><p>A 3h timeslot</p></li>
 </ul>
+<p>The output of a simulation includes:</p>
+<ul class="simple">
+<li><p>Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)</p></li>
+<li><p>Statistics: (Fuel Consumption, Speed, Congestion, Traffic Induced Noise)</p></li>
+</ul>
+<p>Simulations are saved in the user workspace when available. Simulation below for instance shows a forecasted road occupancy percentage, calculated on a time slot around 12:00.</p>
+<a class="reference internal image-reference" href="_images/fig_4.png"><img alt="alternate text" class="align-center" src="_images/fig_4.png" style="width: 401.0px; height: 291.0px;" /></a>
 </section>
 </section>
 <section id="indices-and-tables">

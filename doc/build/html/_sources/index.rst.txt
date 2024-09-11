@@ -50,29 +50,88 @@ CityNexus offers dedicated functionalities for performing "what if" simulations 
 User Manual
 -----------
 
-Scenario Simulation Parameters:
+CITYNEXUS is deployed on cloud and offered as a service on the DestinE platform either via an API or trough a User Interface.
 
-.. image:: images/citynexus_rendering_3.png
-   :scale: 80
-   :align: right
+After the login, the simulation can be run directly by providing a JSON document as input and invoking the model  via web  API (see the API definition). 
+
+When using the UI, the user works with maps representing scenarios for the what-if analysis and simulation results to be analysed. 
+
+Upon accessing CityNexus UI, the user is prompted to select the data they want to visualise within the application.
+
+There are 2 types of maps that can be visualized:
+
+1.	**“What-if” scenarios.** The scenarios are maps where the user can select road segments and grid zones to create simulation inputs, by modifying the parameters associated to segments or to grid zones.
+2. **Predictions.** The predictions are maps visualizing model predictions.
+
+Available what-if scenarios are displayed in a grid layout with thumbnails showing what the map looks like (the screenshot below uses placeholder images).
+
+.. image:: images/fig_1.png
+   :scale: 100
+   :align: center
    :alt: alternate text
 
-- **Road Segment Conversion**: Modify road segments to be above ground or underground.
-- **Average Speed Adjustment**: Change the average speed limit of a specific road segment.
-- **Road Segment Accessibility**: Control access to a road segment for all or specific types of traffic.
-- **Traffic Composition Weighting**: Alter the proportionate impact of different vehicle types (electric vehicles, bicycles, cars) on total traffic within a segment or area.
-- **Point of Interest (POI) Management**: Increase or decrease the number of POIs across various categories within the simulation.
-- **Population Dynamics**: Adjust population levels to reflect increases or decreases in the simulated area.
+The model predictions are displayed in a table which can be sorted and filtered to make it easier for the user to select the simulation they are interested in. 
 
-Simulation Running Options:
+.. image:: images/fig_2.png
+   :scale: 100
+   :align: center
+   :alt: alternate text
 
-- **Time Slots**: 8 individually selectable time windows, each representing a 3-hour block.
-- **Day Selection**: Option to choose between a weekday or weekend.
 
-Simulation Output:
+Maps consist of road segments and/or grid squares. Each segment or square contains several parameters that describe the element. Parameter values can be changed and/or selected to define new simulation scenarios.
 
-- **Pollutants Concentration**: 5 different pollutants (CO2, CO, HC, NOx, PMx)
-- **Statistics**: (Fuel Consumption, Speed, Congestion, Traffic indiced noise)
+
+.. image:: images/fig_3.png
+   :scale: 100
+   :align: center
+   :alt: alternate text
+
+
+Streets are selectable by segments, and each segment is labelled with information about street type, traffic allowed, maximum speed and others. The information can be modified, by modifying the parameter in the UI that appears when selecting either a single road segment or when selecting multiple road segments with an area selection. 
+
+The following properties can be edited in road segments:
+
+- Closed (Boolean). This flag specifies whether the road is closed (T) or open (F)
+- Tunnel (Boolean). This flag specifies whether the road segment is tunnelled (T) or not (F)
+- Underground (Boolean). This flag specifies whether the road segment is underground (T) or not (F)
+- Speed (Integer). This value defines the maximum speed allowed on the road segment.
+
+.. image:: images/fig_3a.png
+   :scale: 100
+   :align: center
+   :alt: alternate text
+
+The grid consists of 100x100m exagons, each square describing the Points of Interest in that area and the type of land usage (residential, commercial and others).
+
+The following properties can be edited in zone segments:
+
+- Landuse. Defines the ratio of the area covered by 4 types of land usage: Residential, Commercial, Agricultural and Industrial
+- Points of interest. Defines the number of points of interest in the area. Types of POIs are Food, Fun, Health, Infrastructure, School, Services, Shop, Sport, Tourism
+
+.. image:: images/fig_3b.png
+   :scale: 100
+   :align: center
+   :alt: alternate text
+
+These factors have effects on the simulated mobility and traffic patterns. A scenario simulation is run by specifying:
+
+- the percentage of bicycles in circulation over the total number of vehicles
+- the percentage of electric cars in circulation over the total number of vehicles
+- the type of the day (weekday or weekend) 
+- A 3h timeslot
+
+The output of a simulation includes:
+
+- Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)
+- Statistics: (Fuel Consumption, Speed, Congestion, Traffic Induced Noise)
+
+Simulations are saved in the user workspace when available. Simulation below for instance shows a forecasted road occupancy percentage, calculated on a time slot around 12:00.
+
+.. image:: images/fig_4.png
+   :scale: 100
+   :align: center
+   :alt: alternate text
+
 
 
 
