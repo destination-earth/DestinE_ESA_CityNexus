@@ -62,11 +62,12 @@ function CustomMapControlFactory(EffectControl, EffectManager, ...deps) {
 
   const CustomMapControl = props => {
     const showEffects = Boolean(props.mapControls?.effect?.active);
+
     return (
       <StyledMapControlOverlay top={props.top} rightPanelVisible={showEffects}>
         <StyledMapControlPanel>
-          {!props.isExport && props.currentSample ? <SampleMapPanel {...props} /> : null}
           <MapControl {...props} top={0} actionComponents={actionComponents} />
+          {!props.isExport && props.currentSample ? <SampleMapPanel {...props} top={0} /> : null}
         </StyledMapControlPanel>
         <StyledMapControlContextPanel>
           {showEffects ? <EffectManager /> : null}

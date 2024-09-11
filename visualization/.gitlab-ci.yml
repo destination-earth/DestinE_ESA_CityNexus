@@ -1,5 +1,47 @@
+default:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+
 stages:
+  - build
   - test
+  - deploy
+
+build:
+  stage: build
+  when: manual
+  script:
+    - export CITYNEXUS_VERSION=$(cat ./package.json | grep -m 1 version | sed 's/[^0-9.]//g')
+    - export CITYNEXUS_RELEASE_IMAGE="$CI_REGISTRY_IMAGE:$CITYNEXUS_VERSION"
+    - echo Building $CITYNEXUS_RELEASE_IMAGE
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --pull --build-arg GITLAB_API_TOKEN=$GITLAB_API_TOKEN -t $CITYNEXUS_RELEASE_IMAGE .
+    - docker push $CITYNEXUS_RELEASE_IMAGE
+    - echo "CITYNEXUS_RELEASE_IMAGE=$CITYNEXUS_RELEASE_IMAGE" >> build.env
+  artifacts:
+    reports:
+      dotenv: build.env
+
+deploy:
+  stage: deploy
+  when: manual
+  before_script:
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - echo "$CITYNEXUS_SERVER_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $CITYNEXUS_SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ssh $CITYNEXUS_SERVER_USER@$CITYNEXUS_SERVER_IP "sudo docker stop citynexus || true"
+    - ssh $CITYNEXUS_SERVER_USER@$CITYNEXUS_SERVER_IP "sudo docker rm citynexus || true"
+    - ssh $CITYNEXUS_SERVER_USER@$CITYNEXUS_SERVER_IP "sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY && sudo docker pull $CITYNEXUS_RELEASE_IMAGE"
+    - ssh $CITYNEXUS_SERVER_USER@$CITYNEXUS_SERVER_IP "sudo docker run -dit --name citynexus -p 8080:80 $CITYNEXUS_RELEASE_IMAGE"
+  dependencies:
+    - build
+
 
 sonar_analysis:
   stage: test

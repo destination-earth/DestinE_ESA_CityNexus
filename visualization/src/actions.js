@@ -11,7 +11,7 @@ import {ArrowLoader} from '@loaders.gl/arrow';
 import {
   LOADING_SAMPLE_ERROR_MESSAGE,
   LOADING_SAMPLE_LIST_ERROR_MESSAGE,
-  MAP_CONFIG_URL
+  MAP_CONFIG_URL, PREDICTIONS_CONFIG_URL
 } from './constants/default-settings';
 import {parseUri} from './utils/url';
 import {CustomGeoJSONLoader, CustomZippedGeoJSONLoader} from "./loaders/custom-loaders";
@@ -21,6 +21,7 @@ export const INIT = 'INIT';
 export const LOAD_REMOTE_RESOURCE_SUCCESS = 'LOAD_REMOTE_RESOURCE_SUCCESS';
 export const LOAD_REMOTE_RESOURCE_ERROR = 'LOAD_REMOTE_RESOURCE_ERROR';
 export const LOAD_MAP_SAMPLE_FILE = 'LOAD_MAP_SAMPLE_FILE';
+export const LOAD_PREDICTION_SAMPLE_FILE = 'LOAD_PREDICTION_SAMPLE_FILE';
 export const SET_SAMPLE_LOADING_STATUS = 'SET_SAMPLE_LOADING_STATUS';
 
 // Sharing
@@ -54,6 +55,13 @@ export function loadRemoteResourceError(error, url) {
 export function loadMapSampleFile(samples) {
   return {
     type: LOAD_MAP_SAMPLE_FILE,
+    samples
+  };
+}
+
+export function loadPredictionSampleFile(samples) {
+  return {
+    type: LOAD_PREDICTION_SAMPLE_FILE,
     samples
   };
 }
@@ -322,6 +330,36 @@ export function loadSampleConfigurations(sampleMapId = null) {
         }
 
         dispatch(loadMapSampleFile(samples));
+        // Load the specified map
+        const map = sampleMapId && samples.find(s => s.id === sampleMapId);
+        if (map) {
+          dispatch(loadSample(map, false));
+        }
+      }
+    });
+  };
+}
+
+export function loadPredictionConfigurations(sampleMapId = null) {
+  return dispatch => {
+    requestJson(PREDICTIONS_CONFIG_URL, (error, samples) => {
+      if (error) {
+        const {target = {}} = error;
+        const {status, responseText} = target;
+        dispatch(
+            loadRemoteResourceError(
+                {status, message: `${responseText} - ${LOADING_SAMPLE_LIST_ERROR_MESSAGE}`},
+                PREDICTIONS_CONFIG_URL
+            )
+        );
+      } else {
+        const responseError = detectResponseError(samples);
+        if (responseError) {
+          dispatch(loadRemoteResourceError(responseError, PREDICTIONS_CONFIG_URL));
+          return;
+        }
+
+        dispatch(loadPredictionSampleFile(samples));
         // Load the specified map
         const map = sampleMapId && samples.find(s => s.id === sampleMapId);
         if (map) {

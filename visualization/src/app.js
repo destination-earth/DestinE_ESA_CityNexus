@@ -15,6 +15,9 @@ import {replaceLoadDataModal} from './factories/load-data-modal';
 import {replaceMapControl} from './factories/map-control';
 import {replacePanelHeader} from './factories/panel-header';
 import {replaceMapPopover} from "./factories/map-popover";
+import {replaceMapContainer} from "./factories/map-container";
+import {replaceLayerHoverInfo} from "./factories/layer-hover-info";
+import {replaceMapPopoverContent} from "./factories/map-popover-content";
 import {CLOUD_PROVIDERS_CONFIGURATION, DEFAULT_FEATURE_FLAGS} from './constants/default-settings';
 import {messages} from './constants/localization';
 
@@ -25,30 +28,25 @@ import {
   onLoadCloudMapSuccess
 } from './actions';
 
-import {loadCloudMap, addDataToMap, addNotification, replaceDataInMap} from '@kepler.gl/actions';
+import {loadCloudMap, addNotification} from '@kepler.gl/actions';
 import {CLOUD_PROVIDERS} from './cloud-providers';
+import {
+  replaceFeatureActionPanelFactory,
+  replacePureFeatureActionPanelFactory
+} from "./components/editor/feature-action-panel";
 
+// order of components matters, always put the parents first, children last
 const KeplerGl = require('@kepler.gl/components').injectComponents([
   replaceLoadDataModal(),
   replaceMapControl(),
   replacePanelHeader(),
-  replaceMapPopover()
+  replaceMapContainer(),
+  replaceMapPopover(),
+  replaceMapPopoverContent(),
+  replaceLayerHoverInfo(),
+  replaceFeatureActionPanelFactory(),
+  replacePureFeatureActionPanelFactory()
 ]);
-
-// Sample data
-/* eslint-disable no-unused-vars */
-import sampleTripData, {testCsvData, sampleTripDataConfig} from './data/sample-trip-data';
-import sampleGeojson from './data/sample-small-geojson';
-import sampleGeojsonPoints from './data/sample-geojson-points';
-import sampleGeojsonConfig from './data/sample-geojson-config';
-import sampleH3Data, {config as h3MapConfig} from './data/sample-hex-id-csv';
-import sampleS2Data, {config as s2MapConfig, dataId as s2DataId} from './data/sample-s2-data';
-import sampleAnimateTrip, {animateTripDataId} from './data/sample-animate-trip-data';
-import sampleIconCsv, {config as savedMapConfig} from './data/sample-icon-csv';
-import sampleGpsData from './data/sample-gps-data';
-
-import {processCsvData, processGeojson} from '@kepler.gl/processors';
-/* eslint-enable no-unused-vars */
 
 const BannerHeight = 48;
 const BannerKey = `banner-${FormLink}`;
@@ -126,16 +124,6 @@ class App extends Component {
       // TODO?: validate map url
       this.props.dispatch(loadRemoteMap({dataUrl: query.mapUrl}));
     }
-
-    // delay zs to show the banner
-    // if (!window.localStorage.getItem(BannerKey)) {
-    //   window.setTimeout(this._showBanner, 3000);
-    // }
-    // load sample data
-    // this._loadSampleData();
-
-    // Notifications
-    // this._loadMockNotifications();
   }
 
   _showBanner = () => {
@@ -151,17 +139,6 @@ class App extends Component {
     window.localStorage.setItem(BannerKey, 'true');
   };
 
-  _loadMockNotifications = () => {
-    const notifications = [
-      [{message: 'Welcome to Kepler.gl'}, 3000],
-      [{message: 'Something is wrong', type: 'error'}, 1000],
-      [{message: 'I am getting better', type: 'warning'}, 1000],
-      [{message: 'Everything is fine', type: 'success'}, 1000]
-    ];
-
-    this._addNotifications(notifications);
-  };
-
   _addNotifications(notifications) {
     if (notifications && notifications.length) {
       const [notification, timeout] = notifications[0];
@@ -173,202 +150,6 @@ class App extends Component {
     }
   }
 
-  _loadSampleData() {
-    this._loadPointData();
-    this._loadGeojsonData();
-    // this._loadTripGeoJson();
-    // this._loadIconData();
-    // this._loadH3HexagonData();
-    // this._loadS2Data();
-    // this._loadScenegraphLayer();
-    // this._loadGpsData();
-  }
-
-  _loadPointData() {
-    this.props.dispatch(
-      addDataToMap({
-        datasets: {
-          info: {
-            label: 'Sample Taxi Trips in New York City',
-            id: 'test_trip_data'
-          },
-          data: sampleTripData
-        },
-        options: {
-          // centerMap: true,
-          keepExistingConfig: true
-        },
-        config: sampleTripDataConfig
-      })
-    );
-  }
-
-  _loadScenegraphLayer() {
-    this.props.dispatch(
-      addDataToMap({
-        datasets: {
-          info: {
-            label: 'Sample Scenegraph Ducks',
-            id: 'test_trip_data'
-          },
-          data: processCsvData(testCsvData)
-        },
-        config: {
-          version: 'v1',
-          config: {
-            visState: {
-              layers: [
-                {
-                  type: '3D',
-                  config: {
-                    dataId: 'test_trip_data',
-                    columns: {
-                      lat: 'gps_data.lat',
-                      lng: 'gps_data.lng'
-                    },
-                    isVisible: true
-                  }
-                }
-              ]
-            }
-          }
-        }
-      })
-    );
-  }
-
-  _loadIconData() {
-    // load icon data and config and process csv file
-    this.props.dispatch(
-      addDataToMap({
-        datasets: [
-          {
-            info: {
-              label: 'Icon Data',
-              id: 'test_icon_data'
-            },
-            data: processCsvData(sampleIconCsv)
-          }
-        ]
-      })
-    );
-  }
-
-  _loadTripGeoJson() {
-    this.props.dispatch(
-      addDataToMap({
-        datasets: [
-          {
-            info: {label: 'Trip animation', id: animateTripDataId},
-            data: processGeojson(sampleAnimateTrip)
-          }
-        ]
-      })
-    );
-  }
-
-  _replaceData = () => {
-    // add geojson data
-    const sliceData = processGeojson({
-      type: 'FeatureCollection',
-      features: sampleGeojsonPoints.features.slice(0, 5)
-    });
-    this._loadGeojsonData();
-    window.setTimeout(() => {
-      this.props.dispatch(
-        replaceDataInMap({
-          datasetToReplaceId: 'bart-stops-geo',
-          datasetToUse: {
-            info: {label: 'Bart Stops Geo Replaced', id: 'bart-stops-geo-2'},
-            data: sliceData
-          }
-        })
-      );
-    }, 1000);
-  };
-
-  _loadGeojsonData() {
-    // load geojson
-    this.props.dispatch(
-      addDataToMap({
-        datasets: [
-          {
-            info: {label: 'Bart Stops Geo', id: 'bart-stops-geo'},
-            data: processGeojson(sampleGeojsonPoints)
-          },
-          {
-            info: {label: 'SF Zip Geo', id: 'sf-zip-geo'},
-            data: processGeojson(sampleGeojson)
-          }
-        ],
-        options: {
-          keepExistingConfig: true
-        },
-        config: sampleGeojsonConfig
-      })
-    );
-  }
-
-  _loadH3HexagonData() {
-    // load h3 hexagon
-    this.props.dispatch(
-      addDataToMap({
-        datasets: [
-          {
-            info: {
-              label: 'H3 Hexagons V2',
-              id: 'h3-hex-id'
-            },
-            data: processCsvData(sampleH3Data)
-          }
-        ],
-        config: h3MapConfig,
-        options: {
-          keepExistingConfig: true
-        }
-      })
-    );
-  }
-
-  _loadS2Data() {
-    // load s2
-    this.props.dispatch(
-      addDataToMap({
-        datasets: [
-          {
-            info: {
-              label: 'S2 Data',
-              id: s2DataId
-            },
-            data: processCsvData(sampleS2Data)
-          }
-        ],
-        config: s2MapConfig,
-        options: {
-          keepExistingConfig: true
-        }
-      })
-    );
-  }
-
-  _loadGpsData() {
-    this.props.dispatch(
-      addDataToMap({
-        datasets: [
-          {
-            info: {
-              label: 'Gps Data',
-              id: 'gps-data'
-            },
-            data: processCsvData(sampleGpsData)
-          }
-        ],
-        options: {
-          keepExistingConfig: true
-        }
-      })
-    );
-  }
   _toggleCloudModal = () => {
     // TODO: this lives only in the demo hence we use the state for now
     // REFCOTOR using redux

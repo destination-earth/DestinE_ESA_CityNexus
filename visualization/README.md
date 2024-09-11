@@ -2,7 +2,9 @@
 
 This is the src code of kepler.gl demo app. You can copy this folder out and run it locally.
 
-## 1. Setup (only once)
+## Local Development
+
+### 1. Setup (only once)
 
 ```sh
 nvm install
@@ -15,7 +17,7 @@ Apply the CORS configuration in ovh-cors-configuration.json:
 2. Apply the CORS configuration to the twincity-data bucket with:
 aws s3api put-bucket-cors --bucket twincity-data --cors-configuration file://ovh-cors-configuration.json
 
-## 2. Start the app
+### 2. Start the app
 
 ```sh
 npm start
@@ -23,7 +25,7 @@ npm start
 
 App will be running at http://localhost:8080
 
-## 3. (Optional) Setting environment variables
+### 3. (Optional) Setting environment variables
 
 Copy `.env.example` to `.env` and replace:
 ```
@@ -31,3 +33,22 @@ NEW_ENV_VARIABLE="new value"
 ```
 
 The values can be accessed from within the code by using `process.env.NEW_ENV_VARIABLE`.
+
+## Production Build
+
+Building the sourcecode can be done with the following NPM script:
+
+```bash
+npm run build
+```
+
+You will get bundled html/js files in the `build` folder. Now these files can be served by any HTTP server.
+
+To spin up the Docker container, execute the following commands after building the sourcecode:
+
+```bash
+docker build -t citynexus .
+docker run -dit --name citynexus -p 8080:80 citynexus
+```
+
+To get more info about the production Docker build, also check the `.gitlab-ci.yml` file.
