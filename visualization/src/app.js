@@ -9,10 +9,8 @@ import {connect} from 'react-redux';
 
 import {theme} from '@kepler.gl/styles';
 import Banner from './components/banner';
-import SaveButton from './components/save-button';
 import Announcement, {FormLink} from './components/announcement';
 import {replaceLoadDataModal} from './factories/load-data-modal';
-import {replaceMapControl} from './factories/map-control';
 import {replacePanelHeader} from './factories/panel-header';
 import {replaceMapPopover} from "./factories/map-popover";
 import {replaceMapContainer} from "./factories/map-container";
@@ -22,30 +20,43 @@ import {CLOUD_PROVIDERS_CONFIGURATION, DEFAULT_FEATURE_FLAGS} from './constants/
 import {messages} from './constants/localization';
 
 import {
-  loadRemoteMap,
-  loadSampleConfigurations,
   onExportFileSuccess,
   onLoadCloudMapSuccess
 } from './actions';
 
-import {loadCloudMap, addNotification} from '@kepler.gl/actions';
-import {CLOUD_PROVIDERS} from './cloud-providers';
+import {addNotification} from '@kepler.gl/actions';
 import {
   replaceFeatureActionPanelFactory,
   replacePureFeatureActionPanelFactory
 } from "./components/editor/feature-action-panel";
+import {replaceDatasetTitle} from "./factories/dataset-title"
+import UserProvider from "./components/user/UserProvider";
+import {SaveAsScenarioButton} from './features/SaveAsScenarioButton';
+import {DownloadChangesButton} from './features/DownloadChangesButton';
+import {SaveScenarioButton} from './features/SaveScenarioButton';
+import {UndoButton, RedoButton} from './features/UndoRedoButtons';
+import {StartSimulationButton} from "./features/simulations/components/StartSimulationButton";
+import {ModellingActions} from "./components/modelling-actions/ModellingActions";
+import {replaceModalContainer} from "./features/simulations/components/ModalContainerFactory";
+import {replaceLayerPanelHeaderActionSection} from "./factories/layer-panel-header";
+import {replaceLayerManager} from "./factories/layer-manager";
+import {replaceSidePanelFactory} from "./factories/side-panel";
 
 // order of components matters, always put the parents first, children last
 const KeplerGl = require('@kepler.gl/components').injectComponents([
+  replaceModalContainer(),
   replaceLoadDataModal(),
-  replaceMapControl(),
+  replaceSidePanelFactory(),
   replacePanelHeader(),
   replaceMapContainer(),
   replaceMapPopover(),
   replaceMapPopoverContent(),
   replaceLayerHoverInfo(),
   replaceFeatureActionPanelFactory(),
-  replacePureFeatureActionPanelFactory()
+  replacePureFeatureActionPanelFactory(),
+  replaceLayerManager(),
+  replaceLayerPanelHeaderActionSection(),
+  replaceDatasetTitle(),
 ]);
 
 const BannerHeight = 48;
@@ -97,35 +108,6 @@ class App extends Component {
     height: window.innerHeight
   };
 
-  componentDidMount() {
-    // if we pass an id as part of the url
-    // we ry to fetch along map configurations
-    const {params: {id, provider} = {}, location: {query = {}} = {}} = this.props;
-
-    const cloudProvider = CLOUD_PROVIDERS.find(c => c.name === provider);
-    if (cloudProvider) {
-      this.props.dispatch(
-        loadCloudMap({
-          loadParams: query,
-          provider: cloudProvider,
-          onSuccess: onLoadCloudMapSuccess
-        })
-      );
-      return;
-    }
-
-    // Load sample using its id
-    if (id) {
-      this.props.dispatch(loadSampleConfigurations(id));
-    }
-
-    // Load map using a custom
-    if (query.mapUrl) {
-      // TODO?: validate map url
-      this.props.dispatch(loadRemoteMap({dataUrl: query.mapUrl}));
-    }
-  }
-
   _showBanner = () => {
     this.setState({showBanner: true});
   };
@@ -149,73 +131,57 @@ class App extends Component {
       }, timeout);
     }
   }
-
-  _toggleCloudModal = () => {
-    // TODO: this lives only in the demo hence we use the state for now
-    // REFCOTOR using redux
-    this.setState({
-      cloudModalOpen: !this.state.cloudModalOpen
-    });
-  };
-
-  _getMapboxRef = (mapbox, index) => {
-    if (!mapbox) {
-      // The ref has been unset.
-      // https://reactjs.org/docs/refs-and-the-dom.html#callback-refs
-      // console.log(`Map ${index} has closed`);
-    } else {
-      // We expect an Map created by KeplerGl's MapContainer.
-      // https://visgl.github.io/react-map-gl/docs/api-reference/map
-      const map = mapbox.getMap();
-      map.on('zoomend', e => {
-        // console.log(`Map ${index} zoom level: ${e.target.style.z}`);
-      });
-    }
-  };
-
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <GlobalStyle
-          // this is to apply the same modal style as kepler.gl core
-          // because styled-components doesn't always return a node
-          // https://github.com/styled-components/styled-components/issues/617
-          ref={node => {
-            node ? (this.root = node) : null;
-          }}
-        >
-          <Banner
-            show={this.state.showBanner}
-            height={BannerHeight}
-            bgColor="#2E7CF6"
-            onClose={this._hideBanner}
+      <UserProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle
+            // this is to apply the same modal style as kepler.gl core
+            // because styled-components doesn't always return a node
+            // https://github.com/styled-components/styled-components/issues/617
+            ref={node => {
+              node ? (this.root = node) : null;
+            }}
           >
-            <Announcement onDisable={this._disableBanner} />
-          </Banner>
-          <SaveButton />
-          <div style={CONTAINER_STYLE}>
-            <AutoSizer>
-              {({height, width}) => (
-                <KeplerGl
-                  mapboxApiAccessToken={CLOUD_PROVIDERS_CONFIGURATION.MAPBOX_TOKEN}
-                  id="map"
-                  /*
-                   * Specify path to keplerGl state, because it is not mount at the root
-                   */
-                  getState={keplerGlGetState}
-                  width={width}
-                  height={height}
-                  cloudProviders={CLOUD_PROVIDERS}
-                  localeMessages={messages}
-                  onExportToCloudSuccess={onExportFileSuccess}
-                  onLoadCloudMapSuccess={onLoadCloudMapSuccess}
-                  featureFlags={DEFAULT_FEATURE_FLAGS}
-                />
-              )}
-            </AutoSizer>
-          </div>
-        </GlobalStyle>
-      </ThemeProvider>
+            <Banner
+              show={this.state.showBanner}
+              height={BannerHeight}
+              bgColor="#2E7CF6"
+              onClose={this._hideBanner}
+            >
+              <Announcement onDisable={this._disableBanner} />
+            </Banner>
+            <ModellingActions>
+              <UndoButton />
+              <RedoButton />
+              <StartSimulationButton />
+              <SaveScenarioButton />
+              <SaveAsScenarioButton />
+              <DownloadChangesButton />
+            </ModellingActions>
+            <div style={CONTAINER_STYLE}>
+              <AutoSizer>
+                {({height, width}) => (
+                  <KeplerGl
+                    mapboxApiAccessToken={CLOUD_PROVIDERS_CONFIGURATION.MAPBOX_TOKEN}
+                    id="map"
+                    /*
+                     * Specify path to keplerGl state, because it is not mount at the root
+                     */
+                    getState={keplerGlGetState}
+                    width={width}
+                    height={height}
+                    localeMessages={messages}
+                    onExportToCloudSuccess={onExportFileSuccess}
+                    onLoadCloudMapSuccess={onLoadCloudMapSuccess}
+                    featureFlags={DEFAULT_FEATURE_FLAGS}
+                  />
+                )}
+              </AutoSizer>
+            </div>
+          </GlobalStyle>
+        </ThemeProvider>
+      </UserProvider>
     );
   }
 }

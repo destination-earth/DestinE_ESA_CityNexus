@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {LoadingDialog} from '@kepler.gl/components';
 import Select from 'react-select';
+import {useSelector} from "react-redux";
+import {selectProjectTypes, selectUserToken} from "../user/userSlice";
+import {DeleteSimulationButton} from "../../features/DeleteSimulationButton";
+import {DownloadSimulationButton} from "../../features/DownloadSimulationButton";
+
 
 const StyledError = styled.div`
     color: red;
@@ -19,22 +24,40 @@ const StyledTable = styled.table`
 
     th,
     td {
-        cursor: pointer;
-        border: 1px solid #ddd;
+        border: 1px solid #000;
         padding: 8px;
         text-align: left;
     }
 
     th {
-        background-color: #f2f2f2;
+        cursor: pointer;
+        background-color: #cacaca;
     }
 
     th:hover {
         background-color: #ddd;
     }
 
+    .clickable {
+        cursor: pointer;
+    }
+
+    .not-clickable {
+        cursor: not-allowed;
+    }
+
     tr:hover {
-        background-color: #f8f8f8;
+        background-color: #d2d2d2;
+    }
+    
+    .empty-table {
+        border: 0;
+        background: none;
+        cursor: default;
+    }
+    
+    .empty-table-button {
+        cursor: pointer;
     }
 `;
 
@@ -49,11 +72,17 @@ const StyledFilterContainer = styled.div`
     }
 `;
 
+const StyledPredictionTable = styled.div`
+    width: fit-content;
+    padding: 10px;
+`
 
-function SortableFilterableTable({data, onLoadSample}) {
+function SortableFilterableTable({predictionMaps, onLoadPrediction, scenarioId, userId, setRefresh}) {
     const [sortConfig, setSortConfig] = useState({key: null, direction: 'ascending'});
     const [timeSlotFilter, setTimeSlotFilter] = useState([]);
     const [dayTypeFilter, setDayTypeFilter] = useState({weekday: true, weekend: true});
+    const [processingStatusFilter, setProcessingStatusFilter] = useState([]);
+    const projectType = useSelector(selectProjectTypes);
 
     const sortTable = (key) => {
         let direction = 'ascending';
@@ -63,31 +92,12 @@ function SortableFilterableTable({data, onLoadSample}) {
         setSortConfig({key, direction});
     };
 
-    const filteredData = () => {
-        return data.filter(item => {
-            if (!dayTypeFilter.weekday && item.dayType === 'weekday') return false;
-            if (!dayTypeFilter.weekend && item.dayType === 'weekend') return false;
-            if (timeSlotFilter.length > 0 && !timeSlotFilter.includes(item.timeSlot)) return false;
-            return true;
-        });
-    };
-
-    const sortedData = () => {
-        const sorted = [...filteredData()];
-        sorted.sort((a, b) => {
-            if (a[sortConfig.key] < b[sortConfig.key]) {
-                return sortConfig.direction === 'ascending' ? -1 : 1;
-            }
-            if (a[sortConfig.key] > b[sortConfig.key]) {
-                return sortConfig.direction === 'ascending' ? 1 : -1;
-            }
-            return 0;
-        });
-        return sorted;
-    };
-
     const handleTimeSlotFilterChange = (selectedOptions) => {
         setTimeSlotFilter(selectedOptions.map(option => option.value));
+    };
+
+    const handleProcessingStatusFilterChange = (selectedOptions) => {
+        setProcessingStatusFilter(selectedOptions.map(option => option.value));
     };
 
     const handleDayTypeFilterChange = (event) => {
@@ -99,17 +109,23 @@ function SortableFilterableTable({data, onLoadSample}) {
     };
 
     const timeSlotOptions = [
-        {value: '0-3h', label: '0-3h'},
-        {value: '3-6h', label: '3-6h'},
-        {value: '6-9h', label: '6-9h'},
-        {value: '9-12h', label: '9-12h'},
-        {value: '12-15h', label: '12-15h'},
-        {value: '15-18h', label: '15-18h'},
-        {value: '18-21h', label: '18-21h'},
-        {value: '21-0h', label: '21-0h'}
+        {value: '0', label: '0-3h'},
+        {value: '3', label: '3-6h'},
+        {value: '6', label: '6-9h'},
+        {value: '9', label: '9-12h'},
+        {value: '12', label: '12-15h'},
+        {value: '15', label: '15-18h'},
+        {value: '18', label: '18-21h'},
+        {value: '21', label: '21-0h'}
     ]
+    const processingStatusOptions = [
+        {value: 'DONE', label: 'Done'},
+        {value: 'PENDING', label: 'Pending'},
+        {value: 'ERROR', label: 'Error'},
+    ]
+
     return (
-        <div>
+        <StyledPredictionTable>
             <StyledFilterContainer>
                 <div className="filter-item">
                     Time Slot Filter:
@@ -118,6 +134,18 @@ function SortableFilterableTable({data, onLoadSample}) {
                     <Select
                         options={timeSlotOptions}
                         onChange={handleTimeSlotFilterChange}
+                        isSearchable={true}
+                        isClearable={true}
+                        isMulti
+                    />
+                </div>
+                <div className="filter-item">
+                    Processing Status Filter:
+                </div>
+                <div className="filter-item">
+                    <Select
+                        options={processingStatusOptions}
+                        onChange={handleProcessingStatusFilterChange}
                         isSearchable={true}
                         isClearable={true}
                         isMulti
@@ -149,51 +177,90 @@ function SortableFilterableTable({data, onLoadSample}) {
             <StyledTable className="sortable-table">
                 <thead>
                 <tr>
-                    <th onClick={() => sortTable('id')}>ID</th>
+                    <th onClick={() => sortTable('name')}>Name</th>
                     <th onClick={() => sortTable('date')}>Date</th>
                     <th onClick={() => sortTable('timeSlot')}>Time Slot</th>
                     <th onClick={() => sortTable('dayType')}>Day Type</th>
+                    <th onClick={() => sortTable('eVehiclePercentage')}>e-Vehicle %</th>
+                    <th onClick={() => sortTable('bicyclePercentage')}>Bicycle %</th>
+                    <th onClick={() => sortTable('processingStatus')}>Processing Status</th>
+                    <th className={"empty-table"}></th>
                 </tr>
                 </thead>
                 <tbody>
-                {sortedData().map((item, index) => (
-                    <tr key={index} onClick={() => onLoadSample(item)}>
-                        <td>{item.id}</td>
-                        <td>{item.date}</td>
-                        <td>{item.timeSlot}</td>
-                        <td>{item.dayType}</td>
-                    </tr>
-                ))}
+                {predictionMaps
+                    .filter(sp => sp.visible && sp.project === projectType.project)
+                    .filter(item => {
+                    if (scenarioId !== item.scenarioId) return false;
+                        if (!dayTypeFilter.weekday && item.dayType === 'weekday') return false;
+                        if (!dayTypeFilter.weekend && item.dayType === 'weekend') return false;
+                        if (timeSlotFilter.length > 0 && !timeSlotFilter.includes(item.timeSlot)) return false;
+                        if (processingStatusFilter.length > 0 && !processingStatusFilter.includes(item.processingStatus)) return false;
+                        return true;
+                    }).sort((a, b) => {
+                        if (a[sortConfig.key] < b[sortConfig.key]) {
+                            return sortConfig.direction === 'ascending' ? -1 : 1;
+                        }
+                        if (a[sortConfig.key] > b[sortConfig.key]) {
+                            return sortConfig.direction === 'ascending' ? 1 : -1;
+                        }
+                        return 0;
+                    }).map((item, index) => {
+                        const timeSlots = item.timeSlot.map(slot => {
+                            const option = timeSlotOptions.find(option => option.value == slot);
+                            return option ? option.label : slot;
+                        }).join(', ');
+                        const isProcessingDone = item.processingStatus === 'DONE';
+                        return (
+                            <tr key={index} className={isProcessingDone ? 'clickable' : 'not-clickable'}
+                                onClick={isProcessingDone ? () => onLoadPrediction(item, userId) : null}>
+                                <td>{item.name ? item.name : "No name"}</td>
+                                <td>{item.date}</td>
+                                <td>{timeSlots}</td>
+                                <td>{item.dayType}</td>
+                                <td>{item.eVehiclePercentage}</td>
+                                <td>{item.bicyclePercentage}</td>
+                                <td>{item.processingStatus}</td>
+                                <td className={"empty-table"}>
+                                    <DeleteSimulationButton item={item}
+                                                            userId={userId}
+                                                            setRefresh={setRefresh}
+                                                            scenarioId={scenarioId}/>
+                                    <DownloadSimulationButton item={item}
+                                                              userId={userId}/>
+                                </td>
+                            </tr>
+                        )
+                        }
+                    )}
                 </tbody>
             </StyledTable>
-        </div>
+        </StyledPredictionTable>
     );
 }
 
 
 const PredictionScenarioGallery = ({
                                        predictionMaps,
-                                       onLoadSample,
+                                       onLoadPrediction,
+                                       scenarioId,
                                        error,
                                        isMapLoading,
                                        locale,
-                                       loadPredictionConfigurations
+                                       setRefresh
                                    }) => {
-    useEffect(() => {
-        if (!predictionMaps.length) {
-            loadPredictionConfigurations();
-        }
-    }, [predictionMaps, loadPredictionConfigurations]);
+    const userId = useSelector(selectUserToken);
 
     return (
-        <div className="sample-data-modal">
+        <div>
             {error ? (
                 <StyledError>{error.message}</StyledError>
             ) : isMapLoading ? (
                 <LoadingDialog size={64}/>
             ) : (
-                <SortableFilterableTable className="sample-map-gallery" data={predictionMaps.filter(sp => sp.visible)}
-                                         onLoadSample={onLoadSample}/>
+                <SortableFilterableTable className="sample-map-gallery" predictionMaps={predictionMaps}
+                                         scenarioId={scenarioId} setRefresh={setRefresh}
+                                         onLoadPrediction={onLoadPrediction} userId={userId}/>
             )}
         </div>
     );
@@ -201,8 +268,7 @@ const PredictionScenarioGallery = ({
 
 PredictionScenarioGallery.propTypes = {
     predictionMaps: PropTypes.arrayOf(PropTypes.object),
-    onLoadSample: PropTypes.func.isRequired,
-    loadPredictionConfigurations: PropTypes.func.isRequired,
+    onLoadPrediction: PropTypes.func.isRequired,
     error: PropTypes.object
 };
 

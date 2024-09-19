@@ -97,44 +97,6 @@ function CustomFeatureActionPanelFactory(): React.FC<FeatureActionPanelProps> {
                 }}
             >
                 <ActionPanel>
-                    <ActionPanelItem
-                        className="editor-layers-list"
-                        label={intl.formatMessage({id: 'editor.filterLayer', defaultMessage: 'Filter layers'})}
-                        Icon={actionIcons.layer}
-                    >
-                        {layers.length ? (
-                            layers.map((layer, index) => (
-                                <ActionPanelItem
-                                    key={index}
-                                    label={layer.config.label}
-                                    // @ts-ignore
-                                    color={datasets[layer.config.dataId].color}
-                                    isSelection={true}
-                                    isActive={layerId.includes(layer.id)}
-                                    onClick={() => {
-                                        onToggleLayer(layer);
-                                        if (selectedFeature.selectedFeatureIndex == index) {
-                                            selectedFeature.selectedFeatureIndex = 0
-                                        } else {
-                                            selectedFeature.selectedFeatureIndex = index
-                                        }
-                                    }}
-                                    className="layer-panel-item"
-                                />
-                            ))
-                        ) : (
-                            <ActionPanelItem
-                                key={'no-layers'}
-                                label={intl.formatMessage({
-                                    id: 'editor.noLayersToFilter',
-                                    defaultMessage: 'No layers to filter'
-                                })}
-                                isSelection={false}
-                                isActive={false}
-                                className="layer-panel-item-disabled"
-                            />
-                        )}
-                    </ActionPanelItem>
                     {children}
                     <ActionPanelItem
                         label={intl.formatMessage({id: 'tooltip.delete', defaultMessage: 'Delete'})}

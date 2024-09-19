@@ -10,7 +10,7 @@ ENV PYTHONFAULTHANDLER=1 \
   POETRY_HOME='/usr/local' \
   POETRY_VERSION=1.7.1
 
-RUN apt install curl && \
+RUN apt update && apt install -y curl && \
     curl -sSL https://install.python-poetry.org | python3 -
 
 RUN mkdir /model_input /model_output

@@ -5,11 +5,12 @@ import {Icons} from "@kepler.gl/components";
 import styled from "styled-components";
 import classnames from "classnames";
 import React from 'react';
-import {BUG_REPORT_LINK, USER_GUIDE_DOC} from "@kepler.gl/constants";
+import {USER_GUIDE_DOC} from "@kepler.gl/constants";
 import {PanelAction} from "./PanelAction";
 import {LoginPanelAction} from "../user/LoginPanelAction";
 import {LogoWrapper} from "./LogoWrapper";
 
+const BUG_REPORT_LINK = 'mailto:citynexus@solenix.ch'
 
 const StyledPanelHeader = styled.div.attrs(props => ({
     className: classnames('side-side-panel__header', props.className)
@@ -78,7 +79,7 @@ export function PanelHeader() {
             blank: true,
             tooltip: 'User Guide',
             onClick: () => {}
-        },
+        }
     ]
 
     return (

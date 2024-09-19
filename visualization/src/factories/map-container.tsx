@@ -19,10 +19,9 @@ import {
     updateMapboxLayers,
     LayerBaseConfig,
     VisualChannelDomain,
-    EditorLayerUtils, Layer
+    EditorLayerUtils
 } from '@kepler.gl/layers';
-import {SplitMap, SplitMapLayers, InteractionConfig} from '@kepler.gl/types';
-import {DataRow} from '@kepler.gl/utils';
+import {SplitMap, SplitMapLayers} from '@kepler.gl/types';
 import {
     errorNotification,
     setLayerBlending,
@@ -54,7 +53,6 @@ import {LOCALE_CODES} from '@kepler.gl/localization';
 import {MapView} from '@deck.gl/core';
 import {
     computeDeckLayers,
-    LayerHoverProp,
     prepareLayersForDeck,
     prepareLayersToRender,
     LayersToRender
@@ -70,7 +68,7 @@ import {
 } from "@kepler.gl/components";
 import ErrorBoundary from "@kepler.gl/components/dist/common/error-boundary";
 import debounce from 'lodash.debounce';
-import {Datasets} from "@kepler.gl/table";
+import MapPopoverContainer from "./map-popover-container";
 
 // Debounce the propagation of viewport change and mouse moves to redux store.
 // This is to avoid too many renders of other components when the map is
@@ -155,103 +153,6 @@ export const Droppable = ({containerId}) => {
 
     return <StyledDroppable ref={setNodeRef} isOver={isOver} />;
 };
-
-function getLayerHoverProp({
-                               interactionConfig,
-                               hoverInfo,
-                               layers,
-                               layersToRender,
-                               datasets,
-                               selectedFeatureIndex,
-                               changes
-                           }: {
-    interactionConfig: InteractionConfig;
-    hoverInfo: any;
-    layers: Layer[];
-    layersToRender: LayersToRender;
-    datasets: Datasets;
-    selectedFeatureIndex: number;
-    changes: any;
-}): LayerHoverProp | null {
-    if (hoverInfo.layer?.id === EDITOR_LAYER_ID) {
-        let layer;
-        if (selectedFeatureIndex != null) {
-            layer = layers[selectedFeatureIndex];
-        } else {
-            layer = layers[0];
-        }
-
-        const {
-            config: {dataId}
-        } = layer;
-        if (!dataId) {
-            return null;
-        }
-        const {dataContainer, fields, filteredIndex} = datasets[dataId];
-        const data: DataRow[] = [];
-        for (const index of filteredIndex) {
-            const row = dataContainer.row(index);
-            if (row !== null) {
-                data.push(row);
-            }
-        }
-
-        if (!data.values()) {
-            return null;
-        }
-        const fieldsToShow = interactionConfig.tooltip.config.fieldsToShow[dataId];
-
-        return {
-            data,
-            fields,
-            fieldsToShow,
-            layer,
-            changes
-        };
-    } else if (interactionConfig.tooltip.enabled && hoverInfo && hoverInfo.picked) {
-        // if anything hovered
-        const {object, layer: overlay} = hoverInfo;
-
-        // deckgl layer to kepler-gl layer
-        const layer = layers[overlay.props.idx];
-
-        // NOTE: for binary format GeojsonLayer, deck will return object=null but hoverInfo.index >= 0
-        if (
-            (object || hoverInfo.index >= 0) &&
-            layer &&
-            layer.getHoverData &&
-            layersToRender[layer.id]
-        ) {
-            // if layer is visible and have hovered data
-            const {
-                config: {dataId}
-            } = layer;
-            if (!dataId) {
-                return null;
-            }
-            const {dataContainer, fields} = datasets[dataId];
-            const data: DataRow | null = layer.getHoverData(
-                object || hoverInfo.index,
-                dataContainer,
-                fields
-            );
-            if (!data) {
-                return null;
-            }
-            const fieldsToShow = interactionConfig.tooltip.config.fieldsToShow[dataId];
-
-            return {
-                data,
-                fields,
-                fieldsToShow,
-                layer,
-                changes
-            };
-        }
-    }
-
-    return null;
-}
 
 CustomMapContainerFactory.deps = MapContainerFactory.deps;
 
@@ -530,66 +431,23 @@ function CustomMapContainerFactory(
                 this.props.visState.clicked = this.props.visState.hoverInfo;
             }
 
-            if (this.props.visState.changes == undefined) {
-                this.props.visState.changes = {}
-            }
-
             // TODO: move this into reducer so it can be tested
             const {
                 mapState,
                 visState: {
-                    hoverInfo,
-                    clicked,
-                    datasets,
                     interactionConfig,
-                    layers,
                     changes,
-                    mousePos: {mousePosition, coordinate, pinned}
+                    mousePos: {mousePosition}
                 }
             } = this.props;
-            const selectedFeatureIndex = this.props.visState.editor.selectedFeature?.selectedFeatureIndex
-            const layersToRender = this.layersToRenderSelector(this.props);
 
             if (!mousePosition || !interactionConfig.tooltip) {
                 return null;
             }
 
-            const layerHoverProp = getLayerHoverProp({
-                interactionConfig,
-                hoverInfo,
-                layers,
-                layersToRender,
-                datasets,
-                selectedFeatureIndex,
-                changes
-            });
-
             const compareMode = interactionConfig.tooltip.config
                 ? interactionConfig.tooltip.config.compareMode
                 : false;
-
-            let pinnedPosition = {x: 0, y: 0};
-            let layerPinnedProp: LayerHoverProp | null = null;
-
-            if (pinned || clicked) {
-                // project lnglat to screen so that tooltip follows the object on zoom
-                const viewport = getViewportFromMapState(mapState);
-                const lngLat = clicked ? clicked.coordinate : pinned.coordinate;
-                pinnedPosition = this._getHoverXY(viewport, lngLat);
-                layerPinnedProp = getLayerHoverProp({
-                    interactionConfig,
-                    hoverInfo: clicked,
-                    layers,
-                    layersToRender,
-                    datasets,
-                    selectedFeatureIndex,
-                    changes
-                });
-                if (layerHoverProp && layerPinnedProp) {
-                    layerHoverProp.primaryData = layerPinnedProp.data;
-                    layerHoverProp.compareType = interactionConfig.tooltip.config.compareType;
-                }
-            }
 
             const commonProp = {
                 onClose: this._onCloseMapPopover,
@@ -599,32 +457,15 @@ function CustomMapContainerFactory(
 
             return (
                 <ErrorBoundary>
-                    {layerPinnedProp && (
-                        <MapPopover
-                            {...pinnedPosition}
-                            {...commonProp}
-                            layerHoverProp={layerPinnedProp}
-                            coordinate={interactionConfig.coordinate.enabled && (pinned || {}).coordinate}
-                            frozen={true}
-                            isBase={compareMode}
-                            onSetFeatures={this.props.visStateActions.setFeatures}
-                            setSelectedFeature={this.props.visStateActions.setSelectedFeature}
-                            featureCollection={this.featureCollectionSelector(this.props)}
-                        />
-                    )}
-                    {layerHoverProp && (!layerPinnedProp || compareMode) && (
-                        <MapPopover
-                            x={mousePosition[0]}
-                            y={mousePosition[1]}
-                            {...commonProp}
-                            layerHoverProp={layerHoverProp}
-                            frozen={false}
-                            coordinate={interactionConfig.coordinate.enabled && coordinate}
-                            onSetFeatures={this.props.visStateActions.setFeatures}
-                            setSelectedFeature={this.props.visStateActions.setSelectedFeature}
-                            featureCollection={this.featureCollectionSelector(this.props)}
-                        />
-                    )}
+                    <MapPopoverContainer
+                      MapPopover={MapPopover}
+                      commonProp={commonProp}
+                      compareMode={compareMode}
+                      layersToRenderSelector={this.layersToRenderSelector}
+                      onSetFeatures={this.props.visStateActions.setFeatures}
+                      setSelectedFeature={this.props.visStateActions.setSelectedFeature}
+                      featureCollection={this.featureCollectionSelector(this.props)}
+                    />
                 </ErrorBoundary>
             );
         }

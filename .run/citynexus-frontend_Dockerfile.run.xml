@@ -1,0 +1,28 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="citynexus-frontend/Dockerfile" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="imageTag" value="citynexus-frontend" />
+        <option name="buildArgs">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="GITLAB_API_TOKEN" />
+              <option name="value" value="test" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="KEYCLOAK_CLIENT_ID" />
+              <option name="value" value="citynexus" />
+            </DockerEnvVarImpl>
+            <DockerEnvVarImpl>
+              <option name="name" value="KEYCLOAK_AUTHORITY" />
+              <option name="value" value="https://iam.ivv.desp.space/auth/realms/desp" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
+        <option name="containerName" value="citynexus-frontend" />
+        <option name="sourceFilePath" value="Dockerfile" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

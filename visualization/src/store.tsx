@@ -3,7 +3,9 @@ import {browserHistory, } from 'react-router';
 import {enhanceReduxMiddleware, KeplerGlState} from '@kepler.gl/reducers';
 import demoReducer, { AppState } from './reducers/index';
 import {configureStore} from "@reduxjs/toolkit";
-import userReducer from "components/user/userSlice"
+import userReducer from "./components/user/userSlice";
+import simulationReducer from "./features/simulations/store/simulationSlice";
+import undoRedoReducer from "./features/undo-redo/store/UndoRedoReducer";
 
 export type StoreData = {
   app: AppState;
@@ -24,11 +26,13 @@ const stateSanitizer = (state) => {
   return state.demo ? { ...state, demo: demo } : state
 }
 
-export default configureStore({
+const store = configureStore({
   reducer: {
     demo: demoReducer,
     routing: routerReducer,
     user: userReducer,
+    simulation: simulationReducer,
+    undoRedo: undoRedoReducer
   },
   middleware: (getDefaultMiddleware) => {
     const middlewares = enhanceReduxMiddleware([routerMiddleware(browserHistory)])
@@ -48,3 +52,8 @@ export default configureStore({
     stateSanitizer: stateSanitizer,
   }
 });
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+
+export default store;

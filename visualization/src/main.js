@@ -13,7 +13,7 @@ import {buildAppRoutes} from "./utils/routes";
 import {AuthProvider} from "react-oidc-context";
 import {UserManager} from "oidc-client-ts";
 import {KEYCLOAK_CONFIGURATION} from "./constants/default-settings";
-import UserProvider from "./components/user/UserProvider";
+import {GenericErrorPage} from "./components/error/GenericErrorPage";
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -21,11 +21,6 @@ const userManager = new UserManager({
     authority: KEYCLOAK_CONFIGURATION.KEYCLOAK_AUTHORITY,
     client_id: KEYCLOAK_CONFIGURATION.KEYCLOAK_CLIENT_ID,
     redirect_uri: `${window.location.origin}${window.location.pathname}`,
-    // TODO: Finalise configurations
-    // response_type: "code",
-    // post_logout_redirect_uri: window.location.origin,
-    // userStore: new WebStorageStateStore({ store: window.sessionStorage }),
-    // monitorSession: true // this allows cross tab login/logout detection
 });
 
 export const onSigninCallback = () => {
@@ -38,13 +33,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <AuthProvider userManager={userManager} onSigninCallback={onSigninCallback}>
         <Provider store={store}>
-            <UserProvider>
-                <Router history={history}>
-                    <Route path="/" component={App}>
-                        {appRoute}
-                    </Route>
-                </Router>
-            </UserProvider>
+            <Router history={history}>
+                <Route path="/" component={App}>
+                    {appRoute}
+                </Route>
+                <Route path="/error" component={GenericErrorPage} />
+            </Router>
         </Provider>
     </AuthProvider>
 );

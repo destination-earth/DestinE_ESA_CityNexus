@@ -1,58 +1,57 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-const { resolve } = require("path");
-const KeplerPackage = require("./package");
+const {resolve} = require('path');
+const KeplerPackage = require('./package');
 
-const nodeModules = resolve(__dirname, "node_modules");
+const nodeModules = resolve(__dirname, 'node_modules');
 
-const PRESETS = ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"];
+const PRESETS = ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'];
 const PLUGINS = [
-  ["@babel/plugin-transform-typescript", { isTSX: true, allowDeclareFields: true }],
-  "@babel/plugin-transform-modules-commonjs",
-  "@babel/plugin-proposal-class-properties",
-  "@babel/plugin-proposal-export-namespace-from",
-  "@babel/plugin-proposal-optional-chaining",
-  "@babel/plugin-proposal-nullish-coalescing-operator",
+  ['@babel/plugin-transform-typescript', {isTSX: true, allowDeclareFields: true}],
+  '@babel/plugin-transform-modules-commonjs',
+  '@babel/plugin-proposal-class-properties',
+  '@babel/plugin-proposal-export-namespace-from',
+  '@babel/plugin-proposal-optional-chaining',
   [
-    "@babel/transform-runtime",
+    '@babel/transform-runtime',
     {
-      regenerator: true,
-    },
+      regenerator: true
+    }
   ],
   [
-    "module-resolver",
+    'module-resolver',
     {
-      extensions: [".js", ".ts", ".tsx", ".json"],
-      root: ["./src"],
+      extensions: ['.js', '.ts', '.tsx', '.json'],
+      root: ['./src'],
       alias: {
-        test: "./test",
+        test: './test',
         // We explicitly transpile this ESM library in scripts/fix-dependencies.js and consume the transpiled version here
         // This may not be needed once switch to Jest is complete as it is handled by transformIgnorePatterns
-        "@mapbox/tiny-sdf": `${nodeModules}/@mapbox/tiny-sdf/index.cjs`,
+        '@mapbox/tiny-sdf': `${nodeModules}/@mapbox/tiny-sdf/index.cjs`
       },
-    },
+    }
   ],
   [
-    "search-and-replace",
+    'search-and-replace',
     {
       rules: [
         {
-          search: "__PACKAGE_VERSION__",
-          replace: KeplerPackage.version,
-        },
-      ],
-    },
-  ],
+          search: '__PACKAGE_VERSION__',
+          replace: KeplerPackage.version
+        }
+      ]
+    }
+  ]
 ];
 const ENV = {
   test: {
-    plugins: ["istanbul"],
+    plugins: ['istanbul']
   },
   debug: {
-    sourceMaps: "inline",
-    retainLines: true,
-  },
+    sourceMaps: 'inline',
+    retainLines: true
+  }
 };
 
 module.exports = function babel(api) {
@@ -61,6 +60,6 @@ module.exports = function babel(api) {
   return {
     presets: PRESETS,
     plugins: PLUGINS,
-    env: ENV,
+    env: ENV
   };
 };

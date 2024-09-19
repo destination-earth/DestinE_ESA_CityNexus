@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "citynexus-api"
+version = "0.1.0"
+description = "CityNexus Backend API"
+authors = ["Andreas Altenkirch <andreas.altenkirch@solenix.ch>"]
+readme = "README.md"
+packages = [{include = "citynexus_api"}]
+
+[tool.poetry.dependencies]
+python = "~3.11"
+fastapi = {extras = ["all"], version = "^0.111.0"}
+uvicorn = {extras = ["standard"], version = "^0.29.0"}
+
+boto3 = "^1.34.122"
+tomli = "^2.0.1"
+requests = "^2.32.3"
+fastapi-keycloak-middleware = "^1.0.1"
+tenacity = "^8.5.0"
+[tool.poetry.group.test.dependencies]
+pytest = "^7"
+coverage = {extras = ["toml"], version = "^7"}
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.12"
+black = "^23.7"
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+
+[tool.isort]
+py_version = 311
+profile = "black"
+combine_as_imports = true
+src_paths = ["citynexus_api", "tests"]
+
+[build-system]
+requires = ["poetry-core>=1.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+mobility_model_api = "citynexus_api.api.app:run"

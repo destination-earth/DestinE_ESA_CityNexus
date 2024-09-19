@@ -5,14 +5,10 @@
 and segments both use queryRunner */
 import keyMirror from 'keymirror';
 
-export const ASSETS_URL = 'https://d1a3f4spazzrp4.cloudfront.net/kepler.gl/';
-export const DATA_URL = 'https://twincity-data.s3.de.io.cloud.ovh.net';
+export const DATA_URL = `https://citynexus.solenix.ch/api/v1/citynexus`;
 export const MAP_URI = 'demo/map?mapUrl=';
-/*
- * If you want to add more samples, feel free to edit the json file on github kepler.gl data repo
- */
-export const MAP_CONFIG_URL = `${DATA_URL}/datasets/available_datasets.json?nocache=${new Date().getTime()}`;
-export const PREDICTIONS_CONFIG_URL = `${DATA_URL}/predictions/available_predictions.json?nocache=${new Date().getTime()}`;
+export const MAP_CONFIG_URL = `${DATA_URL}/scenarios`;
+export const PREDICTIONS_CONFIG_URL = `${DATA_URL}/predictions`;
 
 /**
  * I know this is already defined in Kepler core but it should be defined here
@@ -29,11 +25,6 @@ export const QUERY_TYPES = keyMirror({
 export const QUERY_OPTIONS = keyMirror({
   csv: null,
   geojson: null
-});
-
-export const LOADING_METHODS = keyMirror({
-  whatif: null,
-  prediction: null
 });
 
 export const LOADING_SAMPLE_LIST_ERROR_MESSAGE = 'Not able to load sample gallery';

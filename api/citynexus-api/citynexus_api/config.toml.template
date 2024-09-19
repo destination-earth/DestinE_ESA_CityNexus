@@ -1,0 +1,15 @@
+[OVH]
+endpoint_url = "${OVH_ENDPOINT}"
+region = "de"
+bucket = "twincity-data"
+prefix = "storage"
+access_key = "${OVH_ACCESS_KEY}"
+secret_key = "${OVH_SECRET_KEY}"
+
+[mobility]
+url = "https://citynexus.solenix.ch/api/v1/mobility-model/analysis"
+
+[keycloak]
+server = "${KEYCLOAK_SERVER}"
+realm = "${KEYCLOAK_REALM}"
+client_id = "${KEYCLOAK_CLIENT_ID}"

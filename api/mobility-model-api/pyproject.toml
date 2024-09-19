@@ -7,10 +7,13 @@ readme = "README.md"
 packages = [{include = "mobility_model_api"}]
 
 [tool.poetry.dependencies]
-python = "~3.11"
-fastapi = {extras = ["all"], version = "^0.111.0"}
-uvicorn = {extras = ["standard"], version = "^0.29.0"}
-fastapi-keycloak-middleware = "^1.0.1"
+python = "^3.11"
+fastapi = {extras = ["all"], version = "^0.112.2"}
+uvicorn = {extras = ["standard"], version = "^0.30"}
+fastapi-keycloak-middleware = "^1.1"
+geopandas = "^1.0.1"
+shapely = "^2.0.5"
+numpy = "^2.1.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7"
@@ -29,6 +32,11 @@ py_version = 311
 profile = "black"
 combine_as_imports = true
 src_paths = ["mobility_model_api", "tests"]
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks a test as an integration test"
+]
 
 [build-system]
 requires = ["poetry-core>=1.0"]

@@ -27,9 +27,11 @@ App will be running at http://localhost:8080
 
 ### 3. (Optional) Setting environment variables
 
-Copy `.env.example` to `.env` and replace:
+Copy `.env_vars.example` to `.env_vars` and replace:
 ```
 NEW_ENV_VARIABLE="new value"
+# also supports expandable variables
+NEW_ENV_VARIABLE=${HOST_ENV_VARIABLE}
 ```
 
 The values can be accessed from within the code by using `process.env.NEW_ENV_VARIABLE`.

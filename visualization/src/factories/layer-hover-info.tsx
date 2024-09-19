@@ -1,20 +1,19 @@
 // SPDX-License-Identifier: MIT
 // Copyright contributors to the kepler.gl project
 
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {TooltipField} from '@kepler.gl/types';
 import PropTypes from 'prop-types';
 import {notNullorUndefined} from '@kepler.gl/utils';
-import {Layer} from '@kepler.gl/layers';
 import {
-    AggregationLayerHoverData,
-    getTooltipDisplayDeltaValue,
-    getTooltipDisplayValue
+    getTooltipDisplayDeltaValue
 } from '@kepler.gl/reducers';
 import {useIntl} from 'react-intl';
 import {CenterFlexbox, LayerHoverInfoFactory} from "@kepler.gl/components";
 import {Layers} from "@kepler.gl/components/dist/common/icons";
+import {useDispatch} from "react-redux";
+import {StyledDivider} from "./map-popover";
+import {applyChanges, redo, resetHistory, undo} from "../features/undo-redo/store/UndoRedoReducer";
 
 export const StyledLayerName = styled(CenterFlexbox)`
     color: ${props => props.theme.textColorHl};
@@ -49,23 +48,30 @@ const StyledTable = styled.table`
     }
 `;
 
-const StyledDivider = styled.div`
-    // offset divider to reach popover edge
-    margin-left: -14px;
-    margin-right: -14px;
-    border-bottom: 1px solid ${props => props.theme.panelBorderColor};
-`;
-
 interface RowProps {
     name: string;
     value: string;
     deltaValue?: string | null;
     url?: string;
+    data: any;
+    parameterIdx: number;
+    isMultiSelect: boolean;
+    layerName: string;
 }
 
-const Row: React.FC<RowProps> = ({name, value, deltaValue, url, data, parameterIdx, isMultiSelect, changes, layerName}) => {
+const Row: React.FC<RowProps> = ({
+                                     name,
+                                     value,
+                                     deltaValue,
+                                     url,
+                                     data,
+                                     parameterIdx,
+                                     isMultiSelect,
+                                     layerName
+                                 }) => {
     // State to store the edited value
     const [editedValue, setEditedValue] = useState(value);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // Reset to default value whenever fields changes
@@ -79,40 +85,15 @@ const Row: React.FC<RowProps> = ({name, value, deltaValue, url, data, parameterI
 
     const asImg = /<img>/.test(name);
 
-    function setAndStoreParameter(dataEntry, parameterIdx, value, name) {
-        // Ensure the nested structure exists
-        if (!changes["model_input"]) {
-            changes["model_input"] = {};
-        }
-        if (!changes["model_input"][layerName]) {
-            changes["model_input"][layerName] = {};
-        }
-
-        if (!changes["model_input"][layerName][name]) {
-            const originalValue = dataEntry.values()[parameterIdx];
-            changes["model_input"][layerName][name] = {
-                current: value,
-                original: originalValue
-            };
-        } else {
-            // if the changed value is identical to the original value, remove the entry from the list of changes
-            if (value != changes["model_input"][layerName][name].original) {
-                changes["model_input"][layerName][name].current = value;
-            } else
-                delete changes["model_input"][layerName][name];
-        }
-
-        dataEntry.values()[parameterIdx] = value
-    }
-
     function setRoadParameter(value: string | boolean | number, data: any[], parameterIdx: number, name: string) {
-        if (isMultiSelect) {
-            data.forEach((dataEntry) => {
-                setAndStoreParameter(dataEntry, parameterIdx, value, name);
-            })
-        } else {
-            setAndStoreParameter(data, parameterIdx, value, name);
-        }
+        dispatch(applyChanges({
+            isMultiSelect: isMultiSelect,
+            value: value,
+            data: data,
+            parameterIdx: parameterIdx,
+            name: name,
+            layerName: layerName
+        }));
         setEditedValue(value);
     }
 
@@ -143,7 +124,7 @@ const Row: React.FC<RowProps> = ({name, value, deltaValue, url, data, parameterI
                 ) : (
                     (() => {
                         switch (name) {
-                            case 'tile_id':
+                            case 'h3-id':
                             case 'osm_id':
                                 return (<span>{editedValue}</span>);
                             case 'location':
@@ -193,7 +174,7 @@ const Row: React.FC<RowProps> = ({name, value, deltaValue, url, data, parameterI
         </tr>);
 };
 
-const EntryInfo = ({fieldsToShow, fields, data, primaryData, compareType, isMultiSelect, layer, changes}) => {
+const EntryInfo = ({fieldsToShow, fields, data, primaryData, compareType, isMultiSelect, layer}) => {
     const [showAdditionalRows, setShowAdditionalRows] = useState(false);
 
     const handleClick = () => {
@@ -212,7 +193,6 @@ const EntryInfo = ({fieldsToShow, fields, data, primaryData, compareType, isMult
                 primaryData={primaryData}
                 compareType={compareType}
                 layerName={layer.config.dataId}
-                changes={changes}
             />
         ))}
         {showAdditionalRows && fields
@@ -227,25 +207,28 @@ const EntryInfo = ({fieldsToShow, fields, data, primaryData, compareType, isMult
                     primaryData={primaryData}
                     compareType={compareType}
                     layerName={layer.config.dataId}
-                    changes={changes}
                 />
             ))}
-        <tr>
-            <td colSpan={fieldsToShow.length}>
-                {!showAdditionalRows ? (
-                    <button onClick={handleClick}>Show More</button>
-                ) : (
-                    <button onClick={handleClick}>Show Less</button>
-                )}
-            </td>
-        </tr>
+        {fields.filter(field => field.name !== '_geojson' && field.name !== 'changed').length > fieldsToShow.length ? (
+            <tr>
+                <td colSpan={fieldsToShow.length}>
+                    {!showAdditionalRows ? (
+                        <button onClick={handleClick}>Show More</button>
+                    ) : (
+                        <button onClick={handleClick}>Show Less</button>
+                    )}
+                </td>
+            </tr>
+        ) : null}
         </tbody>
     )
 };
 
 function allEntriesHaveSameValue(dataRows, idx: number): boolean {
     // Get the value at index `idx` for the first entry
-    if (dataRows.length === 0) {return null}
+    if (dataRows.length === 0) {
+        return null
+    }
 
     const firstValue = dataRows[0].valueAt(idx);
 
@@ -259,7 +242,7 @@ function allEntriesHaveSameValue(dataRows, idx: number): boolean {
     return firstValue; // Return value if all values are the same
 }
 
-const EntryInfoRow = ({item, fields, data, primaryData, compareType, isMultiSelect, changes, layerName}) => {
+const EntryInfoRow = ({item, fields, data, primaryData, compareType, isMultiSelect, layerName}) => {
     const fieldIdx = fields.findIndex(f => f.name === item.name);
     if (fieldIdx < 0) {
         return null;
@@ -296,52 +279,8 @@ const EntryInfoRow = ({item, fields, data, primaryData, compareType, isMultiSele
             data={data}
             parameterIdx={fieldIdx}
             isMultiSelect={isMultiSelect}
-            changes={changes}
             layerName={layerName}
         />
-    );
-};
-
-// TODO: supporting comparative value for aggregated cells as well
-const CellInfo = ({
-                      fieldsToShow,
-                      data,
-                      layer
-                  }: {
-    data: AggregationLayerHoverData;
-    fieldsToShow: TooltipField[];
-    layer: Layer;
-}) => {
-    const {colorField, sizeField} = layer.config as any;
-
-    const colorValue = useMemo(() => {
-        if (colorField && layer.visualChannels.color) {
-            const item = fieldsToShow.find(field => field.name === colorField.name);
-            return getTooltipDisplayValue({item, field: colorField, value: data.colorValue});
-        }
-        return null;
-    }, [fieldsToShow, colorField, layer, data.colorValue]);
-
-    const elevationValue = useMemo(() => {
-        if (sizeField && layer.visualChannels.size) {
-            const item = fieldsToShow.find(field => field.name === sizeField.name);
-            return getTooltipDisplayValue({item, field: sizeField, value: data.elevationValue});
-        }
-        return null;
-    }, [fieldsToShow, sizeField, layer, data.elevationValue]);
-
-    const colorMeasure = layer.getVisualChannelDescription('color').measure;
-    const sizeMeasure = layer.getVisualChannelDescription('size').measure;
-    return (
-        <tbody>
-        <Row name={'total points'} key="count" value={String(data.points && data.points.length)}/>
-        {colorField && layer.visualChannels.color && colorMeasure ? (
-            <Row name={colorMeasure} key="color" value={colorValue || 'N/A'}/>
-        ) : null}
-        {sizeField && layer.visualChannels.size && sizeMeasure ? (
-            <Row name={sizeMeasure} key="size" value={elevationValue || 'N/A'}/>
-        ) : null}
-        </tbody>
     );
 };
 
@@ -367,7 +306,7 @@ const CustomLayerHoverInfoFactory = () => {
                     </StyledLayerName>
                     {hasFieldsToShow && <StyledDivider/>}
                     <StyledTable>
-                        <EntryInfo {...props} isMultiSelect={isMultiSelect} />
+                        <EntryInfo {...props} isMultiSelect={isMultiSelect}/>
                     </StyledTable>
                     {hasFieldsToShow && <StyledDivider/>}
                 </div>
@@ -387,8 +326,6 @@ const CustomLayerHoverInfoFactory = () => {
                                 <Row key={i} name={intl.formatMessage({id: labelMessage})} value={value}/>
                             ))}
                             </tbody>
-                        ) : props.layer.isAggregated ? (
-                            <CellInfo {...props} />
                         ) : (
                             <EntryInfo {...props} />
                         )}

@@ -1,147 +1,208 @@
-import json
 import logging
-import os
-import re
-import subprocess
+from asyncio import Semaphore
 from http import HTTPStatus
-from pathlib import Path
-from typing import Any
+from typing import List
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 from starlette.responses import FileResponse
 
-from mobility_model_api.model.generic import ApiResponse
-from mobility_model_api.model.mobility_model_input import MobilityModelInput
+from mobility_model_api.model.generic import SimulationStatus, StatusResponse, XAIResultFile
+from mobility_model_api.model.mobility_model_input import (
+    MobilityModelInput,
+    SimulationID,
+)
+from mobility_model_api.simulation.model_input import (
+    derive_input_file_path,
+    store_input_file,
+)
+from mobility_model_api.simulation.model_output import (
+    derive_output_path,
+    find_latest_file,
+)
+from mobility_model_api.simulation.model_run import run_model, run_xai_blackbox
+from mobility_model_api.util.exceptions import InvalidAccessException, NoResultException
+from mobility_model_api.simulation.xai_blackbox import XAI_IMPACT_FILENAME, XAI_DIFFERENCE_FILENAME
+from mobility_model_api.simulation.xai_record import XAIException
 
-MOBILITY_MODEL_PATH = "/api/v1/mobility-model/"
+MOBILITY_MODEL_API_PATH = "/api/v1/mobility-model/"
 
-# TODO(AA): put these paths into configuration
-MODEL_INPUT_BASE_PATH = Path("/model_input")
-MODEL_OUTPUT_BASE_PATH = Path("/model_output")
-MODEL_BIN_PATH = Path("/run_mobility_model")
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 api_router = APIRouter(tags=["Mobility Model API"])
+
+tasks: List[SimulationID] = []
+model_semaphore = Semaphore(2)
 
 
 @api_router.post(
-    MOBILITY_MODEL_PATH + "analysis",
+    MOBILITY_MODEL_API_PATH + "analysis",
     status_code=HTTPStatus.CREATED.value,
-    response_model=ApiResponse,
+    response_model=StatusResponse,
 )
-async def run_mobility_analysis(request_body: MobilityModelInput) -> ApiResponse:
-    user_id, analysis_id = request_body.user_id.strip(), request_body.analysis_id.strip()
-    logger.info(f"Run analysis for: {user_id}/{analysis_id}")
+async def run_mobility_simulation(
+    background_tasks: BackgroundTasks, request_body: MobilityModelInput
+) -> StatusResponse:
+    too_many_total_simulations_msg = "There are too many simulations running."
 
-    if not validate_input(user_id, analysis_id):
-        raise HTTPException(
-            HTTPStatus.NOT_FOUND.value,
-            detail="The attributes user_id and analysis_id can only consist of "
-            "characters, numbers, hyphens and underscores.",
-        )
+    if any(request_body.simulation_id.user_id == t.user_id for t in tasks):
+        logging.info(f"User {request_body.simulation_id.user_id} already runs a simulation.")
+        raise HTTPException(status_code=HTTPStatus.CONFLICT, detail="The user already runs a simulation.")
 
-    input_file = MODEL_INPUT_BASE_PATH / f"{user_id}_{analysis_id}.json"
-    output_path = MODEL_OUTPUT_BASE_PATH / user_id / analysis_id
+    if not model_semaphore.acquire():
+        logging.info(too_many_total_simulations_msg)
+        raise HTTPException(status_code=HTTPStatus.CONFLICT, detail=too_many_total_simulations_msg)
 
-    logger.info(f"Input file: {input_file}")
-    logger.info(f"Output path: {output_path}")
+    if len(tasks) > 2:
+        logging.warning("More than two tasks registered. This might be a bug in semaphore handing!")
+        raise HTTPException(status_code=HTTPStatus.CONFLICT, detail=too_many_total_simulations_msg)
 
-    store_input_file(input_file, request_body.mobility_model_input)
-    pid = run_model(MODEL_BIN_PATH, input_file, output_path)
-    logger.info(f"PID: {pid}")
-
-    return ApiResponse(response="Analysis successfully started.")
+    background_tasks.add_task(start_simulation, request_body)
+    return StatusResponse(simulation_id=request_body.simulation_id, status=SimulationStatus.IN_PROGRESS)
 
 
 @api_router.get(
-    MOBILITY_MODEL_PATH + "analysis",
+    MOBILITY_MODEL_API_PATH + "analysis",
     status_code=HTTPStatus.OK.value,
     response_class=FileResponse,
 )
-async def retrieve_analysis_result(user_id: str, analysis_id: str):
-    user_id, analysis_id = user_id.strip(), analysis_id.strip()
-    client_filename = f"{user_id}_{analysis_id}.zip"
-    logger.info(f"Get result for: {user_id}/{analysis_id}")
+async def retrieve_simulation_result(simulation_id: SimulationID = Depends()) -> FileResponse:
+    logging.info(f"Get result for: {simulation_id}")
 
-    # The message is always the same to avoid drawing conclusions about the cause of the error.
     error_message = "Requested result is not available."
-
-    if not validate_input(user_id, analysis_id):
-        logger.warning("Invalid input")
+    try:
+        output_path = derive_output_path(simulation_id)
+        latest_result_file = find_latest_file(output_path, "*.zip")
+    except NoResultException:
+        logging.exception("Requested result is not available")
+        raise HTTPException(HTTPStatus.NOT_FOUND.value, detail=error_message)
+    except InvalidAccessException:
+        logging.exception("Invalid file system access")
         raise HTTPException(HTTPStatus.NOT_FOUND.value, detail=error_message)
 
-    result_path = MODEL_OUTPUT_BASE_PATH / user_id / analysis_id
-    if not is_subdirectory(result_path, MODEL_OUTPUT_BASE_PATH):
-        logger.warning("No subdirectory!")
-        raise HTTPException(HTTPStatus.NOT_FOUND.value, detail=error_message)
+    logging.info(f"Latest result file: {latest_result_file}")
 
-    result_files = list(result_path.glob("*.zip"))
-    logger.info(f"Result files: {result_files}")
-    if len(result_files) < 1:
-        raise HTTPException(HTTPStatus.NOT_FOUND.value, detail=error_message)
-
-    latest_result_file = max(result_files, key=os.path.getmtime)
-    logger.info(f"Latest result file: {latest_result_file}")
-
+    client_filename = f"{simulation_id.user_id}_{simulation_id.prediction_id}.zip"
     return FileResponse(str(latest_result_file.absolute()), media_type="application/zip", filename=client_filename)
 
 
-def validate_input(user_id: str, analysis_id: str) -> bool:
-    """
-    Verifies that user and analysis IDs only container letters, numbers, hyphen and underscore.
-    :return: True, if both input strings match the requirements, otherwise false.
-    """
-    regex = r"[a-zA-Z0-9_-]*"
-    correct_user = bool(re.fullmatch(regex, user_id))
-    correct_analysis = bool(re.fullmatch(regex, analysis_id))
-    return correct_user and correct_analysis
+@api_router.get(
+    MOBILITY_MODEL_API_PATH + "analysis/xai/{result_file}",
+    status_code=HTTPStatus.OK.value,
+    response_class=FileResponse,
+)
+async def retrieve_xai_result(result_file: XAIResultFile, simulation_id: SimulationID = Depends()) -> FileResponse:
+    logging.info(f"Get XAI result file {result_file} for: {simulation_id}")
+
+    error_message = "Requested XAI result file is not available."
+    try:
+        output_path = derive_output_path(simulation_id)
+        if result_file == XAIResultFile.IMPACT:
+            filename = XAI_IMPACT_FILENAME
+        elif result_file == XAIResultFile.DIFFERENCE:
+            filename = XAI_DIFFERENCE_FILENAME
+        else:
+            raise XAIException(f"There is no XAI result file {result_file}.")
+        xai_result_file = find_latest_file(output_path, filename)
+    except NoResultException:
+        logging.exception("Requested XAI result is not available")
+        raise HTTPException(HTTPStatus.NOT_FOUND.value, detail=error_message)
+    except InvalidAccessException:
+        logging.exception("Invalid file system access")
+        raise HTTPException(HTTPStatus.NOT_FOUND.value, detail=error_message)
+
+    logging.info(f"XAI result file: {xai_result_file}")
+
+    client_filename = f"{simulation_id.user_id}_{simulation_id.prediction_id}_{filename}"
+    return FileResponse(str(xai_result_file.absolute()), media_type="application/json", filename=client_filename)
 
 
-def store_input_file(input_file: Path, content: dict[str, Any]) -> None:
-    """
-    Stores the JSON request content on the disk for the model to read as input.
-    :param input_file: The path of the model input file.
-    :param content: The JSON content of the model input file.
-    """
-    input_file.parent.mkdir(parents=True, exist_ok=True)
-    with open(input_file, "w") as file:
-        json.dump(content, file, indent=2)
+@api_router.get(
+    MOBILITY_MODEL_API_PATH + "analysis/trajectories",
+    status_code=HTTPStatus.OK.value,
+    response_class=FileResponse,
+)
+async def retrieve_trajectories(simulation_id: SimulationID = Depends()) -> FileResponse:
+    logging.info(f"Get trajectories file for: {simulation_id}")
+
+    error_message = "Requested trajectories file is not available."
+    try:
+        output_path = derive_output_path(simulation_id)
+        latest_trajectories_file = find_latest_file(output_path, "*.csv")
+    except NoResultException:
+        logging.exception(error_message)
+        raise HTTPException(HTTPStatus.NOT_FOUND.value, detail=error_message)
+    except InvalidAccessException:
+        logging.exception("Invalid file system access")
+        raise HTTPException(HTTPStatus.NOT_FOUND.value, detail=error_message)
+
+    logging.info(f"Latest trajectories file: {latest_trajectories_file}")
+
+    client_filename = f"{simulation_id.user_id}_{simulation_id.prediction_id}.csv"
+    return FileResponse(str(latest_trajectories_file.absolute()), media_type="text/csv", filename=client_filename)
 
 
-def run_model(model_bin: Path, input_file: Path, output_path: Path) -> int:
-    """
-    Executes the model locally and provides the input JSON file path as well as the output path.
-    :param model_bin: The file path of the model executable.
-    :param input_file: The file path of the model input file.
-    :param output_path: The file path of the model output.
-    :return: The ID of the model process.
-    """
-    run_cmd = [
-        str(model_bin.absolute()),
-        "--json-path",
-        str(input_file.absolute()),
-        "--output-path",
-        str(output_path.absolute()),
-    ]
-    print(" ".join(run_cmd))
-    output_path.mkdir(parents=True, exist_ok=True)
-    proc = subprocess.Popen(run_cmd, start_new_session=True)
-    return proc.pid
+@api_router.get(
+    MOBILITY_MODEL_API_PATH + "analysis/status", status_code=HTTPStatus.OK.value, response_model=StatusResponse
+)
+async def get_status(simulation_id: SimulationID = Depends()) -> StatusResponse:
+    logging.debug(f"Current tasks: {tasks}")
+
+    if simulation_id in tasks:
+        status = SimulationStatus.IN_PROGRESS
+    else:
+        # at this point the process is either completed (result exists),
+        # not available (invalid prediction_id) or failed (no result).
+        try:
+            output_path = derive_output_path(simulation_id)
+            latest_result_file = find_latest_file(output_path, "*.zip")
+            if latest_result_file:
+                status = SimulationStatus.COMPLETED
+            else:
+                status = SimulationStatus.NOT_AVAILABLE
+        except NoResultException:
+            status = SimulationStatus.FAILED
+        except InvalidAccessException:
+            status = SimulationStatus.NOT_AVAILABLE
+
+    return StatusResponse(simulation_id=simulation_id, status=status)
 
 
-def is_subdirectory(sub_dir: Path, parent_dir: Path) -> bool:
+def start_simulation(request_body):
     """
-    Verifies that the sub_dir is a real subdirectory of parent_dir.
+    Function used as task that performs all actions to run a prediction on the mobility model.
+        - creates and stores the model input file
+        - determines the model output path
+        - runs the model process
+        - does task and semaphore management
     """
     try:
-        sub_dir.resolve().relative_to(parent_dir.resolve())
-        return True
-    except ValueError:
-        return False
+        logging.info(f"Start simulation: {request_body.simulation_id}")
+        tasks.append(request_body.simulation_id)
+        logging.debug(f"Current tasks: {tasks}")
 
+        input_file = derive_input_file_path(request_body.simulation_id)
+        output_path = derive_output_path(request_body.simulation_id)
+        logging.info(f"Input file: {input_file}")
+        logging.info(f"Output path: {output_path}")
+        store_input_file(input_file, request_body.mobility_model_input)
 
-class MobilityModelException(Exception):
-    """Top-level exception for errors within the mobility-model endpoints."""
+        run_model(input_file, output_path, request_body.create_trajectories)
+        logging.info(f"Completed simulation: {request_body.simulation_id}")
 
-    pass
+        if request_body.xai_input:
+            try:
+                run_xai_blackbox(
+                    request_body.simulation_id,
+                    request_body.mobility_model_input,
+                    [tuple(aoi) for aoi in request_body.xai_input.area_of_interest],
+                    request_body.xai_input.attribute,
+                    request_body.xai_input.day_type,
+                    request_body.xai_input.time_slot,
+                )
+            except:
+                # catch all exceptions on purpose so that if anything fails in XAI, at least the simulation completes
+                logging.exception("Failed to run all XAI simulations.")
+            else:
+                logging.info("XAI simulations successfully completed.")
+    finally:
+        tasks.remove(request_body.simulation_id)
+        model_semaphore.release()

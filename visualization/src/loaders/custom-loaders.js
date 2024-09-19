@@ -1,4 +1,4 @@
-import {_GeoJSONLoader as GeoJSONLoader} from "@loaders.gl/json";
+import {_GeoJSONLoader as GeoJSONLoader, JSONLoader} from "@loaders.gl/json";
 import {ZipLoader} from "@loaders.gl/zip";
 import JSZip from "jszip";
 
@@ -28,12 +28,20 @@ async function parseZipAsync(data) {
             promises.push(promise);
         });
         await Promise.all(promises);
-        // TODO for now we only process the archive's first JSON file
+        // TODO for now we only process the archive's first JSON or GEOJSON file
         // TODO do we need to support multiple files and file types?
         const firstJson = Object.values(fileMap)[0];
-        return CustomGeoJSONLoader.parse(firstJson);
+        const firstFileName = Object.keys(fileMap)[0].split('.')
+        const extension = firstFileName.length > 1 ? firstFileName[firstFileName.length - 1] : '';
+        if (extension === "json") {
+            return JSONLoader.parse(firstJson)
+        } else if (extension === "geojson") {
+            return CustomGeoJSONLoader.parse(firstJson);
+        } else {
+            throw new Error(`File extension not supported: ${extension}`)
+        }
     } catch (error) {
-        options.log.error(`Unable to read zip archive: ${error}`);
+        options.log.console.error(`Unable to read zip archive: ${error}`);
         throw error;
     }
 }
@@ -43,7 +51,7 @@ async function loadZipEntry(jsZip, subFilename) {
         const arrayBuffer = await jsZip.file(subFilename).async(options.dataType || 'arraybuffer');
         return arrayBuffer;
     } catch (error) {
-        options.log.error(`Unable to read ${subFilename} from zip archive: ${error}`);
+        options.log.console.error(`Unable to read ${subFilename} from zip archive: ${error}`);
         return error;
     }
 }

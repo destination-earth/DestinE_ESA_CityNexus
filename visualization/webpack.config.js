@@ -5,39 +5,40 @@
 // delete the local development overrides at the bottom of this file
 
 // avoid destructuring for older Node version support
-const resolve = require("path").resolve;
-const join = require("path").join;
-const webpack = require("webpack");
-const Dotenv = require("dotenv-webpack");
-const HWP = require("html-webpack-plugin");
+const resolve = require('path').resolve;
+const join = require('path').join;
+const webpack = require('webpack');
+const HWP = require('html-webpack-plugin');
+const dotenv = require('dotenv');
+const dotenvExpand = require('dotenv-expand');
+
+const env = dotenv.config({path: './.env_vars'});
+dotenvExpand.expand(env);
 
 const ENV_VARIABLES_WITH_INSTRUCTIONS = {
-  MapboxAccessToken: "You can get the token at https://www.mapbox.com/help/how-access-tokens-work/",
-  DropboxClientId: "You can get the token at https://www.dropbox.com/developers",
-  CartoClientId: "You can get the token at https://www.mapbox.com/help/how-access-tokens-work/",
-  MapboxExportToken: "You can get the token at https://location.foursquare.com/developer",
-  FoursquareClientId: "You can get the token at https://location.foursquare.com/developer",
-  FoursquareDomain: "You can get the token at https://location.foursquare.com/developer",
-  FoursquareAPIURL: "You can get the token at https://location.foursquare.com/developer",
-  FoursquareUserMapsURL: "You can get the token at https://location.foursquare.com/developer",
+  MapboxAccessToken: 'You can get the token at https://www.mapbox.com/help/how-access-tokens-work/',
+  DropboxClientId: 'You can get the token at https://www.dropbox.com/developers',
+  CartoClientId: 'You can get the token at https://www.mapbox.com/help/how-access-tokens-work/',
+  MapboxExportToken: 'You can get the token at https://location.foursquare.com/developer',
+  FoursquareClientId: 'You can get the token at https://location.foursquare.com/developer',
+  FoursquareDomain: 'You can get the token at https://location.foursquare.com/developer',
+  FoursquareAPIURL: 'You can get the token at https://location.foursquare.com/developer',
+  FoursquareUserMapsURL: 'You can get the token at https://location.foursquare.com/developer',
 };
 
-const WEBPACK_ENV_VARIABLES = Object.keys(ENV_VARIABLES_WITH_INSTRUCTIONS).reduce(
-  (acc, key) => ({
-    ...acc,
-    [key]: null,
-  }),
-  {}
-);
+const WEBPACK_ENV_VARIABLES = Object.keys(ENV_VARIABLES_WITH_INSTRUCTIONS).reduce((acc, key) => ({
+  ...acc,
+  [key]: null
+}), {});
 
 const CONFIG = {
   entry: {
-    app: resolve("./src/main.js"),
+    app: resolve('./src/main.js')
   },
   output: {
-    path: resolve(__dirname, "build"),
-    filename: "bundle.js",
-    publicPath: "/",
+    path: resolve(__dirname, 'build'),
+    filename: 'bundle.js',
+    publicPath: '/'
   },
 
   resolve: {
@@ -49,15 +50,15 @@ const CONFIG = {
     }
   },
 
-  devtool: "source-map",
+  devtool: 'source-map',
 
   module: {
     rules: [
       {
         test: /\.(js|ts|tsx)$/,
-        loader: "babel-loader",
-        include: [join(__dirname, "src")],
-        exclude: [/node_modules/],
+        loader: 'babel-loader',
+        include: [join(__dirname, 'src')],
+        exclude: [/node_modules/]
       },
       // fix for arrow-related errors
       {
@@ -69,6 +70,10 @@ const CONFIG = {
       {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
+      },
+      {
+        test: /\.s[ac]ss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       }
     ],
   },
@@ -80,8 +85,10 @@ const CONFIG = {
 
   // Optional: Enables reading mapbox and dropbox client token from environment variable
   plugins: [
-    new Dotenv(),
     new webpack.EnvironmentPlugin(WEBPACK_ENV_VARIABLES),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(env.parsed),
+    }),
     new HWP({ template: join(__dirname, "/index.html") }),
   ],
 };

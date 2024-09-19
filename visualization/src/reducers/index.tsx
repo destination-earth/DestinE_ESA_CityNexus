@@ -5,10 +5,10 @@ import {combineReducers} from 'redux';
 import {handleActions} from 'redux-actions';
 
 import keplerGlReducer, {
-  combinedUpdaters, setPolygonFilterLayerUpdater,
+  combinedUpdaters, removeDatasetUpdater, setPolygonFilterLayerUpdater,
   uiStateUpdaters
 } from '@kepler.gl/reducers';
-import {processGeojson, processRowObject, processArrowTable} from '@kepler.gl/processors';
+import {processGeojson} from '@kepler.gl/processors';
 import KeplerGlSchema from '@kepler.gl/schemas';
 import {EXPORT_MAP_FORMATS} from '@kepler.gl/constants';
 
@@ -18,13 +18,15 @@ import {
   LOAD_PREDICTION_SAMPLE_FILE,
   LOAD_REMOTE_RESOURCE_SUCCESS,
   LOAD_REMOTE_RESOURCE_ERROR,
-  SET_SAMPLE_LOADING_STATUS
+  SET_SAMPLE_LOADING_STATUS,
+  SET_SCENARIO_CHANGES,
+  REMOVE_ALL_DATASETS
 } from '../actions';
 
 import {CLOUD_PROVIDERS_CONFIGURATION} from '../constants/default-settings';
 import {generateHashId} from '../utils/strings';
 import {default as ActionTypes} from "@kepler.gl/actions/dist/action-types";
-import {setPolygonFilterLayer} from "@kepler.gl/actions";
+import {removeDataset, setPolygonFilterLayer} from "@kepler.gl/actions";
 
 export type AppState = {
   appName: String;
@@ -43,10 +45,6 @@ const initialAppState: AppState = {
   sampleMaps: [], // this is used to store sample maps fetch from a remote json file
   isMapLoading: false, // determine whether we are loading a sample map,
   error: null // contains error when loading/retrieving data/configuration
-  // {
-  //   status: null,
-  //   message: null
-  // }
 };
 
 // App reducer
@@ -96,23 +94,8 @@ const demoReducer = combineReducers({
       loadOptions: {} // Add additional loaders.gl loader options here
     }
   }),
-  app: appReducer
+  app: appReducer,
 });
-
-/**
- * Reorders the layers so that any grid layer is at the bottom
- * @param keplerGlInstance
- */
-const reorderLayers = (keplerGlInstance) => {
-  const layers = keplerGlInstance.visState.layers;
-  const gridLayerIndex = layers.findIndex(layer => layer.config.dataId === "grid");
-
-  if (gridLayerIndex !== -1) {
-    const layerOrder = keplerGlInstance.visState.layerOrder.filter(id => id !== layers[gridLayerIndex].id);
-    layerOrder.push(layers[gridLayerIndex].id);
-    keplerGlInstance.visState.layerOrder = layerOrder;
-  }
-};
 
 // this can be moved into a action and call kepler.gl action
 /**
@@ -125,21 +108,13 @@ export const loadRemoteResourceSuccess = (state, action) => {
   // TODO: replace generate with a different function
   const datasetId = action.options.id || generateHashId(6);
   const datasetLabel = action.options.label || 'new dataset';
-  const {dataUrl} = action.options;
-  let processorMethod = processRowObject;
-  // TODO: create helper to determine file ext eligibility
-  if (dataUrl.includes('.json') || dataUrl.includes('.geojson') || dataUrl.includes('.zip')) {
-    processorMethod = processGeojson;
-  } else if (dataUrl.includes('.arrow')) {
-    processorMethod = processArrowTable;
-  }
 
   const datasets = {
     info: {
       id: datasetId,
       label: datasetLabel
     },
-    data: processorMethod(action.response)
+    data: processGeojson(action.response)
   };
 
   const config = action.config ? KeplerGlSchema.parseSavedConfig(action.config) : null;
@@ -152,13 +127,11 @@ export const loadRemoteResourceSuccess = (state, action) => {
         config,
         options: {
           centerMap: Boolean(!action.config),
-          keepExistingConfig: true
+          keepExistingConfig: action.keepExistingConfig
         }
       }
     }
   );
-
-  reorderLayers(keplerGlInstance);
 
   return {
     ...state,
@@ -173,6 +146,15 @@ export const loadRemoteResourceSuccess = (state, action) => {
     }
   };
 };
+
+export const removeAllDatasets = (state, action) => {
+  state.keplerGl.map.visState.layerOrder.forEach((datasetId: string) => {
+     const action = removeDataset(datasetId);
+     state.keplerGl.map.visState = removeDatasetUpdater(state.keplerGl.map.visState, action);
+  });
+
+  return state;
+}
 
 export const loadRemoteResourceError = (state, action) => {
   const {error, url} = action;
@@ -229,6 +211,7 @@ export function customSetFeatures(state, action) {
 const composedUpdaters = {
   [LOAD_REMOTE_RESOURCE_SUCCESS]: loadRemoteResourceSuccess,
   [LOAD_REMOTE_RESOURCE_ERROR]: loadRemoteResourceError,
+  [REMOVE_ALL_DATASETS]: removeAllDatasets,
   // Override some of the default actions/reducers
   [ActionTypes.DELETE_FEATURE]: customDeleteFeature,
   [ActionTypes.SET_FEATURES]: customSetFeatures

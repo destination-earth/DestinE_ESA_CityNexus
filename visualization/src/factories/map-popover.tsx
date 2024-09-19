@@ -1,13 +1,15 @@
-import { updateVisData } from '@kepler.gl/actions';
-import { Icons, MapPopoverFactory, RootContext, withState } from '@kepler.gl/components';
+import {updateVisData} from '@kepler.gl/actions';
+import {Checkbox, Icons, MapPopoverFactory, RootContext, withState} from '@kepler.gl/components';
 import { LAYER_TYPES } from '@kepler.gl/constants';
 import { parseGeoJsonRawFeature } from '@kepler.gl/layers';
-import { generateHashId } from '@kepler.gl/utils';
+import {generateHashId} from '@kepler.gl/utils';
 import Tippy from '@tippyjs/react/headless';
-import React, { useCallback, useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import {FormattedMessage} from "@kepler.gl/localization";
+import {idToPolygonGeo} from "@kepler.gl/utils";
+import {RoadTypes} from "../features/simulations/models/RoadTypes";
 
-const SELECTABLE_LAYERS = [LAYER_TYPES.hexagonId, LAYER_TYPES.geojson];
 const MAX_WIDTH = 500;
 const MAX_HEIGHT = 600;
 
@@ -119,6 +121,13 @@ const StyledSelectGeometry = styled.div`
   }
 `;
 
+export const StyledDivider = styled.div`
+    // offset divider to reach popover edge
+    margin-left: -14px;
+    margin-right: -14px;
+    border-bottom: 1px solid ${props => props.theme.panelBorderColor};
+`;
+
 CustomMapPopoverFactory.deps = [
     ...MapPopoverFactory.deps
 ];
@@ -181,8 +190,44 @@ export function getSelectedFeature(layerHoverProp) {
     };
 }
 
-function CustomMapPopoverFactory(MapPopoverContent, ...deps) {
+const RoadTypeCheckbox = ({ onToggleRoadTypeFilter, selectedRoadTypes, roadType }) => {
+    return (
+        <div style={{padding: '5px 10px'}}>
+            <Checkbox id={roadType} label={RoadTypes[roadType]} value={roadType}
+                      onChange={() => {
+                          onToggleRoadTypeFilter(roadType);
+                      }} checked={selectedRoadTypes.indexOf(roadType) !== -1}/>
+        </div>
+    )
+};
 
+const RoadTypeDropdown = ({onToggleRoadTypeFilter, selectedRoadTypes}) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const nbRoadTypes = selectedRoadTypes.length;
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const roadTypeTemplate = Object.keys(RoadTypes).map((roadType) =>
+        <RoadTypeCheckbox onToggleRoadTypeFilter={onToggleRoadTypeFilter} selectedRoadTypes={selectedRoadTypes} key={roadType} roadType={roadType} />
+    );
+
+    return (
+        <div>
+            <button onClick={toggleDropdown}>
+                {selectedRoadTypes.length === 0 ? "Edit all road types" : `${nbRoadTypes} road type${nbRoadTypes === 1 ? "" : "s"} selected`}
+            </button>
+            {isOpen && (
+                <div style={{ border: '1px solid #3A414C', padding: '10px', position: 'absolute', backgroundColor: '#29323C', zIndex: 1 }}>
+                    {roadTypeTemplate}
+                </div>
+            )}
+        </div>
+    );
+};
+
+function CustomMapPopoverFactory(MapPopoverContent, ...deps) {
     const MapPopoverWrapper = ({
         x,
         y,
@@ -193,10 +238,12 @@ function CustomMapPopoverFactory(MapPopoverContent, ...deps) {
         zoom,
         container,
         onClose,
-        instanceState,
-        updateVisData
+        onToggleLayer,
+        customToggle,
+        onToggleRoadTypeFilter,
+        selectedRoadTypes
     }) => {
-        const [horizontalPlacement] = useState('start');
+        const [horizontalPlacement, setHorizontalPlacement] = useState('start');
         const moveLeft = () => setHorizontalPlacement('end');
         const moveRight = () => setHorizontalPlacement('start');
 
@@ -249,6 +296,15 @@ function CustomMapPopoverFactory(MapPopoverContent, ...deps) {
                                     </PinnedButtons>
                                 ) : null}
                                 <PopoverContent>
+                                    {Array.isArray(layerHoverProp?.data) && layerHoverProp.nbLayers == 2 ?
+                                        <>
+                                            <Checkbox id="toggleGridRoads" label="Toggle grid/roads selection"
+                                                      checked={customToggle} onChange={onToggleLayer}/>
+                                            {customToggle ? <RoadTypeDropdown
+                                                onToggleRoadTypeFilter={onToggleRoadTypeFilter}
+                                                selectedRoadTypes={selectedRoadTypes} /> : null}
+                                            <StyledDivider/>
+                                        </> : null}
                                     <MapPopoverContent
                                         coordinate={coordinate}
                                         zoom={zoom}

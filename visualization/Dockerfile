@@ -4,20 +4,21 @@ FROM node:18.20.2 as build
 ## Docker build arguments with defaults
 ARG GITLAB_API_TOKEN='empty'
 ENV GITLAB_API_TOKEN_ENV=$GITLAB_API_TOKEN
+ARG KEYCLOAK_CLIENT_ID
+ENV KEYCLOAK_CLIENT_ID=$KEYCLOAK_CLIENT_ID
+ARG KEYCLOAK_AUTHORITY
+ENV KEYCLOAK_AUTHORITY=$KEYCLOAK_AUTHORITY
 
 ## Change working directory and copy all relevant files
 WORKDIR /home/node/app
 
 COPY src/ ./src
-COPY babel.config.js ./
-COPY index.html ./
-COPY package.json ./
-COPY webpack.config.js ./
-COPY yarn.lock ./
+COPY babel.config.js index.html package.json webpack.config.js yarn.lock ./
 
 ## Write an .env file based on build arguments
-RUN touch .env
-RUN echo "GITLAB_API_TOKEN="$GITLAB_API_TOKEN_ENV >> .env
+RUN echo "GITLAB_API_TOKEN="$GITLAB_API_TOKEN_ENV > .env_vars
+RUN echo "REACT_APP_KEYCLOAK_AUTHORITY="$KEYCLOAK_AUTHORITY >> .env_vars
+RUN echo "REACT_APP_KEYCLOAK_CLIENT_ID="$KEYCLOAK_CLIENT_ID >> .env_vars
 
 ## Build application bundle
 RUN yarn install
