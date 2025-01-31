@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -5,20 +7,16 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to CITYNEXUS’s documentation! &mdash; CITYNEXUS 1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/./service-doc.css?v=00778124" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=f2a433a1"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -49,6 +47,8 @@
 <li><a class="reference internal" href="#citynexus-platform-overview">CityNexus Platform Overview</a></li>
 <li><a class="reference internal" href="#what-if-analysis-with-citynexus">What-If Analysis with CityNexus</a></li>
 <li><a class="reference internal" href="#user-manual">User Manual</a></li>
+<li><a class="reference internal" href="#scenarios">Scenarios</a></li>
+<li><a class="reference internal" href="#predictions">Predictions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
@@ -100,7 +100,8 @@
 <section id="what-if-analysis-with-citynexus">
 <h2>What-If Analysis with CityNexus<a class="headerlink" href="#what-if-analysis-with-citynexus" title="Link to this heading"></a></h2>
 <p>CityNexus offers dedicated functionalities for performing “what if” simulations on 4 scenarios, where users are given the possibility to assess the effects of different types of interventions on the mobility patterns and all other targeted KPIs:</p>
-<a class="reference internal image-reference" href="_images/citynexus_rendering_2.png"><img alt="alternate text" class="align-right" src="_images/citynexus_rendering_2.png" style="width: 404.7px; height: 231.0px;" /></a>
+<a class="reference internal image-reference" href="_images/citynexus_rendering_2.png"><img alt="alternate text" class="align-right" src="_images/citynexus_rendering_2.png" style="width: 404.7px; height: 231.0px;" />
+</a>
 <ol class="arabic simple">
 <li><p><strong>High-speed Road Redesign</strong>: this scenario simulates potential transformation of high-speed road segments into tunnels to reclame the corresponding space for residential areas, green spaces, or recreational/leisure amenities.</p></li>
 <li><p><strong>Electric, Low-Emission Vehicles, and Active Mobility Promotion</strong>: this scenario enables users to customize the proportion of electric and low-emission vehicles within the overall traffic fleet, to promote the adoption of sustainable transportation initiatives and climate-neutrality ambitions.</p></li>
@@ -110,51 +111,123 @@
 </section>
 <section id="user-manual">
 <h2>User Manual<a class="headerlink" href="#user-manual" title="Link to this heading"></a></h2>
-<p>CITYNEXUS is deployed on cloud and offered as a service on the DestinE platform either via an API or trough a User Interface.</p>
-<p>After the login, the simulation can be run directly by providing a JSON document as input and invoking the model  via web  API (see the API definition).</p>
-<p>When using the UI, the user works with maps representing scenarios for the what-if analysis and simulation results to be analysed.</p>
-<p>Upon accessing CityNexus UI, the user is prompted to select the data they want to visualise within the application.</p>
+<p>The CITYNEXUS service is deployed on OVH cloud and offered as a service on the DestinE through DESP Integration.</p>
+<p>A user who accessing CityNexus is redirected to the DESP login interface. After the login, user is redirected to the GUI. The user works with maps representing scenarios for the what-if analysis and simulation results to be analysed. Upon accessing CityNexus UI, the user is prompted to select the data they want to visualise within the application.</p>
 <p>There are 2 types of maps that can be visualized:</p>
 <ol class="arabic simple">
 <li><p><strong>“What-if” scenarios.</strong> The scenarios are maps where the user can select road segments and grid zones to create simulation inputs, by modifying the parameters associated to segments or to grid zones.</p></li>
 <li><p><strong>Predictions.</strong> The predictions are maps visualizing model predictions.</p></li>
 </ol>
-<p>Available what-if scenarios are displayed in a grid layout with thumbnails showing what the map looks like (the screenshot below uses placeholder images).</p>
-<a class="reference internal image-reference" href="_images/fig_1.png"><img alt="alternate text" class="align-center" src="_images/fig_1.png" style="width: 521.0px; height: 378.0px;" /></a>
-<p>The model predictions are displayed in a table which can be sorted and filtered to make it easier for the user to select the simulation they are interested in.</p>
-<a class="reference internal image-reference" href="_images/fig_2.png"><img alt="alternate text" class="align-center" src="_images/fig_2.png" style="width: 623.0px; height: 321.0px;" /></a>
-<p>Maps consist of road segments and/or grid squares. Each segment or square contains several parameters that describe the element. Parameter values can be changed and/or selected to define new simulation scenarios.</p>
-<a class="reference internal image-reference" href="_images/fig_3.png"><img alt="alternate text" class="align-center" src="_images/fig_3.png" style="width: 581.0px; height: 337.0px;" /></a>
-<p>Streets are selectable by segments, and each segment is labelled with information about street type, traffic allowed, maximum speed and others. The information can be modified, by modifying the parameter in the UI that appears when selecting either a single road segment or when selecting multiple road segments with an area selection.</p>
+</section>
+<section id="scenarios">
+<h2>Scenarios<a class="headerlink" href="#scenarios" title="Link to this heading"></a></h2>
+<p>Available what-if scenarios are displayed in a grid layout with thumbnails showing what the map looks like (the screenshot uses placeholder images). The grid allows the user to load, delete or download existing scenarios.</p>
+<p>In the top left corner of the grid, a dropdown menu can be used to select the city of interest to the user and filter the predictions and scenarios accordingly. A reload button can also be clicked to reload the predictions and scenarios, if needed; this can be useful to update the processing status of pending simulations as seen in Figure 9.</p>
+<a class="reference internal image-reference" href="_images/image007.png"><img alt="Scenario Selection" class="align-center" src="_images/image007.png" style="width: 1445.0px; height: 840.0px;" />
+</a>
+<p>When loading a scenario, the map is populated with the scenario’s grid and road data and provides the user with several features to interact with and visualize the data.</p>
+<p>Maps consist of road segments and grid hexagons. Each segment or tile contains several parameters that describe the element. Parameter values can be changed and/or selected to define new simulation scenarios.</p>
+<a class="reference internal image-reference" href="_images/image008.png"><img alt="Scenario visualization" class="align-center" src="_images/image008.png" style="width: 1920.0px; height: 998.0px;" />
+</a>
+<p>Figure 2 describes the main UI components shown to the user when loading a scenario:</p>
+<ol class="arabic simple">
+<li><p>The side panel, with the layers tab shown by default, is the main way to configure the visualization, filter and explore the data, load another prediction or scenario…</p></li>
+<li><p>The horizontal button toolbar allows the user to control their modifications to the loaded scenario, starting a simulation, saving or downloading their changes…</p></li>
+<li><p>The vertical button toolbar has several useful functionalities, such as splitting the visualisation into side-by-side visualisation, changing the 3D perspective, multiselecting roads or grid hexagons, showing the legend…</p></li>
+<li><p>By default, the colours are chosen as follows: purple for roads, green for the grid and orange for road or grid elements that have been modified by the user.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/image009.png"><img alt="Scenario Modification" class="align-center" src="_images/image009.png" style="width: 1298.0px; height: 851.0px;" />
+</a>
+<p>Figure 3 focuses on the interaction possibilities with the map itself:</p>
+<ol class="arabic simple">
+<li><p>Hovering over or clicking on a road or grid element opens a window summarising the parameters of the specific element, along with their units.</p></li>
+<li><p>The user has the possibility to edit the values of the parameter.</p></li>
+<li><p>Only five parameters are shown by default. Clicking the Show More button will show the remaining parameters.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/image010.png"><img alt="Grid Tile Multiselection and Modifiable Properties" class="align-center" src="_images/image010.png" style="width: 1194.0px; height: 788.0px;" />
+</a>
+<p>The multiselection feature shown in Figure 4 allows the user to select all road or grid elements in an area:</p>
+<ol class="arabic simple">
+<li><p>The area is a user-defined rectangle or polygon.</p></li>
+<li><p>The elements covered by the selection are highlighted.</p></li>
+<li><p>Modifying the values of parameters will modify all the elements in the area.</p></li>
+<li><p>The selection always covers only the road segments or the grid hexagons and can be toggled between both.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/image011.png"><img alt="Road Segment Modifiable Properties, Multiselection and Road Type Selection" class="align-center" src="_images/image011.png" style="width: 1078.0px; height: 780.0px;" />
+</a>
+<p>Road multiselection is particular in that the selection and modifications can be further refined to only target roads of a specific type (e.g. motorway or residential roads).</p>
 <p>The following properties can be edited in road segments:</p>
 <ul class="simple">
 <li><p>Closed (Boolean). This flag specifies whether the road is closed (T) or open (F)</p></li>
-<li><p>Tunnel (Boolean). This flag specifies whether the road segment is tunnelled (T) or not (F)</p></li>
-<li><p>Underground (Boolean). This flag specifies whether the road segment is underground (T) or not (F)</p></li>
+<li><p>Underground (Boolean). This flag specifies whether the road segment is tunnelled (T) or not (F)</p></li>
 <li><p>Speed (Integer). This value defines the maximum speed allowed on the road segment.</p></li>
 </ul>
-<a class="reference internal image-reference" href="_images/fig_3a.png"><img alt="alternate text" class="align-center" src="_images/fig_3a.png" style="width: 586.0px; height: 293.0px;" /></a>
-<p>The grid consists of 100x100m exagons, each square describing the Points of Interest in that area and the type of land usage (residential, commercial and others).</p>
-<p>The following properties can be edited in zone segments:</p>
+<p>The grid consists of 100x100m hexagons, each tile describing the Points of Interest in that area and the type of land usage (residential, commercial and others).</p>
+<p>The following properties can be edited in zone tiles:</p>
 <ul class="simple">
 <li><p>Landuse. Defines the ratio of the area covered by 4 types of land usage: Residential, Commercial, Agricultural and Industrial</p></li>
-<li><p>Points of interest. Defines the number of points of interest in the area. Types of POIs are Food, Fun, Health, Infrastructure, School, Services, Shop, Sport, Tourism</p></li>
+<li><p>Points of interest. Defines the number of points of interest in the area. Types of POIs are Food, Fun, Health, Infrastructure, School, Services, Shop, Sport, Tourism.</p></li>
 </ul>
-<a class="reference internal image-reference" href="_images/fig_3b.png"><img alt="alternate text" class="align-center" src="_images/fig_3b.png" style="width: 513.0px; height: 242.0px;" /></a>
-<p>These factors have effects on the simulated mobility and traffic patterns. A scenario simulation is run by specifying:</p>
+<p>While editing their scenario, the user is given control of the changes they make with several functionalities available in a button toolbar. A different set of functionalities is offered depending on the user’s account status (logged-in or not).</p>
+<p>Guest users have access to:</p>
+<ul class="simple">
+<li><p>Undo and redo changes to the map</p></li>
+<li><p>Download a summary of the changes made to the map</p></li>
+</ul>
+<p>Logged-in users have access to the same functionalities as guests, they can also:</p>
+<ul class="simple">
+<li><p>Configure and start simulations</p></li>
+<li><p>Save their changes so they can be persisted and accessed later</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/image012.png"><img alt="Toolbar for guest user" class="align-center" src="_images/image012.png" style="width: 621.0px; height: 138.0px;" />
+</a>
+<a class="reference internal image-reference" href="_images/image013.png"><img alt="Toolbar for logged-in user" class="align-center" src="_images/image013.png" style="width: 998.0px; height: 250.0px;" />
+</a>
+<p>Changes to grid tile and road segment parameters along with scenario simulation meta-parameters have effects on the simulated mobility and traffic patterns. A scenario simulation is run by specifying:</p>
 <ul class="simple">
 <li><p>the percentage of bicycles in circulation over the total number of vehicles</p></li>
 <li><p>the percentage of electric cars in circulation over the total number of vehicles</p></li>
-<li><p>the type of the day (weekday or weekend)</p></li>
-<li><p>A 3h timeslot</p></li>
+<li><p>the type of the day (weekday and/or weekend)</p></li>
+<li><p>3h timeslot(s)</p></li>
+<li><p>optionally, an XAI analysis</p></li>
 </ul>
+<a class="reference internal image-reference" href="_images/image014.png"><img alt="Start new simulation" class="align-center" src="_images/image014.png" style="width: 688.0px; height: 1091.0px;" />
+</a>
 <p>The output of a simulation includes:</p>
 <ul class="simple">
 <li><p>Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)</p></li>
 <li><p>Statistics: (Fuel Consumption, Speed, Congestion, Traffic Induced Noise)</p></li>
 </ul>
-<p>Simulations are saved in the user workspace when available. Simulation below for instance shows a forecasted road occupancy percentage, calculated on a time slot around 12:00.</p>
-<a class="reference internal image-reference" href="_images/fig_4.png"><img alt="alternate text" class="align-center" src="_images/fig_4.png" style="width: 401.0px; height: 291.0px;" /></a>
+<p>Simulations are saved in the user workspace when available. Simulation in Figure 12 for instance shows forecast NO2 pollution values, calculated at a time slot around 03:00 on a weekend.</p>
+</section>
+<section id="predictions">
+<h2>Predictions<a class="headerlink" href="#predictions" title="Link to this heading"></a></h2>
+<p>The model predictions are displayed in a table which can be sorted and filtered to make it easier for the user to select the simulation they are interested in. The table also allows the user to delete or download existing simulations.</p>
+<a class="reference internal image-reference" href="_images/image015.png"><img alt="Prediction selection" class="align-center" src="_images/image015.png" style="width: 1445.0px; height: 840.0px;" />
+</a>
+<p>When you select a simulation, a window will pop up allowing the user to configure the visualization of the simulation: which parameters are of interest and of which dataset(s). Each selected parameter will be displayed in its own visualization layer. The user can also close the window or click on cancel to keep the default visualization configuration (only showing the no2 layer).</p>
+<a class="reference internal image-reference" href="_images/image016.png"><img alt="Configure simulation visualization" class="align-center" src="_images/image016.png" style="width: 1920.0px; height: 998.0px;" />
+</a>
+<p>Once the window is closed, the user has several options at their disposal to further configure, explore or modify the visualization, as displayed in Figure 11:</p>
+<ol class="arabic simple">
+<li><p>Open: Load additional simulation visualizations (up to 3) or load a scenario visualization. Loading a scenario removes all loaded simulations.</p></li>
+<li><p>Configure: Show the Configure Visualization window, to select the visualized parameters and datasets.</p></li>
+<li><p>Configure the visualized layers/parameters: show and hide layers, configure the colour scale, etc.</p></li>
+<li><p>Activate the split functionality with the ”Dual map view” button in the vertical button bar. The user can select which layer is shown on which side.</p></li>
+<li><p>Open the legend for the loaded layers.</p></li>
+<li><p>View parameter values for individual road segments or grid tiles by hovering over or clicking on them.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/image017.png"><img alt="Simulation Visualization" class="align-center" src="_images/image017.png" style="width: 2070.0px; height: 1272.0px;" />
+</a>
+<p>The side panel’s Filter tab shown in Figure 12 provides additional tools to help the user analyse the data created by the mobility model:</p>
+<ol class="arabic simple">
+<li><p>Clicking on the Filter icon in the side panel opens the Filters tab. There the user can either create a custom filter or toggle pre-defined filters on and off.</p></li>
+<li><p>“Show only occupied roads” hides all roads with 0 occupancy.</p></li>
+<li><p>“Show time scale” opens the time window.</p></li>
+<li><p>The time window allows the user to scroll through the simulated time slots by increments of 3 hours. In the screenshot, the simulation was generated for all time slots.</p></li>
+</ol>
+<a class="reference internal image-reference" href="_images/image018.png"><img alt="Simulation Output Example" class="align-center" src="_images/image018.png" style="width: 1920.0px; height: 998.0px;" />
+</a>
 </section>
 </section>
 <section id="indices-and-tables">
@@ -174,7 +247,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024 , Solenix Engineering GmbH.</p>
+    <p>&#169; Copyright 2025 , Solenix Engineering GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

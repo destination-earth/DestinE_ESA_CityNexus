@@ -50,90 +50,170 @@ CityNexus offers dedicated functionalities for performing "what if" simulations 
 User Manual
 -----------
 
-CITYNEXUS is deployed on cloud and offered as a service on the DestinE platform either via an API or trough a User Interface.
+The CITYNEXUS service is deployed on OVH cloud and offered as a service on the DestinE through DESP Integration. 
 
-After the login, the simulation can be run directly by providing a JSON document as input and invoking the model  via web  API (see the API definition). 
-
-When using the UI, the user works with maps representing scenarios for the what-if analysis and simulation results to be analysed. 
-
-Upon accessing CityNexus UI, the user is prompted to select the data they want to visualise within the application.
+A user who accessing CityNexus is redirected to the DESP login interface. After the login, user is redirected to the GUI. The user works with maps representing scenarios for the what-if analysis and simulation results to be analysed. Upon accessing CityNexus UI, the user is prompted to select the data they want to visualise within the application.
 
 There are 2 types of maps that can be visualized:
 
 1.	**“What-if” scenarios.** The scenarios are maps where the user can select road segments and grid zones to create simulation inputs, by modifying the parameters associated to segments or to grid zones.
 2. **Predictions.** The predictions are maps visualizing model predictions.
 
-Available what-if scenarios are displayed in a grid layout with thumbnails showing what the map looks like (the screenshot below uses placeholder images).
+Scenarios
+---------
 
-.. image:: images/fig_1.png
+Available what-if scenarios are displayed in a grid layout with thumbnails showing what the map looks like (the screenshot uses placeholder images). The grid allows the user to load, delete or download existing scenarios.
+
+In the top left corner of the grid, a dropdown menu can be used to select the city of interest to the user and filter the predictions and scenarios accordingly. A reload button can also be clicked to reload the predictions and scenarios, if needed; this can be useful to update the processing status of pending simulations as seen in Figure 9.
+ 
+.. image:: images/image007.png
    :scale: 100
    :align: center
-   :alt: alternate text
+   :alt: Scenario Selection
 
-The model predictions are displayed in a table which can be sorted and filtered to make it easier for the user to select the simulation they are interested in. 
+When loading a scenario, the map is populated with the scenario’s grid and road data and provides the user with several features to interact with and visualize the data.
 
-.. image:: images/fig_2.png
+Maps consist of road segments and grid hexagons. Each segment or tile contains several parameters that describe the element. Parameter values can be changed and/or selected to define new simulation scenarios.
+ 
+.. image:: images/image008.png
    :scale: 100
    :align: center
-   :alt: alternate text
+   :alt: Scenario visualization
 
+Figure 2 describes the main UI components shown to the user when loading a scenario:
 
-Maps consist of road segments and/or grid squares. Each segment or square contains several parameters that describe the element. Parameter values can be changed and/or selected to define new simulation scenarios.
-
-
-.. image:: images/fig_3.png
+1.	The side panel, with the layers tab shown by default, is the main way to configure the visualization, filter and explore the data, load another prediction or scenario…
+2.	The horizontal button toolbar allows the user to control their modifications to the loaded scenario, starting a simulation, saving or downloading their changes…
+3.	The vertical button toolbar has several useful functionalities, such as splitting the visualisation into side-by-side visualisation, changing the 3D perspective, multiselecting roads or grid hexagons, showing the legend…
+4.	By default, the colours are chosen as follows: purple for roads, green for the grid and orange for road or grid elements that have been modified by the user.
+ 
+.. image:: images/image009.png
    :scale: 100
    :align: center
-   :alt: alternate text
+   :alt: Scenario Modification
 
+Figure 3 focuses on the interaction possibilities with the map itself:
 
-Streets are selectable by segments, and each segment is labelled with information about street type, traffic allowed, maximum speed and others. The information can be modified, by modifying the parameter in the UI that appears when selecting either a single road segment or when selecting multiple road segments with an area selection. 
+1.	Hovering over or clicking on a road or grid element opens a window summarising the parameters of the specific element, along with their units.
+2.	The user has the possibility to edit the values of the parameter.
+3.	Only five parameters are shown by default. Clicking the Show More button will show the remaining parameters.
+ 
+.. image:: images/image010.png
+   :scale: 100
+   :align: center
+   :alt: Grid Tile Multiselection and Modifiable Properties 
+
+The multiselection feature shown in Figure 4 allows the user to select all road or grid elements in an area:
+
+1.	The area is a user-defined rectangle or polygon.
+2.	The elements covered by the selection are highlighted.
+3.	Modifying the values of parameters will modify all the elements in the area.
+4.	The selection always covers only the road segments or the grid hexagons and can be toggled between both.
+ 
+.. image:: images/image011.png
+   :scale: 100
+   :align: center
+   :alt: Road Segment Modifiable Properties, Multiselection and Road Type Selection
+
+Road multiselection is particular in that the selection and modifications can be further refined to only target roads of a specific type (e.g. motorway or residential roads).
 
 The following properties can be edited in road segments:
 
-- Closed (Boolean). This flag specifies whether the road is closed (T) or open (F)
-- Tunnel (Boolean). This flag specifies whether the road segment is tunnelled (T) or not (F)
-- Underground (Boolean). This flag specifies whether the road segment is underground (T) or not (F)
-- Speed (Integer). This value defines the maximum speed allowed on the road segment.
+•	Closed (Boolean). This flag specifies whether the road is closed (T) or open (F)
+•	Underground (Boolean). This flag specifies whether the road segment is tunnelled (T) or not (F)
+•	Speed (Integer). This value defines the maximum speed allowed on the road segment.
 
-.. image:: images/fig_3a.png
+The grid consists of 100x100m hexagons, each tile describing the Points of Interest in that area and the type of land usage (residential, commercial and others).
+
+The following properties can be edited in zone tiles:
+
+•	Landuse. Defines the ratio of the area covered by 4 types of land usage: Residential, Commercial, Agricultural and Industrial
+•	Points of interest. Defines the number of points of interest in the area. Types of POIs are Food, Fun, Health, Infrastructure, School, Services, Shop, Sport, Tourism.
+
+While editing their scenario, the user is given control of the changes they make with several functionalities available in a button toolbar. A different set of functionalities is offered depending on the user’s account status (logged-in or not).
+
+Guest users have access to:
+
+•	Undo and redo changes to the map
+•	Download a summary of the changes made to the map
+
+Logged-in users have access to the same functionalities as guests, they can also:
+
+•	Configure and start simulations
+•	Save their changes so they can be persisted and accessed later
+
+.. image:: images/image012.png
    :scale: 100
    :align: center
-   :alt: alternate text
+   :alt: Toolbar for guest user
 
-The grid consists of 100x100m exagons, each square describing the Points of Interest in that area and the type of land usage (residential, commercial and others).
-
-The following properties can be edited in zone segments:
-
-- Landuse. Defines the ratio of the area covered by 4 types of land usage: Residential, Commercial, Agricultural and Industrial
-- Points of interest. Defines the number of points of interest in the area. Types of POIs are Food, Fun, Health, Infrastructure, School, Services, Shop, Sport, Tourism
-
-.. image:: images/fig_3b.png
+.. image:: images/image013.png
    :scale: 100
    :align: center
-   :alt: alternate text
+   :alt: Toolbar for logged-in user
 
-These factors have effects on the simulated mobility and traffic patterns. A scenario simulation is run by specifying:
+Changes to grid tile and road segment parameters along with scenario simulation meta-parameters have effects on the simulated mobility and traffic patterns. A scenario simulation is run by specifying:
 
-- the percentage of bicycles in circulation over the total number of vehicles
-- the percentage of electric cars in circulation over the total number of vehicles
-- the type of the day (weekday or weekend) 
-- A 3h timeslot
+•	the percentage of bicycles in circulation over the total number of vehicles
+•	the percentage of electric cars in circulation over the total number of vehicles
+•	the type of the day (weekday and/or weekend) 
+•	3h timeslot(s)
+•	optionally, an XAI analysis
+ 
+.. image:: images/image014.png
+   :scale: 100
+   :align: center
+   :alt: Start new simulation
 
 The output of a simulation includes:
 
-- Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)
-- Statistics: (Fuel Consumption, Speed, Congestion, Traffic Induced Noise)
+•	Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)
+•	Statistics: (Fuel Consumption, Speed, Congestion, Traffic Induced Noise)
 
-Simulations are saved in the user workspace when available. Simulation below for instance shows a forecasted road occupancy percentage, calculated on a time slot around 12:00.
+Simulations are saved in the user workspace when available. Simulation in Figure 12 for instance shows forecast NO2 pollution values, calculated at a time slot around 03:00 on a weekend.
 
-.. image:: images/fig_4.png
+Predictions
+-----------
+
+The model predictions are displayed in a table which can be sorted and filtered to make it easier for the user to select the simulation they are interested in. The table also allows the user to delete or download existing simulations.
+ 
+.. image:: images/image015.png
    :scale: 100
    :align: center
-   :alt: alternate text
+   :alt: Prediction selection
 
+When you select a simulation, a window will pop up allowing the user to configure the visualization of the simulation: which parameters are of interest and of which dataset(s). Each selected parameter will be displayed in its own visualization layer. The user can also close the window or click on cancel to keep the default visualization configuration (only showing the no2 layer).
+ 
+.. image:: images/image016.png
+   :scale: 100
+   :align: center
+   :alt: Configure simulation visualization
 
+Once the window is closed, the user has several options at their disposal to further configure, explore or modify the visualization, as displayed in Figure 11:
 
+1.	Open: Load additional simulation visualizations (up to 3) or load a scenario visualization. Loading a scenario removes all loaded simulations.
+2.	Configure: Show the Configure Visualization window, to select the visualized parameters and datasets.
+3.	Configure the visualized layers/parameters: show and hide layers, configure the colour scale, etc.
+4.	Activate the split functionality with the ”Dual map view” button in the vertical button bar. The user can select which layer is shown on which side. 
+5.	Open the legend for the loaded layers.
+6.	View parameter values for individual road segments or grid tiles by hovering over or clicking on them.
+ 
+.. image:: images/image017.png
+   :scale: 100
+   :align: center
+   :alt: Simulation Visualization
+
+The side panel’s Filter tab shown in Figure 12 provides additional tools to help the user analyse the data created by the mobility model:
+
+1.	Clicking on the Filter icon in the side panel opens the Filters tab. There the user can either create a custom filter or toggle pre-defined filters on and off.
+2.	“Show only occupied roads” hides all roads with 0 occupancy.
+3.	“Show time scale” opens the time window.
+4.	The time window allows the user to scroll through the simulated time slots by increments of 3 hours. In the screenshot, the simulation was generated for all time slots.
+ 
+.. image:: images/image018.png
+   :scale: 100
+   :align: center
+   :alt: Simulation Output Example
 
 Indices and tables
 ==================
