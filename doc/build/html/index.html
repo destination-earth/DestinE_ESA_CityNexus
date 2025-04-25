@@ -177,7 +177,7 @@ In priciple all cities participating in the EU Mission for 100 Climate-Neutral a
 <p>Each selected parameter will be displayed in its own visualization layer.</p>
 <p>The user can also close the window or click on cancel to keep the default visualization configuration (only showing the no2 layer).</p>
 <figure class="align-center" id="id3">
-<a class="reference internal image-reference" href="_images/image016.png"><img alt="Configure simulation visualization" src="_images/image016.png" style="width: 768.0px; height: 399.20000000000005px;" /></a>
+<a class="reference internal image-reference" href="_images/image016.png"><img alt="Configure simulation visualization" src="_images/image016.png" style="width: 401.79999999999995px; height: 442.4px;" /></a>
 <figcaption>
 <p><span class="caption-text">Simulation Visulaziation Configuration</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
 </figcaption>
@@ -273,20 +273,31 @@ In priciple all cities participating in the EU Mission for 100 Climate-Neutral a
 <li><p>the percentage of electric cars in circulation over the total number of vehicles</p></li>
 <li><p>the type of the day (weekday and/or weekend)</p></li>
 <li><p>3h timeslot(s)</p></li>
-<li><p>optionally, an XAI analysis</p></li>
 </ul>
 <figure class="align-center" id="id10">
-<a class="reference internal image-reference" href="_images/image014.png"><img alt="Start new simulation" src="_images/image014.png" style="width: 344.0px; height: 545.5px;" /></a>
+<a class="reference internal image-reference" href="_images/image014.png"><img alt="Start new simulation" src="_images/image014.png" style="width: 458.40000000000003px; height: 484.8px;" /></a>
 <figcaption>
 <p><span class="caption-text">New Simulation</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The output of a simulation includes:</p>
+<p>The output of a simulation provides pollutants concentration and traffic statistics.</p>
+<p>The following pollutants are simulated (total production per road segment in a time slot of 3h):</p>
 <ul class="simple">
-<li><p>Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)</p></li>
-<li><p>Statistics: (Fuel Consumption, Speed, Congestion, Traffic Induced Noise)</p></li>
+<li><p>NO₂, Nitrogen dioxide (provided in Grams and in Micrograms per cubic meter, a mass concentration unit, often used by environmental protection agencies to set regulatory limits). NO₂ is a major air pollutant with significant implications for human health and the environment. It contributes to the formation of tropospheric ozone (smog), it is a precursor to acid rain and it plays a role in the formation of fine particulate matter (PM2.5)</p></li>
+<li><p>CO₂, Carbon dioxide, a key greenhouse gas and a critical component of the carbon cycle (provided in Grams). CO₂ traps heat in Earth’s atmosphere, contributing to global warming. Dissolved in water contributes to ocean acidification, lowering ocean pH and affecting marine life. It is a major driver for climate regulation.</p></li>
+<li><p>NOₓ, Nitrogen Oxides (provided in Grams). NOₓ gases are formed mostly during high-temperature combustion processes, like those in engines, power plants, and industrial boilers.  NOₓ have major environmental and health impact, contribute to ground-level ozone (smog) formation, they are precursor to fine particulate matter (PM2.5) and affect ecosystems and vegetation by nutrient overload (eutrophication).</p></li>
+<li><p>PMₓ, Particulate Matter (provide in Grams), a crucial component in air pollution studies. PMₓ are linked to respiratory diseases, cardiovascular issues, and premature death. Major surces of PMₓ are: vehicle emissions, industrial activities, power plants (especially coal-fired) and constructions/demolitions.</p></li>
+<li><p>HC, Hydrocarbons (provided in Grams), organic compounds made up of hydrogen (H) and carbon (C) atoms. They are typically found in fuels, oils, and many industrial chemicals. In the context of air quality and emissions, HC generally refers to unburned or partially burned fuel components released into the air. Health and Environmental Impact of HC includes: some HC (like benzene) are carcinogenic, may exacerbate asthma and other respiratory conditions, react with NOₓ in sunlight to form ozone (O₃), contribute to smog formation.</p></li>
+<li><p>CO, Carbon monoxide, a gas toxic to humans and animals. CO reduces oxygen delivery to organs and tissues, reacts in the atmosphere to form ozone (O₃) in the presence of NOₓ and sunlight and has an indirect impact on climate by affecting the atmospheric lifetime of methane and other greenhouse gases.</p></li>
+</ul>
+<p>The foloowing traffic related statistics are simulated, for vehicles occupying a road segment in a time slot (3h):</p>
+<ul class="simple">
+<li><p>Fuel Consumption, in Grams</p></li>
+<li><p>Traffic Speed, average, in km/h</p></li>
+<li><p>Occupation, in number of vehicles passign throug or stationing</p></li>
 </ul>
 <p>Simulations are saved in the user workspace when available. Simulation in Figure 12 for instance shows forecast NO2 pollution values, calculated at a time slot around 03:00 on a weekend.</p>
+<p>In this demostration version, only 1 simulation per user per city is allowed in parallel. Simulations on different cities can be run in parallel, up to a maximum of 8 parallel simulations. A message informs when this limit is exceeded, in this case the simulation has to be started later when the system is less overloaded.</p>
 </section>
 <section id="analysis-visualization">
 <h2>Analysis &amp; Visualization<a class="headerlink" href="#analysis-visualization" title="Link to this heading"></a></h2>
