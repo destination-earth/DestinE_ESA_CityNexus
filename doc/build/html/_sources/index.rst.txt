@@ -46,7 +46,7 @@ To characterize the seasonal patterns of human mobility and, in turn, their rela
 On the one hand, this allows deriving statistically robust baseline conditions when characterizing the reference patterns for the human mobility and the different KPIs. 
 On the other hand, this enables a more realistic and nuanced understanding of the effects of "what-if" mobility and infrastructural changes at different times of the year. 
 
-Four cities acre currently available for demostration purposes in the platform: **Copenaghen** (Denmark), **Bologna** (Italy), **Seville** (Spain), and **Aarhus** (Denmark). 
+Four cities acre currently available for demonstration purposes in the platform: **Copenaghen** (Denmark), **Bologna** (Italy), **Seville** (Spain), and **Aarhus** (Denmark). 
 These cities were selected as first targets for their alignment with the project's focus on sustainable mobility, air quality improvement, and urban innovation. 
 In priciple all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.  
 
@@ -274,7 +274,7 @@ The foloowing traffic related statistics are simulated, for vehicles occupying a
 
 Simulations are saved in the user workspace when available. Simulation in Figure 12 for instance shows forecast NO2 pollution values, calculated at a time slot around 03:00 on a weekend.
 
-In this demostration version, only 1 simulation per user per city is allowed in parallel. Simulations on different cities can be run in parallel, up to a maximum of 8 parallel simulations. A message informs when this limit is exceeded, in this case the simulation has to be started later when the system is less overloaded. 
+In this demonstration version, only 1 simulation per user per city is allowed in parallel. Simulations on different cities can be run in parallel, up to a maximum of 8 parallel simulations. A message informs when this limit is exceeded, in this case the simulation has to be started later when the system is less overloaded. 
 
 Analysis & Visualization
 ========================
