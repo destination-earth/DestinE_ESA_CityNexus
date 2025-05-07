@@ -1,0 +1,54 @@
+{{- if .Values.mobility.enabled.aar }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "immerseon.fullname" . }}-mobility-model-api-aar
+  labels:
+    {{- include "immerseon.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.mobility.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+      component: mobility-model-api-aar
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        component: mobility-model-api-aar
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-mobility-model-api-aar
+          image: "{{ .Values.mobility.image.repository }}:{{ .Values.mobility.image.tag.aar }}"
+          ports:
+            - containerPort: {{ .Values.mobility.containerPort }}
+          resources:
+            {{- toYaml .Values.mobility.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: {{ .Values.mobility.persistence.mountPath }}
+              name: mobility-model-api-storage-aar
+      volumes:
+        - name: mobility-model-api-storage-aar
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-{{ include "mobility-aar.serviceName" . }}-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mobility-aar.serviceName" . }}-nodeport
+  labels:
+  {{- include "immerseon.labels" . | nindent 4 }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.mobility.servicePort.aar }}
+      targetPort: {{ .Values.mobility.containerPort }}
+      nodePort: {{ .Values.mobility.nodePort.aar }}
+  selector:
+    app: {{ .Chart.Name }}
+    component: mobility-model-api-aar
+{{- end }}

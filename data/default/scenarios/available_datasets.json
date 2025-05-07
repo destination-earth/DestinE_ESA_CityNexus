@@ -1,0 +1,122 @@
+[
+  {
+    "id": "copenhagen_default",
+    "label": "Copenhagen",
+    "queryType": "sample",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "description": "Base map for Copenhagen in the CityNexus project",
+    "detail": "",
+    "size": 33665,
+    "visible": true,
+    "project": "citynexus",
+    "city": "copenhagen"
+  },
+  {
+    "id": "aarhus_default",
+    "label": "Aarhus",
+    "queryType": "sample",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "description": "Base map for Aarhus in the CityNexus project",
+    "detail": "",
+    "size": 13746,
+    "visible": true,
+    "project": "citynexus",
+    "city": "aarhus"
+  },
+  {
+    "id": "sevilla_default",
+    "label": "Sevilla",
+    "queryType": "sample",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "description": "Base map for Sevilla in the CityNexus project",
+    "detail": "",
+    "size": 36526,
+    "visible": true,
+    "project": "citynexus",
+    "city": "sevilla"
+  },
+  {
+    "id": "bologna_default",
+    "label": "Bologna",
+    "queryType": "sample",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "description": "Base map for Bologna in the CityNexus project",
+    "detail": "",
+    "size": 19153,
+    "visible": true,
+    "project": "citynexus",
+    "city": "bologna"
+  },
+  {
+    "id": "immerseon_default",
+    "label": "Copenhagen",
+    "queryType": "sample",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_immerseon.jpg",
+    "description": "Base map for the IMMERSEON project",
+    "detail": "",
+    "size": 33665,
+    "visible": true,
+    "project": "immerseon",
+    "city": "copenhagen"
+  },
+  {
+    "city": "copenhagen",
+    "description": "This scenario reflects the potential transformation of motorways and primary road segments into tunnels and reclaiming the corresponding space for residential areas, green spaces, or recreational/leisure amenities.",
+    "id": "copenhagen_high_speed_roads",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "label": "High-Speed Road Redesign",
+    "project": "citynexus",
+    "size": 227,
+    "visible": true
+  },
+  {
+    "city": "copenhagen",
+    "description": "This scenario responds to the City of Copenhagen's efforts to promote the adoption of electric and low-emission vehicles as well as of active mobility options as part of its sustainable transportation initiatives and climate neutrality ambitions.",
+    "id": "copenhagen_active_mobility",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "label": "Active Mobility Promotion",
+    "project": "citynexus",
+    "size": 0,
+    "visible": true
+  },
+  {
+    "city": "copenhagen",
+    "description": "This scenario aligns with the City of Copenhagen's exploration of implementing low emission zones (LEZ), allowing users to convert specific census units, and neighborhoods areas to LEZ, where motorized circulation is prohibited on residentials roads.",
+    "id": "copenhagen_lez",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "label": "Low Emission Zones Scenario",
+    "project": "citynexus",
+    "size": 3109,
+    "visible": true
+  },
+  {
+    "city": "bologna",
+    "description": "This scenario supports the effort of the city of Bologna in targeting a reduction in traffic-related greenhouse gas emissions by 2030, by simulating the effects of increased % of bicycles in the traffic fleet, conversion of streets into pedestrian zones and street speed reduction.",
+    "id": "bologna_greenstreets",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "label": "Greener Streets Scenario",
+    "project": "citynexus",
+    "size": 3662,
+    "visible": true
+  },
+  {
+    "city": "sevilla",
+    "description": "This scenario combines the LEZ Creation with the Active Mobility Promotion to support the efforts of the city of Seville in increasing cycling\u2019s modal share while contextually restricting high emission vehicles in residential  areas to reduce pollution and enhance public health",
+    "id": "sevilla_ecomobility",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "label": "Eco-mobility Campaign",
+    "project": "citynexus",
+    "size": 2242,
+    "visible": true
+  },
+  {
+    "city": "copenhagen",
+    "description": "This scenario reflects the impact of high traffic speed on air quality and environmental pollution. Accordingly, CITYNEXUS enables adjustments to speed limits for motorways and primary road segments.",
+    "id": "copenhagen_road_speed_adjustment",
+    "imageUrl": "https://twincity-data.s3.de.io.cloud.ovh.net/img/thumbnail_citynexus.jpg",
+    "label": "Road Speed Adjustment",
+    "project": "citynexus",
+    "size": 654,
+    "visible": true
+  }
+]

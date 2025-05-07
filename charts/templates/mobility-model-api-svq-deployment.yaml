@@ -1,0 +1,54 @@
+{{- if .Values.mobility.enabled.svq }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "immerseon.fullname" . }}-mobility-model-api-svq
+  labels:
+    {{- include "immerseon.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.mobility.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+      component: mobility-model-api-svq
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        component: mobility-model-api-svq
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-mobility-model-api-svq
+          image: "{{ .Values.mobility.image.repository }}:{{ .Values.mobility.image.tag.svq }}"
+          ports:
+            - containerPort: {{ .Values.mobility.containerPort }}
+          resources:
+            {{- toYaml .Values.mobility.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: {{ .Values.mobility.persistence.mountPath }}
+              name: mobility-model-api-storage-svq
+      volumes:
+        - name: mobility-model-api-storage-svq
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-{{ include "mobility-svq.serviceName" . }}-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mobility-svq.serviceName" . }}-nodeport
+  labels:
+  {{- include "immerseon.labels" . | nindent 4 }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.mobility.servicePort.svq }}
+      targetPort: {{ .Values.mobility.containerPort }}
+      nodePort: {{ .Values.mobility.nodePort }}
+  selector:
+    app: {{ .Chart.Name }}
+    component: mobility-model-api-svq
+{{- end }}

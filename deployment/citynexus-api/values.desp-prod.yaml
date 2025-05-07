@@ -1,0 +1,14 @@
+image:
+  repository: registry-ct.prod.desp.space/citynexus/backend
+  tag: 0.0.19
+  imagePullSecrets:
+    - name: harbor-image-pull
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: desp/service-provider
+          operator: In
+          values:
+            - "citynexus"

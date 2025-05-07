@@ -1,0 +1,54 @@
+{{- if .Values.mobility.enabled.cph }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "immerseon.fullname" . }}-mobility-model-api-cph
+  labels:
+    {{- include "immerseon.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.mobility.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+      component: mobility-model-api-cph
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        component: mobility-model-api-cph
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-mobility-model-api-cph
+          image: "{{ .Values.mobility.image.repository }}:{{ .Values.mobility.image.tag.cph }}"
+          ports:
+            - containerPort: {{ .Values.mobility.containerPort }}
+          resources:
+            {{- toYaml .Values.mobility.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: {{ .Values.mobility.persistence.mountPath }}
+              name: mobility-model-api-storage-cph
+      volumes:
+        - name: mobility-model-api-storage-cph
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-{{ include "mobility-cph.serviceName" . }}-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mobility-cph.serviceName" . }}-nodeport
+  labels:
+  {{- include "immerseon.labels" . | nindent 4 }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.mobility.servicePort.cph }}
+      targetPort: {{ .Values.mobility.containerPort }}
+      nodePort: {{ .Values.mobility.nodePort.cph }}
+  selector:
+    app: {{ .Chart.Name }}
+    component: mobility-model-api-cph
+{{- end }}

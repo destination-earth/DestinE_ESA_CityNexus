@@ -1,0 +1,250 @@
+include:
+  - project: $DEVSECOPS_TEMPLATES_REPOSITORY
+    ref: $DEVSECOPS_TEMPLATES_REF
+    file: 'desp-devsecops.yml'
+
+variables:
+  BACKEND_IMAGE: "citynexus/backend:0.0.38"
+  MOBILITY_API_IMAGE_CPH: "citynexus/mobility-model-api:0.0.9-cph"
+  MOBILITY_API_IMAGE_SVQ: "citynexus/mobility-model-api:0.0.9-svq"
+  MOBILITY_API_IMAGE_AAR: "citynexus/mobility-model-api:0.0.9-aar"
+  MOBILITY_API_IMAGE_BLQ: "citynexus/mobility-model-api:0.0.6-blq"
+  FRONTEND_IMAGE: "citynexus/frontend:0.0.60"
+  KEYCLOAK_SERVER: $KEYCLOAK_SERVER_IVV
+  BASE_URL: $BASE_URL_IVV
+  BACKEND_API_ENDPOINT: $BACKEND_API_ENDPOINT_IVV
+  KEYCLOAK_AUTHORITY: "${KEYCLOAK_SERVER_IVV}realms/${KEYCLOAK_REALM}"
+  MOBILITY_MODEL_CITY_NAME_BLQ: "bologna"
+  MOBILITY_MODEL_CITY_NAME_AAR: "aarhus"
+  MOBILITY_MODEL_CITY_NAME_CPH: "copenhagen"
+  MOBILITY_MODEL_CITY_NAME_SVQ: "sevilla"
+
+build-citynexus-backend:
+  when: manual
+  variables:
+    DOCKER_BUILDPATH: images/citynexus-api/
+    TEST_IMAGE: "$BACKEND_IMAGE"
+    BUILD_ARGS: |
+      --build-arg KEYCLOAK_REALM=$KEYCLOAK_REALM 
+      --build-arg KEYCLOAK_SERVER=$KEYCLOAK_SERVER 
+      --build-arg KEYCLOAK_CLIENT_ID=$KEYCLOAK_CLIENT_ID
+      --build-arg STORAGE_PATH=$STORAGE_PATH
+      --build-arg BASE_URL=$BASE_URL
+  extends: .build-dev
+
+build-citynexus-frontend:
+  when: manual
+  variables:
+    DOCKER_BUILDPATH: images/visualization/
+    TEST_IMAGE: "$FRONTEND_IMAGE"
+    BUILD_ARGS: |
+      --build-arg BACKEND_API_ENDPOINT=$BACKEND_API_ENDPOINT
+      --build-arg KEYCLOAK_AUTHORITY=$KEYCLOAK_AUTHORITY
+      --build-arg KEYCLOAK_CLIENT_ID=$KEYCLOAK_CLIENT_ID
+  extends: .build-dev
+
+build-citynexus-mobility-api-blq:
+  when: manual
+  variables:
+    DOCKER_BUILDPATH: images/mobility-model-api/
+    TEST_IMAGE: "$MOBILITY_API_IMAGE_BLQ"
+    BUILD_ARGS: |
+      --build-arg MOBILITY_MODEL_CITY_NAME=$MOBILITY_MODEL_CITY_NAME_BLQ
+      --build-arg MOBILITY_MODEL_VERSION=$MOBILITY_MODEL_BOLOGNA
+      --build-arg MOBILITY_MODEL_IMAGE_REPO=$MOBILITY_MODEL_IMAGE_REPO
+  extends: .build-dev
+
+build-citynexus-mobility-api-cph:
+  when: manual
+  variables:
+    DOCKER_BUILDPATH: images/mobility-model-api/
+    TEST_IMAGE: "$MOBILITY_API_IMAGE_CPH"
+    BUILD_ARGS: |
+      --build-arg MOBILITY_MODEL_CITY_NAME=$MOBILITY_MODEL_CITY_NAME_CPH
+      --build-arg MOBILITY_MODEL_VERSION=$MOBILITY_MODEL_COPENHAGEN
+      --build-arg MOBILITY_MODEL_IMAGE_REPO=$MOBILITY_MODEL_IMAGE_REPO
+  extends: .build-dev
+
+build-citynexus-mobility-api-svq:
+  when: manual
+  variables:
+    DOCKER_BUILDPATH: images/mobility-model-api/
+    TEST_IMAGE: "$MOBILITY_API_IMAGE_SVQ"
+    BUILD_ARGS: |
+      --build-arg MOBILITY_MODEL_CITY_NAME=$MOBILITY_MODEL_CITY_NAME_SVQ
+      --build-arg MOBILITY_MODEL_VERSION=$MOBILITY_MODEL_SEVILLA
+      --build-arg MOBILITY_MODEL_IMAGE_REPO=$MOBILITY_MODEL_IMAGE_REPO
+  extends: .build-dev
+
+build-citynexus-mobility-api-aar:
+  when: manual
+  variables:
+    DOCKER_BUILDPATH: images/mobility-model-api/
+    TEST_IMAGE: "$MOBILITY_API_IMAGE_AAR"
+    BUILD_ARGS: |
+      --build-arg MOBILITY_MODEL_CITY_NAME=$MOBILITY_MODEL_CITY_NAME_AAR
+      --build-arg MOBILITY_MODEL_VERSION=$MOBILITY_MODEL_AARHUS
+      --build-arg MOBILITY_MODEL_IMAGE_REPO=$MOBILITY_MODEL_IMAGE_REPO
+  extends: .build-dev
+
+release-dev-backend:
+  extends: .release-dev
+  variables:
+    DEPLOY_IMAGES: "$BACKEND_IMAGE"
+  needs:
+    - build-citynexus-backend
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "release-e2e"'
+
+release-dev-frontend:
+  extends: .release-dev
+  variables:
+    DEPLOY_IMAGES: "$FRONTEND_IMAGE"
+  needs:
+    - build-citynexus-frontend
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "release-e2e"'
+
+release-dev-mobility-api-blq:
+  extends: .release-dev
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_BLQ"
+  needs:
+    - build-citynexus-mobility-api-blq
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "release-e2e"'
+
+release-dev-mobility-api-cph:
+  extends: .release-dev
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_CPH"
+  needs:
+    - build-citynexus-mobility-api-cph
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "release-e2e"'
+
+release-dev-mobility-api-aar:
+  extends: .release-dev
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_AAR"
+  needs:
+    - build-citynexus-mobility-api-aar
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "release-e2e"'
+
+release-dev-mobility-api-svq:
+  extends: .release-dev
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_SVQ"
+  needs:
+    - build-citynexus-mobility-api-svq
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "release-e2e"'
+
+release-e2e-backend:
+  extends: .release-ivv
+  variables:
+    DEPLOY_IMAGES: "$BACKEND_IMAGE"
+  needs:
+    - build-citynexus-backend
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-e2e"'
+
+release-e2e-frontend:
+  extends: .release-ivv
+  variables:
+    DEPLOY_IMAGES: "$FRONTEND_IMAGE"
+  needs:
+    - build-citynexus-frontend
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-e2e"'
+
+release-e2e-mobility-api-aar:
+  extends: .release-ivv
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_AAR"
+  needs:
+    - build-citynexus-mobility-api-aar
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-e2e"'
+
+release-e2e-mobility-api-blq:
+  extends: .release-ivv
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_BLQ"
+  needs:
+    - build-citynexus-mobility-api-blq
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-e2e"'
+
+release-e2e-mobility-api-cph:
+  extends: .release-ivv
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_CPH"
+  needs:
+    - build-citynexus-mobility-api-cph
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-e2e"'
+
+release-e2e-mobility-api-svq:
+  extends: .release-ivv
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_SVQ"
+  needs:
+    - build-citynexus-mobility-api-svq
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-e2e"'
+
+release-prod-backend:
+  extends: .release-prod
+  variables:
+    DEPLOY_IMAGES: "$BACKEND_IMAGE"
+  needs:
+    - build-citynexus-backend
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-prod"'
+
+release-prod-frontend:
+  extends: .release-prod
+  variables:
+    DEPLOY_IMAGES: "$FRONTEND_IMAGE"
+  needs:
+    - build-citynexus-frontend
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-prod"'
+
+release-prod-mobility-api-aar:
+  extends: .release-prod
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_AAR"
+  needs:
+    - build-citynexus-mobility-api-aar
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-prod"'
+
+release-prod-mobility-api-blq:
+  extends: .release-prod
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_BLQ"
+  needs:
+    - build-citynexus-mobility-api-blq
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-prod"'
+
+release-prod-mobility-api-cph:
+  extends: .release-prod
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_CPH"
+  needs:
+    - build-citynexus-mobility-api-cph
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-prod"'
+
+release-prod-mobility-api-svq:
+  extends: .release-prod
+  variables:
+    DEPLOY_IMAGES: "$MOBILITY_API_IMAGE_SVQ"
+  needs:
+    - build-citynexus-mobility-api-svq
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release-prod"'

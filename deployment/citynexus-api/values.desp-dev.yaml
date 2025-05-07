@@ -1,0 +1,51 @@
+image:
+  repository: registry-ct.dev.desp.space/citynexus/backend
+  tag: 0.0.19
+  imagePullSecrets:
+    - name: harbor-image-pull
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+  hosts:
+    - host: citynexus.dev.desp.space
+      paths:
+        - path: /api/v1/citynexus
+          pathType: Prefix
+          backend:
+            serviceName: citynexus-api-service
+            servicePort: 8000
+        - path: /docs
+          pathType: Prefix
+          backend:
+            serviceName: citynexus-api-service
+            servicePort: 8000
+        - path: /openapi.json
+          backend:
+            serviceName: citynexus-api-service
+            servicePort: 8000
+        - path: /api/v1/mobility-model-aarhus
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-aar-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-bologna
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-blq-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-copenhagen
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-cph-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-sevilla
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-svq-service
+            servicePort: 8001
+  tls:
+    - hosts:
+      - citynexus.dev.desp.space
+      secretName: citynexus-tls

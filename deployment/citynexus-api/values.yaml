@@ -1,0 +1,27 @@
+enabled: true
+replicaCount: 1
+image:
+  imagePullSecrets: []
+  repository: registry-ct.dev.desp.space/citynexus/backend
+containerPort: 8000
+servicePort: 8000
+nodePort: 30007
+resources:
+  requests:
+    memory: 2Gi
+    cpu: 200m
+  limits:
+    memory: 8Gi
+    cpu: 1000m
+persistence:
+  mountPath: /model_output
+  accessMode: ReadWriteMany
+  size: 20Gi
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""

@@ -1,0 +1,64 @@
+enabled: true
+replicaCount: 1
+image:
+  imagePullSecrets: []
+  repository: registry-ct.dev.desp.space/citynexus/frontend
+containerPort: 80
+servicePort: 8080
+nodePort: 30009
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 200m
+  limits:
+    memory: 512Mi
+    cpu: 1000m
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+ingress:
+  enabled: false
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: citynexus.local
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            serviceName: visualization-service
+            servicePort: 8080
+        - path: /api/v1/citynexus
+          pathType: Prefix
+          backend:
+            serviceName: citynexus-api-service
+            servicePort: 8000
+        - path: /api/v1/mobility-model-aarhus
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-aar-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-bologna
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-blq-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-copenhagen
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-cph-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-sevilla
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-svq-service
+            servicePort: 8001
+  tls: []
+
+

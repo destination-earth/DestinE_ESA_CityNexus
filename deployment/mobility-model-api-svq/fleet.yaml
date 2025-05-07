@@ -1,0 +1,30 @@
+defaultNamespace: desp-citynexus
+helm:
+# How long for helm to wait for the release to be active. If the value
+# is less than or equal to zero, we will not wait in Helm
+  timeoutSeconds: 0
+targetCustomizations:
+  - name: desp-dev
+    clusterSelector:
+      matchLabels:
+        customer: desp-dev
+    helm:
+      chart: .
+      valuesFiles:
+        - values.desp-dev.yaml
+  - name: desp-ivv
+    clusterSelector:
+      matchLabels:
+        customer: desp-ivv
+    helm:
+      chart: .
+      valuesFiles:
+        - values.desp-ivv.yaml
+  - name: desp-prod
+    clusterSelector:
+      matchLabels:
+        customer: desp-prod
+    helm:
+      chart: .
+      valuesFiles:
+        - values.desp-prod.yaml

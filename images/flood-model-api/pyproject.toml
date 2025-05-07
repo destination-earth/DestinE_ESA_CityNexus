@@ -1,0 +1,43 @@
+[tool.poetry]
+name = "flood-model-api"
+version = "0.1.5"
+description = "CityNexus Flood Model API"
+authors = ["Andreas Altenkirch <andreas.altenkirch@solenix.ch>"]
+readme = "README.md"
+packages = [{include = "flood_model_api"}]
+
+[tool.poetry.dependencies]
+python = "~3.10"
+fastapi = {extras = ["all"], version = "^0.112.2"}
+uvicorn = {extras = ["standard"], version = "^0.30"}
+fastapi-keycloak-middleware = "^1.1"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7"
+coverage = {extras = ["toml"], version = "^7"}
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.12"
+black = "^23.7"
+
+[tool.black]
+line-length = 120
+target-version = ["py310"]
+
+[tool.isort]
+py_version = 310
+profile = "black"
+combine_as_imports = true
+src_paths = ["flood_model_api", "tests"]
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks a test as an integration test"
+]
+
+[build-system]
+requires = ["poetry-core>=1.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+flood_model_api = "flood_model_api.api.app:run"

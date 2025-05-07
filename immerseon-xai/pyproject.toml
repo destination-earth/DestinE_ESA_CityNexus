@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "immerseon-xai"
+version = "0.1.0"
+description = ""
+authors = ["Andreas Altenkirch <andreas.altenkirch@solenix.ch>"]
+readme = "README.md"
+license = "Proprietary"
+packages = [{include = "immerseon_xai"}]
+
+[tool.poetry.dependencies]
+python = "~3.11"
+geopandas = "^1.0.1"
+matplotlib = "^3.9.1"
+numpy = "^2.0.0"
+shapely = "^2.0.5"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7"
+coverage = {extras = ["toml"], version = "^7"}
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.12"
+pylint = "^2.17"
+black = "^23.7"
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+
+[tool.isort]
+py_version = 311
+profile = "black"
+combine_as_imports = true
+src_paths = ["immerseon_xai", "tests"]
+
+[tool.pylint]
+max-line-length = 120
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = ["-v", "--tb=long", "--import-mode=importlib"]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["immerseon_xai"]
+
+[build-system]
+requires = ["poetry-core>=1.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+calculate_no2_impact = "immerseon_xai.main:calculate_no2_impact"

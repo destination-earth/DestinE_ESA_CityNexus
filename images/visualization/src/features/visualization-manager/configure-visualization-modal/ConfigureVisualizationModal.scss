@@ -1,0 +1,22 @@
+h4 {
+    margin-bottom: 10px;
+}
+
+.checkbox-columns {
+    display: flex;
+    gap: 20px; /* Space between columns */
+}
+
+.checkbox-column {
+    flex: 1; /* Allows each column to take equal space */
+}
+
+.form-check {
+    display: flex;
+    align-items: center; /* Align checkbox and label vertically */
+    margin-bottom: 10px; /* Space between checkboxes */
+}
+
+.form-check input[type="checkbox"] {
+    margin-right: 8px; /* Space between checkbox and label */
+}

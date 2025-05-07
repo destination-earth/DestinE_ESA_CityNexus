@@ -1,0 +1,26 @@
+### Python
+*.pyc
+*.pyo
+__pycache__
+
+### External tools and IDEs
+.idea
+.vscode
+.ipynb_checkpoints
+*.orig
+
+### Build and deployment
+bin
+build
+dist
+venv
+
+### webapp
+node_modules
+.env_vars
+!.env_vars.dev
+!.env_vars.example
+/data/**
+!/data/default/
+!/data/default/**
+images/citynexus-api/citynexus_api/config.toml

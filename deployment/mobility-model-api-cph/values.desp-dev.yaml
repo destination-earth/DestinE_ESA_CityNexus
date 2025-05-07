@@ -1,0 +1,5 @@
+image:
+  repository: registry-ct.dev.desp.space/citynexus/mobility-model-api
+  tag: "0.0.9-cph"
+  imagePullSecrets:
+    - name: harbor-image-pull

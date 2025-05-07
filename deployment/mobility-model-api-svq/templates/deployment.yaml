@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "mobility-api-svq.fullname" . }}
+  labels:
+    {{- include "mobility-api-svq.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+      component: mobility-model-api-svq
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        component: mobility-model-api-svq
+      annotations:
+        elastic.co/dataset: citynexus.monitoring
+    spec:
+      runtimeClassName : nvidia
+      {{- with .Values.image.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          ports:
+            - containerPort: {{ .Values.containerPort }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: {{ .Values.persistence.mountPath }}
+              name: mobility-model-api-svq-storage
+      volumes:
+        - name: mobility-model-api-svq-storage
+          persistentVolumeClaim:
+            claimName: citynexus-api-pvc
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

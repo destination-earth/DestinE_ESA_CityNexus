@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "citynexus-api.fullname" . }}-test-connection
+  labels: {{- include "citynexus-api.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "citynexus-api.fullname" . }}:{{ .Values.servicePort }}']
+  restartPolicy: Never

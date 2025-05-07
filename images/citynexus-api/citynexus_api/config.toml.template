@@ -1,0 +1,13 @@
+[storage]
+base_path = "${STORAGE_PATH}"
+
+[mobility]
+url = "https://${BASE_URL}/api/v1/mobility-model{city}/analysis"
+
+[flood]
+url = "https://${BASE_URL}/api/v1/flood-model/analysis"
+
+[keycloak]
+server = "${KEYCLOAK_SERVER}"
+realm = "${KEYCLOAK_REALM}"
+client_id = "${KEYCLOAK_CLIENT_ID}"

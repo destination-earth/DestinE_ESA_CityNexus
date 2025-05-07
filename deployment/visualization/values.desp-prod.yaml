@@ -1,0 +1,58 @@
+image:
+  repository: registry-ct.prod.desp.space/citynexus/frontend
+  tag: 0.0.55
+  imagePullSecrets:
+    - name: harbor-image-pull
+
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
+
+  hosts:
+    - host: citynexus.destine.eu
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            serviceName: visualization-service
+            servicePort: 8080
+        - path: /api/v1/citynexus
+          pathType: Prefix
+          backend:
+            serviceName: citynexus-api-service
+            servicePort: 8000
+        - path: /api/v1/mobility-model-aarhus
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-aar-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-bologna
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-blq-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-copenhagen
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-cph-service
+            servicePort: 8001
+        - path: /api/v1/mobility-model-sevilla
+          pathType: Prefix
+          backend:
+            serviceName: mobility-model-api-svq-service
+            servicePort: 8001
+  tls:
+    - hosts:
+      - citynexus.destine.eu
+      secretName: citynexus-tls
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: desp/service-provider
+          operator: In
+          values:
+            - "citynexus"

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "mobility-api-svq.fullname" . }}-test-connection
+  labels: {{- include "mobility-api-svq.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "mobility-api-svq.fullname" . }}:{{ .Values.servicePort }}']
+  restartPolicy: Never

@@ -1,0 +1,14 @@
+image:
+  repository: registry-ct.prod.desp.space/citynexus/mobility-model-api
+  tag: "0.0.6-blq"
+  imagePullSecrets:
+    - name: harbor-image-pull
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: desp/service-provider
+          operator: In
+          values:
+            - "citynexus"

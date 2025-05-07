@@ -1,0 +1,47 @@
+{{- if .Values.flood.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "immerseon.fullname" . }}-flood-model-api
+  labels:
+    {{- include "immerseon.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.flood.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+      component: flood-model-api
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+        component: flood-model-api
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}-flood-model-api
+          image: "{{ .Values.flood.image.repository }}:{{ .Values.flood.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.flood.containerPort }}
+          resources:
+            {{- toYaml .Values.flood.resources | nindent 12 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "flood.serviceName" . }}-nodeport
+  labels:
+  {{- include "immerseon.labels" . | nindent 4 }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.flood.servicePort }}
+      targetPort: {{ .Values.flood.containerPort }}
+      nodePort: 30008
+  selector:
+    app: {{ .Chart.Name }}
+    component: flood-model-api
+{{- end }}

@@ -1,0 +1,26 @@
+enabled: false
+replicaCount: 1
+image:
+  imagePullSecrets: []
+  repository: registry-ct.dev.desp.space/citynexus/mobility-model-api
+containerPort: 8000
+servicePort: 8001
+nodePort: 30012
+resources:
+#  requests:
+#    memory: 5Gi
+#    cpu: 2
+#    nvidia.com/gpu: 1
+  limits:
+    memory: 20Gi
+    nvidia.com/gpu.shared: 1
+persistence:
+  mountPath: /model_output
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""

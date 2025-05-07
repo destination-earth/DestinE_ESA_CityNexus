@@ -1,9 +1,0 @@
-[OVH]
-endpoint_url = "https://s3.de.io.cloud.ovh.net"
-region = "de"
-bucket = "twincity-data"
-access_key = <access_key>
-secret_key = <secret_key>
-
-[local]
-download_dir = "datasets"
