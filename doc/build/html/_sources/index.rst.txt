@@ -136,7 +136,7 @@ Each selected parameter will be displayed in its own visualization layer.
 The user can also close the window or click on cancel to keep the default visualization configuration (only showing the no2 layer).
 
 .. figure:: images/image016.png
-   :scale: 40
+   :scale: 70
    :align: center
    :alt: Configure simulation visualization
    
@@ -246,22 +246,35 @@ Changes to grid tile and road segment parameters along with scenario simulation 
 - the percentage of electric cars in circulation over the total number of vehicles
 - the type of the day (weekday and/or weekend) 
 - 3h timeslot(s)
-- optionally, an XAI analysis
  
 .. figure:: images/image014.png
-   :scale: 50
+   :scale: 80
    :align: center
    :alt: Start new simulation
 
    New Simulation
 
 
-The output of a simulation includes:
+The output of a simulation provides pollutants concentration and traffic statistics. 
 
-- Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)
-- Statistics: (Fuel Consumption, Speed, Congestion, Traffic Induced Noise)
+The following pollutants are simulated (total production per road segment in a time slot of 3h):
+
+- NO₂, Nitrogen dioxide (provided in Grams and in Micrograms per cubic meter, a mass concentration unit, often used by environmental protection agencies to set regulatory limits). NO₂ is a major air pollutant with significant implications for human health and the environment. It contributes to the formation of tropospheric ozone (smog), it is a precursor to acid rain and it plays a role in the formation of fine particulate matter (PM2.5) 
+- CO₂, Carbon dioxide, a key greenhouse gas and a critical component of the carbon cycle (provided in Grams). CO₂ traps heat in Earth’s atmosphere, contributing to global warming. Dissolved in water contributes to ocean acidification, lowering ocean pH and affecting marine life. It is a major driver for climate regulation. 
+- NOₓ, Nitrogen Oxides (provided in Grams). NOₓ gases are formed mostly during high-temperature combustion processes, like those in engines, power plants, and industrial boilers.  NOₓ have major environmental and health impact, contribute to ground-level ozone (smog) formation, they are precursor to fine particulate matter (PM2.5) and affect ecosystems and vegetation by nutrient overload (eutrophication).
+- PMₓ, Particulate Matter (provide in Grams), a crucial component in air pollution studies. PMₓ are linked to respiratory diseases, cardiovascular issues, and premature death. Major surces of PMₓ are: vehicle emissions, industrial activities, power plants (especially coal-fired) and constructions/demolitions.
+- HC, Hydrocarbons (provided in Grams), organic compounds made up of hydrogen (H) and carbon (C) atoms. They are typically found in fuels, oils, and many industrial chemicals. In the context of air quality and emissions, HC generally refers to unburned or partially burned fuel components released into the air. Health and Environmental Impact of HC includes: some HC (like benzene) are carcinogenic, may exacerbate asthma and other respiratory conditions, react with NOₓ in sunlight to form ozone (O₃), contribute to smog formation. 
+- CO, Carbon monoxide, a gas toxic to humans and animals. CO reduces oxygen delivery to organs and tissues, reacts in the atmosphere to form ozone (O₃) in the presence of NOₓ and sunlight and has an indirect impact on climate by affecting the atmospheric lifetime of methane and other greenhouse gases.
+
+The foloowing traffic related statistics are simulated, for vehicles occupying a road segment in a time slot (3h):
+
+- Fuel Consumption, in Grams 
+- Traffic Speed, average, in km/h
+- Occupation, in number of vehicles passign throug or stationing
 
 Simulations are saved in the user workspace when available. Simulation in Figure 12 for instance shows forecast NO2 pollution values, calculated at a time slot around 03:00 on a weekend.
+
+In this demostration version, only 1 simulation per user per city is allowed in parallel. Simulations on different cities can be run in parallel, up to a maximum of 8 parallel simulations. A message informs when this limit is exceeded, in this case the simulation has to be started later when the system is less overloaded. 
 
 Analysis & Visualization
 ========================
