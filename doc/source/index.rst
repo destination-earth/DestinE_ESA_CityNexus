@@ -46,9 +46,9 @@ To characterize the seasonal patterns of human mobility and, in turn, their rela
 On the one hand, this allows deriving statistically robust baseline conditions when characterizing the reference patterns for the human mobility and the different KPIs. 
 On the other hand, this enables a more realistic and nuanced understanding of the effects of "what-if" mobility and infrastructural changes at different times of the year. 
 
-Four cities acre currently available for demostration purposes in the platform: **Copenaghen** (Denmark), **Bologna** (Italy), **Seville** (Spain), and **Aarhus** (Denmark). 
+Four cities acre currently available for demonstration purposes in the platform: **Copenhagen** (Denmark), **Bologna** (Italy), **Seville** (Spain), and **Aarhus** (Denmark).
 These cities were selected as first targets for their alignment with the project's focus on sustainable mobility, air quality improvement, and urban innovation. 
-In priciple all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.  
+In principle all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.
 
 The CITYNEXUS models have been trained using:
 
@@ -61,7 +61,7 @@ The CITYNEXUS models have been trained using:
 What-If Analysis with CityNexus
 ===============================
 
-CityNexus offers the capability of implementing "what if" analysis, where users are given the possibility to assess the effects of different types of interventions on the mobility patterns and all other targeted KPIs. Examples include:
+CityNexus offers the capability of implementing "what if" analysis, where users are given the possibility to assess the effects of different types of interventions on the mobility patterns and all other targeted KPIs. In this case, pre-defined scenarios are available for the cities, including:
 
 .. image:: images/citynexus_rendering_2.png
    :scale: 40
@@ -72,21 +72,24 @@ CityNexus offers the capability of implementing "what if" analysis, where users 
 2.	**Electric, Low-Emission Vehicles, and Active Mobility Promotion**: this scenario responds to the efforts to promote the adoption of electric and low-emission vehicles as well as of active mobility options as part of its sustainable transportation initiatives and climate-neutrality ambitions. This scenario responds an effort of the City of Copenhagen, but has also a general validity. To this purpose, CITYNEXUS enables users to customize the proportion of these vehicles and modes within the overall traffic fleet.
 3.	**Low Emission Zones Creation**: this scenario allows users to convert specific census units, neighborhoods or manually defined areas to LEZ (Low Emission Zones), where motorized circulation is prohibited or limited to specific classes of vehicles.
 4.	**Road Speed Adjustment**: this scenario reflects the impact of high traffic speed on air quality and environmental pollution. Accordingly, CITYNEXUS enables adjustments to speed limits for specific road segments or entire categories of roads. 
-5. **Greener Streets**: this scenario supports the effort of the city of Bologna in targeting a 40% reduction in traffic-related greenhouse gas emissions by 2030. CITYNEXUS enables the simulation of the effects of increased % of bicycles in the traffic fleet, conversion of streets into pedestrian zones and street speed reduction, to enforces a 30 km/h speed limit in residential areas to enhance safety and reduce emissions.
+5. **Greener Streets**: this scenario supports the effort of the city of Bologna in targeting a 40% reduction in traffic-related greenhouse gas emissions by 2030. CITYNEXUS enables the simulation of the effects of increased % of bicycles in the traffic fleet, conversion of streets into pedestrian zones and street speed reduction, to enforce a 30 km/h speed limit in residential areas to enhance safety and reduce emissions.
 6. **Eco-mobility Campaign**: this scenario combines the Low Emission Zone Creation scenario with the Active Mobility Promotion scenario to support the efforts of the city of Seville in increasing cycling’s modal share to nearly 6% of total urban mobility while contextually restricting high-emission vehicles in key areas to reduce pollution and enhance public health.
 
-The scenarios are defined for the what-if analysis by specifying:
+The scenarios are first defined by specifying:
 
-- Road segment properties (to close or underground a street, or to limit the max speed allowed)
-- Grid properties (to define the landuse and type of Points of Interest in an area)
-- The percentage of bicycles and electric vehicle in circulation over the total number of vehicles
-- The type of the day (weekday and/or weekend) 
-- A set of 3h timeslot(s)
+- Road segment properties: including closing streets to traffic, converting streets into tunnels and limiting the allowed max speed.
+- Hexagonal grid properties: including defining land use type and Points of Interest (POI) in an area.
+- The percentage of bicycles and electric vehicles in circulation over the total number of vehicles.
+- The type of the day: weekday or weekend.
+- A set of 3-hour timeslots: three hours is the minimum simulation timeframe.
 
-For the selected parameters and timeslots CITYNEXUS provides estimations of:
+Once, the scenario is defined, the what-if analysis can be performed. In this case, for the previously selected parameters and timeslots CITYNEXUS provides a simulation of:
 
-- Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)
-- Mobility Statistics: FuelAverage Fuel Consumption, Average Speed, Congestion, Traffic Induced Noise
+- Pollutants Concentration: 5 different pollutants including CO2, CO, HC, NOx and PMx.
+- Mobility Statistics: Fuel Consumption, Average Speed and Road Occupancy.
+
+Figure 1 shows an overview of the CITYNEXUS framework, for enabling simulations in the demonstration cities. The six pre-defined scenarios are available on the platform but also, the user can create new scenarios by adjusting parameters such as the road network, land use, and vehicle types. Using these conditions, the system will then simulate traffic flow, congestion points, and air quality allowing the user to explore different outcomes and results that can be analyzed through interactive maps and animations.
+
 
 
 Workspace Management
@@ -274,7 +277,7 @@ The foloowing traffic related statistics are simulated, for vehicles occupying a
 
 Simulations are saved in the user workspace when available. Simulation in Figure 12 for instance shows forecast NO2 pollution values, calculated at a time slot around 03:00 on a weekend.
 
-In this demostration version, only 1 simulation per user per city is allowed in parallel. Simulations on different cities can be run in parallel, up to a maximum of 8 parallel simulations. A message informs when this limit is exceeded, in this case the simulation has to be started later when the system is less overloaded. 
+In this demonstration version, only 1 simulation per user per city is allowed in parallel. Simulations on different cities can be run in parallel, up to a maximum of 8 parallel simulations. A message informs when this limit is exceeded, in this case the simulation has to be started later when the system is less overloaded. 
 
 Analysis & Visualization
 ========================
