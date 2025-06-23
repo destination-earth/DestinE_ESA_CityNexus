@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -5,20 +7,16 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to CITYNEXUS’s documentation! &mdash; CITYNEXUS 1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/./service-doc.css?v=5a3c236b" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=f2a433a1"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f2a433a1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -48,8 +46,19 @@
 <li><a class="reference internal" href="#">Welcome to CITYNEXUS’s documentation!</a><ul>
 <li><a class="reference internal" href="#citynexus-platform-overview">CityNexus Platform Overview</a></li>
 <li><a class="reference internal" href="#what-if-analysis-with-citynexus">What-If Analysis with CityNexus</a></li>
-<li><a class="reference internal" href="#workspace-management">Workspace Management</a></li>
-<li><a class="reference internal" href="#scenario-definition-simulation">Scenario Definition &amp; Simulation</a></li>
+<li><a class="reference internal" href="#workspace-management-user-interface">Workspace Management &amp; User Interface</a></li>
+<li><a class="reference internal" href="#simulations-visualization-interaction">Simulations Visualization &amp; Interaction</a><ul>
+<li><a class="reference internal" href="#basic-visualizations">Basic Visualizations</a></li>
+<li><a class="reference internal" href="#applying-filters">Applying Filters</a></li>
+<li><a class="reference internal" href="#change-base-maps">Change Base Maps</a></li>
+<li><a class="reference internal" href="#dual-map-view">Dual Map View</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#scenario-definition-simulation">Scenario Definition &amp; Simulation</a><ul>
+<li><a class="reference internal" href="#defining-a-scenario">Defining a scenario</a></li>
+<li><a class="reference internal" href="#starting-a-new-simulation">Starting a new simulation</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#analysis-visualization">Analysis &amp; Visualization</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
@@ -89,7 +98,6 @@
 <p>The platform is designed to provide policymakers a <strong>collaborative platform to experiment with various strategies and solutions</strong>, considering diverse factors and variables crucial for successful and sustainable urban interventions, thereby facilitating a coordinated approach to decision-making.</p>
 <section id="citynexus-platform-overview">
 <h2>CityNexus Platform Overview<a class="headerlink" href="#citynexus-platform-overview" title="Link to this heading"></a></h2>
-<a class="reference internal image-reference" href="_images/citynexus_rendering_3.png"><img alt="alternate text" class="align-right" src="_images/citynexus_rendering_3.png" style="width: 448.0px; height: 360.0px;" /></a>
 <p>The CityNexus platform aims to facilitate evidence-based decision-making at the municipality level by providing capabilities to <strong>evaluate a comprehensive set of Key Performance Indicators (KPIs)</strong> and by implementing an <strong>interactive system for assessing the impact of infrastructural and mobility changes on the target KPIs</strong> through policy-relevant, user-defined ‘what-if’ scenario simulations.</p>
 <p>Currently, strategic decisions related to mobility and infrastructural interventions are primarily driven by economic constraints, thus overlooking the complex and multifaceted impacts on neighbourhoods and local communities.
 This issue is further exacerbated by a limited coordination and communication between districts of the same city or neighbouring municipalities, hence making it challenging to assess the holistic impact of a specific intervention on nearby areas.</p>
@@ -107,9 +115,9 @@ In this regard, CITYNEXUS targets a set of KPIs (preliminary identified together
 To characterize the seasonal patterns of human mobility and, in turn, their relationships to the targeted KPIs, CITYNEXUS is intended to operate on a <strong>quarterly temporal scale</strong> and to differentiate the analyses between typical weekdays and weekends.
 On the one hand, this allows deriving statistically robust baseline conditions when characterizing the reference patterns for the human mobility and the different KPIs.
 On the other hand, this enables a more realistic and nuanced understanding of the effects of “what-if” mobility and infrastructural changes at different times of the year.</p>
-<p>Four cities acre currently available for demonstration purposes in the platform: <strong>Copenaghen</strong> (Denmark), <strong>Bologna</strong> (Italy), <strong>Seville</strong> (Spain), and <strong>Aarhus</strong> (Denmark).
+<p>Four cities are currently available for demonstration purposes in the platform: <strong>Copenhagen</strong> (Denmark), <strong>Bologna</strong> (Italy), <strong>Seville</strong> (Spain), and <strong>Aarhus</strong> (Denmark).
 These cities were selected as first targets for their alignment with the project’s focus on sustainable mobility, air quality improvement, and urban innovation.
-In priciple all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.</p>
+In principle all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.</p>
 <p>The CITYNEXUS models have been trained using:</p>
 <ul class="simple">
 <li><p>High Frequency Location Based (HFLB) mobility data</p></li>
@@ -121,224 +129,335 @@ In priciple all cities participating in the EU Mission for 100 Climate-Neutral a
 </section>
 <section id="what-if-analysis-with-citynexus">
 <h2>What-If Analysis with CityNexus<a class="headerlink" href="#what-if-analysis-with-citynexus" title="Link to this heading"></a></h2>
-<p>CityNexus offers the capability of implementing “what if” analysis, where users are given the possibility to assess the effects of different types of interventions on the mobility patterns and all other targeted KPIs. Examples include:</p>
-<a class="reference internal image-reference" href="_images/citynexus_rendering_2.png"><img alt="alternate text" class="align-right" src="_images/citynexus_rendering_2.png" style="width: 539.6px; height: 308.0px;" /></a>
+<p>CityNexus offers the capability of implementing “what if” analysis, where users are given the possibility to assess the effects of different types of interventions on the mobility patterns and all other targeted KPIs. In this case, pre-defined scenarios are available for the cities, including:</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/F1_Citynexus_workflow.jpg"><img alt="CITYNEXUS framework" src="_images/F1_Citynexus_workflow.jpg" style="width: 750.0px; height: 322.8px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 1 - CITYNEXUS framework</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <ol class="arabic simple">
 <li><p><strong>High-speed Road Redesign</strong>: this scenario regards the potential transformation of high-speed road segments into tunnels and reclaiming the corresponding space for residential areas, green spaces, or recreational/leisure amenities. It reflects ongoing discussions in the City of Copenhagen but has also a general validity.</p></li>
 <li><p><strong>Electric, Low-Emission Vehicles, and Active Mobility Promotion</strong>: this scenario responds to the efforts to promote the adoption of electric and low-emission vehicles as well as of active mobility options as part of its sustainable transportation initiatives and climate-neutrality ambitions. This scenario responds an effort of the City of Copenhagen, but has also a general validity. To this purpose, CITYNEXUS enables users to customize the proportion of these vehicles and modes within the overall traffic fleet.</p></li>
 <li><p><strong>Low Emission Zones Creation</strong>: this scenario allows users to convert specific census units, neighborhoods or manually defined areas to LEZ (Low Emission Zones), where motorized circulation is prohibited or limited to specific classes of vehicles.</p></li>
 <li><p><strong>Road Speed Adjustment</strong>: this scenario reflects the impact of high traffic speed on air quality and environmental pollution. Accordingly, CITYNEXUS enables adjustments to speed limits for specific road segments or entire categories of roads.</p></li>
-<li><p><strong>Greener Streets</strong>: this scenario supports the effort of the city of Bologna in targeting a 40% reduction in traffic-related greenhouse gas emissions by 2030. CITYNEXUS enables the simulation of the effects of increased % of bicycles in the traffic fleet, conversion of streets into pedestrian zones and street speed reduction, to enforces a 30 km/h speed limit in residential areas to enhance safety and reduce emissions.</p></li>
+<li><p><strong>Greener Streets</strong>: this scenario supports the effort of the city of Bologna in targeting a 40% reduction in traffic-related greenhouse gas emissions by 2030. CITYNEXUS enables the simulation of the effects of increased % of bicycles in the traffic fleet, conversion of streets into pedestrian zones and street speed reduction, to enforce a 30 km/h speed limit in residential areas to enhance safety and reduce emissions.</p></li>
 <li><p><strong>Eco-mobility Campaign</strong>: this scenario combines the Low Emission Zone Creation scenario with the Active Mobility Promotion scenario to support the efforts of the city of Seville in increasing cycling’s modal share to nearly 6% of total urban mobility while contextually restricting high-emission vehicles in key areas to reduce pollution and enhance public health.</p></li>
 </ol>
-<p>The scenarios are defined for the what-if analysis by specifying:</p>
+<p>The scenarios are first defined by specifying:</p>
 <ul class="simple">
-<li><p>Road segment properties (to close or underground a street, or to limit the max speed allowed)</p></li>
-<li><p>Grid properties (to define the landuse and type of Points of Interest in an area)</p></li>
-<li><p>The percentage of bicycles and electric vehicle in circulation over the total number of vehicles</p></li>
-<li><p>The type of the day (weekday and/or weekend)</p></li>
-<li><p>A set of 3h timeslot(s)</p></li>
+<li><p>Road segment properties: including closing streets to traffic, converting streets into tunnels and limiting the allowed max speed.</p></li>
+<li><p>Hexagonal grid properties: including defining land use type and Points of Interest (POI) in an area.</p></li>
+<li><p>The percentage of bicycles and electric vehicles in circulation over the total number of vehicles.</p></li>
+<li><p>The type of the day: weekday or weekend.</p></li>
+<li><p>A set of 3-hour timeslots: three hours is the minimum simulation timeframe.</p></li>
 </ul>
-<p>For the selected parameters and timeslots CITYNEXUS provides estimations of:</p>
+<p>Once the scenario is defined, the what-if analysis can be performed. In this case, for the previously selected parameters and timeslots CITYNEXUS provides a simulation of:</p>
 <ul class="simple">
-<li><p>Pollutants Concentration: 5 different pollutants (CO2, CO, HC, NOx, PMx)</p></li>
-<li><p>Mobility Statistics: FuelAverage Fuel Consumption, Average Speed, Congestion, Traffic Induced Noise</p></li>
+<li><p>Pollutants Concentration: 5 different pollutants including CO2, CO, HC, NOx and PMx.</p></li>
+<li><p>Mobility Statistics: Fuel Consumption, Average Speed and Road Occupancy.</p></li>
+</ul>
+<p>Figure 1 shows an overview of the CITYNEXUS framework, for enabling simulations in the demonstration cities. The six pre-defined scenarios are available on the platform but also, the user can create new scenarios by adjusting parameters such as the road network, land use, and vehicle types. Using these conditions, the system will then simulate traffic flow, congestion points, and air quality allowing the user to explore different outcomes and results that can be analyzed through interactive maps and animations.</p>
+</section>
+<section id="workspace-management-user-interface">
+<h2>Workspace Management &amp; User Interface<a class="headerlink" href="#workspace-management-user-interface" title="Link to this heading"></a></h2>
+<p>To start interacting with the CITYNEXUS digital twin, the user has to register on the DestinE platform. However, it is also possible to access the platform as a guest user. The main difference is that guest users will have limited access to the platform’s features.</p>
+<p>Once logged in, the user is redirected to the Workspace Management &amp; User Interface (UI)</p>
+<p>The workspace hosts the scenarios and simulations for the four demonstration cities, for each city the user will find:</p>
+<ul class="simple">
+<li><p>The city baseline map: this is the baseline conditions for the city, without any intervention defined.</p></li>
+<li><p>Pre-defined scenarios for the what-if analysis (see section What-If Analysis with CITYNEXUS).</p></li>
+<li><p>Scenario’s Simulation results: model predictions for subsequent analysis and visual inspection.</p></li>
+</ul>
+<p>In the top left corner of the gallery a dropdown menu can be used to select the city of interest, filter scenarios and predictions accordingly. Several options are available for the user to interact with the data. The button “Load Scenario” allows to visualize the scenario properties and parameters to change. The button “Show Results” allows to view the simulation outcomes, or predictions. There is also the possibility to “Delete Scenario”, however this option is only available for scenarios created by the user.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/F2_ScenarioSelection.jpg"><img alt="Scenario Selection" src="_images/F2_ScenarioSelection.jpg" style="width: 550.5px; height: 321.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 2 - Scenario Selection</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>A “Reload” button is also available to reload the scenarios and predictions. If needed, this can be useful to update the processing status of pending simulations.</p>
+<p>The simulation results are displayed in a table shown by clicking on the “Show Results” button on a scenario. The table indicates the conditions defined for the simulation, such as whether it was set for specific hours or for the entire day, for weekdays or weekends, and the percentage of each vehicle type.</p>
+<p>Simulations results can be filtered to make it easier for the user to select the simulation they are interested in. The user can filter by timeslot, processing status, weekday or weekend.</p>
+<p>The table also allows the user to delete or download existing simulations.</p>
+<figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/F3_SimulationResults.jpg"><img alt="Simulation results" src="_images/F3_SimulationResults.jpg" style="width: 550.5px; height: 321.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 3 - Simulation results</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>When a simulation is selected, a window will pop up allowing the user to configure the visualization of the simulation. Here, the user can select which parameters they want to display. Each selected parameter will be displayed in its own visualization layer. The user can also select the dataset from which the chosen parameters will be visualized. This allows the user to view the same parameter for one or multiple scenarios. Once all parameters are selected, the user must click ‘Configure’ to load them onto the map.</p>
+<p>If the user wants to keep the default visualization settings, they can simply click ‘Cancel’ or close the window.</p>
+<figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/F4_SimulationSettings.png"><img alt="Simulation visualization settings" src="_images/F4_SimulationSettings.png" style="width: 401.79999999999995px; height: 442.4px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 4 - Simulation visualization settings</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>As mentioned in previous sections, the output of a simulation provides pollutants concentration and mobility statistics.</p>
+<p>The following pollutants are simulated (total production per road segment in a time slot of 3h):</p>
+<ul class="simple">
+<li><p>NO₂, Nitrogen dioxide (provided in grams and in micrograms per cubic meter, a mass concentration unit, often used by environmental protection agencies to set regulatory limits). NO₂ is a major air pollutant with significant implications for human health and the environment. It contributes to the formation of tropospheric ozone (smog), it is a precursor to acid rain and it plays a role in the formation of fine particulate matter (PM2.5).</p></li>
+<li><p>CO₂, Carbon dioxide (provided in grams), is a key greenhouse gas and a critical component of the carbon cycle. CO₂ traps heat in Earth’s atmosphere, contributing to global warming. Dissolved in water contributes to ocean acidification, lowering ocean pH and affecting marine life. It is a major driver for climate regulation.</p></li>
+<li><p>NOₓ, Nitrogen Oxides (provided in grams). NOₓ gases are formed mostly during high-temperature combustion processes, like those in engines, power plants, and industrial boilers. NOₓ have major environmental and health impact, contribute to ground-level ozone (smog) formation, they are precursor to fine particulate matter (PM2.5) and affect ecosystems and vegetation by nutrient overload (eutrophication).</p></li>
+<li><p>PMₓ, Particulate Matter (provide in grams), a crucial component in air pollution studies. PMₓ are linked to respiratory diseases, cardiovascular issues, and premature death. Major sources of PMₓ are: vehicle emissions, industrial activities, power plants (especially coal-fired) and constructions/demolitions.</p></li>
+<li><p>HC, Hydrocarbons (provided in grams), organic compounds made up of hydrogen (H) and carbon (C) atoms. They are typically found in fuels, oils, and many industrial chemicals. In the context of air quality and emissions, HCs generally refers to unburned or partially burned fuel components released into the air. Health and environmental impacts of HCs include the following: some HCs, such as benzene, are carcinogenic; they may exacerbate asthma and other respiratory conditions; they react with NOₓ in sunlight to form ozone (O₃); and they contribute to smog formation.</p></li>
+<li><p>CO, Carbon monoxide (provided in grams), a toxic gas for humans and animals. CO reduces oxygen delivery to organs and tissues, reacts in the atmosphere to form O₃ in the presence of NOₓ and sunlight and has an indirect impact on climate by affecting the atmospheric lifetime of methane and other greenhouse gases.</p></li>
+</ul>
+<p>Additionally, the following mobility related statistics are simulated, for vehicles occupying a road segment in a time slot (3h):</p>
+<ul class="simple">
+<li><p>Fuel consumption: in grams (sum) per road segment</p></li>
+<li><p>Traffic speed: average, in km/h</p></li>
+<li><p>Occupancy: in number of vehicles passing through or stationing.</p></li>
 </ul>
 </section>
-<section id="workspace-management">
-<h2>Workspace Management<a class="headerlink" href="#workspace-management" title="Link to this heading"></a></h2>
-<p>After the login, the user is redirected to the WorkSpace management GUI.</p>
-<p>The user works with maps of the 4 demosntration cities.</p>
-<p>These maps represents:</p>
-<ul class="simple">
-<li><p>The city baseline map (only these maps are available the first time a user logs in)</p></li>
-<li><p>Previosuly defined scenarios for the what-if analysis</p></li>
-<li><p>Scenario’s Simulation results (for the analysis).</p></li>
-</ul>
-<p>Upon accessing the UI, the user is prompted to select the data they want to visualise within the application.</p>
-<p>Available what-if scenarios are displayed in a grid layout with thumbnails showing what the map looks like (the screenshot uses placeholder images). The grid allows the user to load, delete or download existing scenarios.</p>
-<p>In the top left corner of the grid, a dropdown menu can be used to select the city of interest to the user and filter the predictions and scenarios accordingly. A reload button can also be clicked to reload the predictions and scenarios, if needed; this can be useful to update the processing status of pending simulations.</p>
-<figure class="align-center" id="id1">
-<a class="reference internal image-reference" href="_images/image007.png"><img alt="Scenario Selection" src="_images/image007.png" style="width: 722.5px; height: 420.0px;" /></a>
+<section id="simulations-visualization-interaction">
+<h2>Simulations Visualization &amp; Interaction<a class="headerlink" href="#simulations-visualization-interaction" title="Link to this heading"></a></h2>
+<p>The CITYNEXUS Digital Twin is hosted using the Kepler.gl environment. Kepler.gl is an open-source tool for visualizing large-scale geospatial data.
+It allows users to create interactive maps with multiple layers and temporal visualization animations. This documentation covers the basic features of Kepler.gl, but the user can find more detailed information here: <a class="reference external" href="https://docs.kepler.gl/docs/user-guides">https://docs.kepler.gl/docs/user-guides</a></p>
+<section id="basic-visualizations">
+<h3>Basic Visualizations<a class="headerlink" href="#basic-visualizations" title="Link to this heading"></a></h3>
+<p>In the previous section we explained how to open and configure the simulation visualization. Once the configuration step is completed, the user will see their selected simulation and layers, and can start interacting with the simulation results (Figure 5).</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/F5_BasicLayerVisualization.jpg"><img alt="Basic layer visualization" src="_images/F5_BasicLayerVisualization.jpg" style="width: 776.3px; height: 350.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Scenario Selection</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 5 - Basic layer visualization</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The model predictions are displayed in a table shown by clicking on the “Show Results” button on a scenario.</p>
-<p>Simulations can be sorted and filtered to make it easier for the user to select the simulation they are interested in.</p>
-<p>The table also allows the user to delete or download existing simulations.</p>
-<figure class="align-center" id="id2">
-<a class="reference internal image-reference" href="_images/image015.png"><img alt="Prediction selection" src="_images/image015.png" style="width: 722.5px; height: 420.0px;" /></a>
+<ol class="arabic simple">
+<li><p>The left-side panel is the main way to configure the visualization, filter and explore the data, load another simulation or scenario. To open a second or additional layer, the user must click “Configure” and select a new parameter. To switch scenarios, the user should click “Open” and select the desired one.</p></li>
+<li><p>Just below, the user will see each open scenario and associated layers identified by a colour. The user can either decide to show or hide layers by clicking on the “eye icon”. The arrow just next to it will display more options to change the color scale, width, transparency, etc.</p></li>
+<li><p>On the right-side panel, the user can open and pin the layer legend on the map, set a 3D view, and switch to a dual-map view for making comparisons between the data.</p></li>
+<li><p>By hovering the mouse over a layer, the layer’s attribute information will be displayed. Also, by clicking “Show more,” the user can view all available information for the road segments.</p></li>
+</ol>
+</section>
+<section id="applying-filters">
+<h3>Applying Filters<a class="headerlink" href="#applying-filters" title="Link to this heading"></a></h3>
+<p>It is possible to add to limit the data that is displayed. There are two pre-defined filters the user can explore:</p>
+<ol class="arabic simple">
+<li><p>Show only occupied roads: this filter will hide hides all roads with 0 occupancy (Figure 6).</p></li>
+<li><p>Show time scale: this will open the time window, which allows the user to scroll through the simulated time slots by increments of 3 hours.</p></li>
+</ol>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="_images/F6_Filter1.jpg"><img alt="Road filter" src="_images/F6_Filter1.jpg" style="width: 776.3px; height: 350.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Prediction selection</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 6 - Road filter</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>When you select a simulation, a window will pop up allowing the user to configure the visualization of the simulation: which parameters are of interest and of which dataset(s).</p>
-<p>Each selected parameter will be displayed in its own visualization layer.</p>
-<p>The user can also close the window or click on cancel to keep the default visualization configuration (only showing the no2 layer).</p>
-<figure class="align-center" id="id3">
-<a class="reference internal image-reference" href="_images/image016.png"><img alt="Configure simulation visualization" src="_images/image016.png" style="width: 401.79999999999995px; height: 442.4px;" /></a>
+<figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="_images/F7_Filter2.jpg"><img alt="Time scale filter" src="_images/F7_Filter2.jpg" style="width: 781.9px; height: 352.79999999999995px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Simulation Visulaziation Configuration</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 7 - Time scale filter</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
 </figcaption>
 </figure>
+<p>For making a dynamic visualization, the time playback button must cover at least 3h time slots. Then, the user just need to click on the “play” button to see the animation. It is also possible to adjust the speed of the animation with the “rocket button” (Figure 8).</p>
+<figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="_images/F8_Filter3.jpg"><img alt="Dynamic visualization settings" src="_images/F8_Filter3.jpg" style="width: 781.9px; height: 352.79999999999995px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 8 - Dynamic visualization settings</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="change-base-maps">
+<h3>Change Base Maps<a class="headerlink" href="#change-base-maps" title="Link to this heading"></a></h3>
+<p>The user can also customize the base map style. Options include: dark base map, light base map, voyager, etc.</p>
+<figure class="align-center" id="id9">
+<a class="reference internal image-reference" href="_images/F9_BaseMap.jpg"><img alt="Base map settings" src="_images/F9_BaseMap.jpg" style="width: 781.9px; height: 352.79999999999995px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 9 - Base map settings</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="dual-map-view">
+<h3>Dual Map View<a class="headerlink" href="#dual-map-view" title="Link to this heading"></a></h3>
+<p>In this section, an example is provided to show how to perform a visual comparison by displaying more than one layer at a time.</p>
+<ol class="arabic simple">
+<li><p>To do this, the user must first go to “Configure” and open the parameters they want to visualize. Then is necessary to make visible the layers they wish to compare by clicking the eye icon next to each layer (if they are not already activated).</p></li>
+<li><p>Then, the user needs to go to the top-right side of the screen and click the “Switch to dual map view” button. This will enable a side-by-side comparison, and here will be necessary to select which layer to display in each window. The user may display different layers for the same scenario or the same layer for different scenarios.</p></li>
+<li><p>At this point, the user can navigate the map and visually compare the values shown in each layer by hovering over the layers.</p></li>
+</ol>
+<figure class="align-center" id="id10">
+<a class="reference internal image-reference" href="_images/F10_DualMap.jpg"><img alt="Dual map settings" src="_images/F10_DualMap.jpg" style="width: 781.9px; height: 352.79999999999995px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 10 - Dual map settings</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id11">
+<a class="reference internal image-reference" href="_images/F11_DualMap2.jpg"><img alt="Dual map visualization" src="_images/F11_DualMap2.jpg" style="width: 781.9px; height: 352.79999999999995px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 11 - Dual map visualization</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
 </section>
 <section id="scenario-definition-simulation">
 <h2>Scenario Definition &amp; Simulation<a class="headerlink" href="#scenario-definition-simulation" title="Link to this heading"></a></h2>
+<p>Now that the user has a notion on how to interact with the data and display visualizations, this section explains how to create your own scenarios and simulations from scratch.</p>
+<section id="defining-a-scenario">
+<h3>Defining a scenario<a class="headerlink" href="#defining-a-scenario" title="Link to this heading"></a></h3>
 <p>When loading a scenario, the map is populated with the scenario’s grid and road data and provides the user with several features to interact with and visualize the data.</p>
 <p>Maps consist of road segments and grid hexagons. Each segment or tile contains several parameters that describe the element. Parameter values can be changed and/or selected to define new simulation scenarios.</p>
-<p>Figure below describes the main UI components shown to the user when loading a scenario:</p>
-<ol class="arabic simple">
-<li><p>The side panel, with the layers tab shown by default, is the main way to configure the visualization, filter and explore the data, load another prediction or scenario…</p></li>
-<li><p>The horizontal button toolbar allows the user to control their modifications to the loaded scenario, starting a simulation, saving or downloading their changes…</p></li>
-<li><p>The vertical button toolbar has several useful functionalities, such as splitting the visualisation into side-by-side visualisation, changing the 3D perspective, multiselecting roads or grid hexagons, showing the legend…</p></li>
-<li><p>By default, the colours are chosen as follows: purple for roads, green for the grid and orange for road or grid elements that have been modified by the user.</p></li>
-</ol>
-<figure class="align-center" id="id4">
-<a class="reference internal image-reference" href="_images/image008.png"><img alt="Scenario visualization" src="_images/image008.png" style="width: 960.0px; height: 499.0px;" /></a>
+<p>Figure 12 below describes the main UI components shown to the user when loading a scenario:</p>
+<figure class="align-center" id="id12">
+<a class="reference internal image-reference" href="_images/F12_ScenarioVisualisation.png"><img alt="Scenario visualization" src="_images/F12_ScenarioVisualisation.png" style="width: 960.0px; height: 499.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Scenario Visualization</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 12 - Scenario visualization and definition</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The figure below shows the interaction possibilities with the map itself to define a scenario:</p>
+<ol class="arabic simple">
+<li><p>The left-side panel, with the layers tab shown by default, is the main way to configure the visualization, filter and explore the data, load another prediction or scenario.</p></li>
+<li><p>The buttons on the top of the screen allows the user to control their modifications to the loaded scenario, starting a simulation, saving or downloading their changes.</p></li>
+<li><p>The right-side panel toolbar has several useful functionalities, such as splitting the visualization into dual map view, changing the 3D perspective, selecting multiple roads or grid hexagons by drawing a polygon, and showing the legend.</p></li>
+<li><p>By default, the colours are chosen as follows: purple for roads, green for the grid and orange for road or grid elements that have been modified by the user.</p></li>
+</ol>
+<p>Figure 13 below shows the interaction possibilities with the map itself to define a scenario:</p>
 <ol class="arabic simple">
 <li><p>Hovering over or clicking on a road or grid element opens a window summarising the parameters of the specific element, along with their units.</p></li>
 <li><p>The user has the possibility to edit the values of the parameter.</p></li>
-<li><p>Only five parameters are shown by default. Clicking the Show More button will show the remaining parameters.</p></li>
+<li><p>Only five parameters are shown by default. Clicking the “Show More” button will show the remaining parameters.</p></li>
 </ol>
-<figure class="align-center" id="id5">
-<a class="reference internal image-reference" href="_images/image009.png"><img alt="Scenario Modification" src="_images/image009.png" style="width: 649.0px; height: 425.5px;" /></a>
+<figure class="align-center" id="id13">
+<a class="reference internal image-reference" href="_images/F13_ScenarioDefinition.png"><img alt="Scenario definition" src="_images/F13_ScenarioDefinition.png" style="width: 649.0px; height: 425.5px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Scenario Definition</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 13 - Scenario definition</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The multiselection feature shown below allows the user to select all road or grid elements in an area:</p>
+<p>The user can also make multiple changes in an area using the multi-selection button on the right panel. The multi-selection feature shown in Figure 14 allows the user to select all road or grid elements in an area to define the conditions of the scenario (e.g change type of land use):</p>
 <ol class="arabic simple">
-<li><p>The area is a user-defined rectangle or polygon.</p></li>
-<li><p>The elements covered by the selection are highlighted.</p></li>
+<li><p>The user can define an area is a user using a rectangle or polygon.</p></li>
+<li><p>The elements covered by the selection will be highlighted.</p></li>
 <li><p>Modifying the values of parameters will modify all the elements in the area.</p></li>
 <li><p>The selection always covers only the road segments or the grid hexagons and can be toggled between both.</p></li>
 </ol>
-<figure class="align-center" id="id6">
-<a class="reference internal image-reference" href="_images/image010.png"><img alt="Grid Tile Multiselection and Modifiable Properties" src="_images/image010.png" style="width: 597.0px; height: 394.0px;" /></a>
+<figure class="align-center" id="id14">
+<a class="reference internal image-reference" href="_images/F14_GridMultiSelect.png"><img alt="Grid Tile Multiselection and Modifiable Properties" src="_images/F14_GridMultiSelect.png" style="width: 597.0px; height: 394.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Grid Tile Multiselection and Properties</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 14 - Grid tile multi-selection and properties</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Road multiselection is particular in that the selection and modifications can be further refined to only target roads of a specific type (e.g. motorway or residential roads).</p>
-<p>The following properties can be edited in road segments:</p>
-<ul class="simple">
-<li><p>Closed (Boolean). This flag specifies whether the road is closed (T) or open (F)</p></li>
-<li><p>Underground (Boolean). This flag specifies whether the road segment is tunnelled (T) or not (F)</p></li>
-<li><p>Speed (Integer). This value defines the maximum speed allowed on the road segment.</p></li>
-</ul>
-<figure class="align-center" id="id7">
-<a class="reference internal image-reference" href="_images/image011.png"><img alt="Road Segment Modifiable Properties, Multiselection and Road Type Selection" src="_images/image011.png" style="width: 539.0px; height: 390.0px;" /></a>
+<p>The grid tiles consists of 100x100m hexagons, each tile describes the POIs in that area and the type of land use. The following properties can be edited in zone tiles:
+•       Land use: Defines the ratio of the area covered by 4 types of land use: Residential, Commercial, Agricultural and Industrial.
+•       Points of interest: Defines the number of POIs in the area. Types of POIs are Food, Fun, Health, Infrastructure, School, Services, Shop, Sport, and Tourism.</p>
+<p>For road multi-selection, modifications can be further refined to only target roads of a specific type (e.g. motorway or residential roads).
+The following properties can be edited in road segments for defining the scenario:
+•       Closed: This flag specifies whether the road is closed or open.
+•       Underground:  This flag specifies whether the road segment is tunneled or not.
+•       Speed: This value defines the maximum speed allowed on the road segment.</p>
+<figure class="align-center" id="id15">
+<a class="reference internal image-reference" href="_images/F15_RoadSegment.png"><img alt="Road segment modifiable properties" src="_images/F15_RoadSegment.png" style="width: 539.0px; height: 390.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Road Segment Modifiable Properties, Multiselection and Road Type Selection</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 15 - Road segment modifiable properties</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The grid consists of 100x100m hexagons, each tile describing the Points of Interest in that area and the type of land usage (residential, commercial and others).</p>
-<p>The following properties can be edited in zone tiles:</p>
-<ul class="simple">
-<li><p>Landuse. Defines the ratio of the area covered by 4 types of land usage: Residential, Commercial, Agricultural and Industrial</p></li>
-<li><p>Points of interest. Defines the number of points of interest in the area. Types of POIs are Food, Fun, Health, Infrastructure, School, Services, Shop, Sport, Tourism.</p></li>
-</ul>
-<p>While editing their scenario, the user is given control of the changes they make with several functionalities available in a button toolbar. A different set of functionalities is offered depending on the user’s account status (logged-in or not).</p>
+<p>After editing the scenario, the user is offered different set of functionalities, depending on the user’s account status (registered or not).</p>
 <p>Guest users have access to:</p>
 <ul class="simple">
 <li><p>Undo and redo changes to the map</p></li>
 <li><p>Download a summary of the changes made to the map</p></li>
 </ul>
-<p>Logged-in users have access to the same functionalities as guests, they can also:</p>
+<p>Logged-in users have access to the same functionalities as guests, but they can also:</p>
 <ul class="simple">
 <li><p>Configure and start simulations</p></li>
-<li><p>Save their changes so they can be persisted and accessed later</p></li>
+<li><p>Save scenarios and simulation changes so they can be accessed later</p></li>
 </ul>
-<figure class="align-center" id="id8">
-<a class="reference internal image-reference" href="_images/image012.png"><img alt="Toolbar for guest user" src="_images/image012.png" style="width: 310.5px; height: 69.0px;" /></a>
+<figure class="align-center" id="id16">
+<a class="reference internal image-reference" href="_images/F16_ToolbarGuest.png"><img alt="Toolbar for guest user" src="_images/F16_ToolbarGuest.png" style="width: 310.5px; height: 69.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Toolbar (guest user)</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 16 - Toolbar for guest user</span><a class="headerlink" href="#id16" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id9">
-<a class="reference internal image-reference" href="_images/image013.png"><img alt="Toolbar for logged-in user" src="_images/image013.png" style="width: 499.0px; height: 125.0px;" /></a>
+<figure class="align-center" id="id17">
+<a class="reference internal image-reference" href="_images/F17_ToolbarRegistered.png"><img alt="Toolbar for logged-in user" src="_images/F17_ToolbarRegistered.png" style="width: 499.0px; height: 125.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Toolbar (registered user)</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 17 - Toolbar for registered user</span><a class="headerlink" href="#id17" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>Changes to grid tile and road segment parameters along with scenario simulation meta-parameters have effects on the simulated mobility and traffic patterns. A scenario simulation is run by specifying:</p>
+</section>
+<section id="starting-a-new-simulation">
+<h3>Starting a new simulation<a class="headerlink" href="#starting-a-new-simulation" title="Link to this heading"></a></h3>
+<p>Changes to grid tile and road segment conditions along with scenario simulation parameters will have effects on the simulated air quality and mobility a patterns. For running a scenario simulation the user needs to previously specify:</p>
 <ul class="simple">
 <li><p>the percentage of bicycles in circulation over the total number of vehicles</p></li>
 <li><p>the percentage of electric cars in circulation over the total number of vehicles</p></li>
 <li><p>the type of the day (weekday and/or weekend)</p></li>
-<li><p>3h timeslot(s)</p></li>
+<li><p>the time frame where the simulation will run, defined by 3h time slots</p></li>
 </ul>
-<figure class="align-center" id="id10">
-<a class="reference internal image-reference" href="_images/image014.png"><img alt="Start new simulation" src="_images/image014.png" style="width: 458.40000000000003px; height: 484.8px;" /></a>
+<figure class="align-center" id="id18">
+<a class="reference internal image-reference" href="_images/F18_ConfigureNewSim.png"><img alt="Configuration of a New Simulation" src="_images/F18_ConfigureNewSim.png" style="width: 286.5px; height: 303.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">New Simulation</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 18 - Configuration of a New Simulation</span><a class="headerlink" href="#id18" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The output of a simulation provides pollutants concentration and traffic statistics.</p>
-<p>The following pollutants are simulated (total production per road segment in a time slot of 3h):</p>
-<ul class="simple">
-<li><p>NO₂, Nitrogen dioxide (provided in Grams and in Micrograms per cubic meter, a mass concentration unit, often used by environmental protection agencies to set regulatory limits). NO₂ is a major air pollutant with significant implications for human health and the environment. It contributes to the formation of tropospheric ozone (smog), it is a precursor to acid rain and it plays a role in the formation of fine particulate matter (PM2.5)</p></li>
-<li><p>CO₂, Carbon dioxide, a key greenhouse gas and a critical component of the carbon cycle (provided in Grams). CO₂ traps heat in Earth’s atmosphere, contributing to global warming. Dissolved in water contributes to ocean acidification, lowering ocean pH and affecting marine life. It is a major driver for climate regulation.</p></li>
-<li><p>NOₓ, Nitrogen Oxides (provided in Grams). NOₓ gases are formed mostly during high-temperature combustion processes, like those in engines, power plants, and industrial boilers.  NOₓ have major environmental and health impact, contribute to ground-level ozone (smog) formation, they are precursor to fine particulate matter (PM2.5) and affect ecosystems and vegetation by nutrient overload (eutrophication).</p></li>
-<li><p>PMₓ, Particulate Matter (provide in Grams), a crucial component in air pollution studies. PMₓ are linked to respiratory diseases, cardiovascular issues, and premature death. Major surces of PMₓ are: vehicle emissions, industrial activities, power plants (especially coal-fired) and constructions/demolitions.</p></li>
-<li><p>HC, Hydrocarbons (provided in Grams), organic compounds made up of hydrogen (H) and carbon (C) atoms. They are typically found in fuels, oils, and many industrial chemicals. In the context of air quality and emissions, HC generally refers to unburned or partially burned fuel components released into the air. Health and Environmental Impact of HC includes: some HC (like benzene) are carcinogenic, may exacerbate asthma and other respiratory conditions, react with NOₓ in sunlight to form ozone (O₃), contribute to smog formation.</p></li>
-<li><p>CO, Carbon monoxide, a gas toxic to humans and animals. CO reduces oxygen delivery to organs and tissues, reacts in the atmosphere to form ozone (O₃) in the presence of NOₓ and sunlight and has an indirect impact on climate by affecting the atmospheric lifetime of methane and other greenhouse gases.</p></li>
-</ul>
-<p>The foloowing traffic related statistics are simulated, for vehicles occupying a road segment in a time slot (3h):</p>
-<ul class="simple">
-<li><p>Fuel Consumption, in Grams</p></li>
-<li><p>Traffic Speed, average, in km/h</p></li>
-<li><p>Occupation, in number of vehicles passign throug or stationing</p></li>
-</ul>
+<p>Once all the parameters are set, the user can press “Start Simulation”. The simulation will run in the background and it also will be saved in the user workspace (Figure 19). The user can check the status of the simulation (PENDING, DONE or ERROR) by displaying the Results table on the workspace. To display the simulation results, the user needs to click on the table.</p>
+<figure class="align-center" id="id19">
+<a class="reference internal image-reference" href="_images/F19_SimulationResults.jpg"><img alt="Results and status of a Simulation" src="_images/F19_SimulationResults.jpg" style="width: 387.0px; height: 241.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 19 - Results and status of a Simulation</span><a class="headerlink" href="#id19" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 <p>Simulations are saved in the user workspace when available. Simulation in Figure 12 for instance shows forecast NO2 pollution values, calculated at a time slot around 03:00 on a weekend.</p>
-<p>In this demonstration version, only 1 simulation per user per city is allowed in parallel. Simulations on different cities can be run in parallel, up to a maximum of 8 parallel simulations. A message informs when this limit is exceeded, in this case the simulation has to be started later when the system is less overloaded.</p>
+<p>In this demonstration version, only one simulation per user per city is allowed to run in parallel. Simulations on different cities can be run in parallel, up to a maximum of 8 parallel simulations. A message informs when this limit is exceeded, in this case the simulation has to be started later when the system is less overloaded.</p>
+</section>
 </section>
 <section id="analysis-visualization">
 <h2>Analysis &amp; Visualization<a class="headerlink" href="#analysis-visualization" title="Link to this heading"></a></h2>
 <p>Once that a simulation is loaded, the user has several options at their disposal to further configure, explore or modify the visualization:</p>
 <ol class="arabic simple">
 <li><p>Open: Load additional simulation visualizations (up to 3) or load a scenario visualization. Loading a scenario removes all loaded simulations.</p></li>
-<li><p>Configure: Show the Configure Visualization window, to select the visualized parameters and datasets.</p></li>
+<li><p>Configure: Show the Configure Visualization window, to select the parameters to visualize and in which datasets.</p></li>
 <li><p>Configure the visualized layers/parameters: show and hide layers, configure the colour scale, etc.</p></li>
 <li><p>Activate the split functionality with the ”Dual map view” button in the vertical button bar. The user can select which layer is shown on which side.</p></li>
 <li><p>Open the legend for the loaded layers.</p></li>
 <li><p>View parameter values for individual road segments or grid tiles by hovering over or clicking on them.</p></li>
 </ol>
-<figure class="align-center" id="id11">
-<a class="reference internal image-reference" href="_images/image017.png"><img alt="Simulation Visualization" src="_images/image017.png" style="width: 1035.0px; height: 636.0px;" /></a>
+<figure class="align-center" id="id20">
+<a class="reference internal image-reference" href="_images/F20_ComparativeAnalysis.png"><img alt="Comparative Analysis" src="_images/F20_ComparativeAnalysis.png" style="width: 1035.0px; height: 636.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Comparative Analysis</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 20 - Comparative Analysis</span><a class="headerlink" href="#id20" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<p>The side panel’s Filter tab shown below above provides additional tools to help the user analyse the data created by the mobility model:</p>
-<ol class="arabic simple">
-<li><p>Clicking on the Filter icon in the side panel opens the Filters tab. There the user can either create a custom filter or toggle pre-defined filters on and off.</p></li>
-<li><p>“Show only occupied roads” hides all roads with 0 occupancy.</p></li>
-<li><p>“Show time scale” opens the time window.</p></li>
-<li><p>The time window allows the user to scroll through the simulated time slots by increments of 3 hours. In the screenshot, the simulation was generated for all time slots. This feature also allows animated data visualziation.</p></li>
-</ol>
-<figure class="align-center" id="id12">
-<a class="reference internal image-reference" href="_images/image018.png"><img alt="Simulation Output Example" src="_images/image018.png" style="width: 960.0px; height: 499.0px;" /></a>
+<p>For example, Figure 20 shows a comparison between CO2 and NO2 for the baseline scenario in Copenhagen. Since there are several layers open, the user might scroll down through the legend to check the values for each layer. There is also the possibility to hover over the layers to see additional information. The user can display another scenario for comparison, and therefore explore the same layer under different simulations and urban contexts (e.g. compare CO2 levels in a baseline scenario vs high-speed road redesign).</p>
+<p>Additionally, it is possible to use the Filter tool to create dynamic animations as explained in figures previously in section 5.2. In this case, an example is shown of the parameters that can be set to create an animation of Road Occupancy. First, the user can activate the filter to only show the streets that are being occupied, therefore in hours with less traffic some streets will disappear of the map as there are no vehicles passing by. Then, using the time scale filter, the user can set the timeframes to be visualized in the animation. To ensure a smooth and continuous animation, it is recommended to set the playback button to cover a minimum timeframe of 3 hours (Figure 21).</p>
+<p>The user can expect to obtain results similar to those shown in figures 22 and 23. However, the reviewed settings can also be easily adjusted depending on what the user wants to explore or visualize.</p>
+<figure class="align-center" id="id21">
+<a class="reference internal image-reference" href="_images/F21_Filter_example.jpg"><img alt="Example of filter settings for Road Occupancy animation" src="_images/F21_Filter_example.jpg" style="width: 386.5px; height: 179.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">Simulation Output Example</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 21 - Example of filter settings for Road Occupancy animation</span><a class="headerlink" href="#id21" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id13">
-<a class="reference internal image-reference" href="_images/sim1.gif"><img alt="24h Road Occupancy Simulation" src="_images/sim1.gif" style="width: 485.0px; height: 485.0px;" /></a>
+<figure class="align-center" id="id22">
+<a class="reference internal image-reference" href="_images/F22_24h_Occupancy.gif"><img alt="Figure 22 - 24h Road Occupancy Simulation" src="_images/F22_24h_Occupancy.gif" style="width: 485.0px; height: 485.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">24h Road Occupancy Simulation</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 22 - 24h Road Occupancy Simulation</span><a class="headerlink" href="#id22" title="Link to this image"></a></p>
 </figcaption>
 </figure>
-<figure class="align-center" id="id14">
-<a class="reference internal image-reference" href="_images/sim2.gif"><img alt="24h No2 Concentration Simulation" src="_images/sim2.gif" style="width: 443.0px; height: 443.0px;" /></a>
+<figure class="align-center" id="id23">
+<a class="reference internal image-reference" href="_images/F23_24h_NO2.gif"><img alt="24h No2 Concentration Simulation" src="_images/F23_24h_NO2.gif" style="width: 443.0px; height: 443.0px;" />
+</a>
 <figcaption>
-<p><span class="caption-text">24h No2 Concentration Simulation</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
+<p><span class="caption-text">Figure 23 - 24h NO2 Concentration Simulation</span><a class="headerlink" href="#id23" title="Link to this image"></a></p>
 </figcaption>
 </figure>
 </section>
