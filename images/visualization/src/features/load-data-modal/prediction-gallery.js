@@ -131,7 +131,7 @@ function SortableFilterableTable({predictionMaps, onLoadPrediction, onLoadXai, s
             if (scenarioId !== item.scenarioId) return false;
             if (!dayTypeFilter.weekday && item.dayType === 'weekday') return false;
             if (!dayTypeFilter.weekend && item.dayType === 'weekend') return false;
-            if (timeSlotFilter.length > 0 && !timeSlotFilter.includes(item.timeSlot)) return false;
+            if (timeSlotFilter.length > 0 && !item.timeSlot.some(timeSlot => timeSlotFilter.includes(`${timeSlot}`))) return false;
             if (processingStatusFilter.length > 0 && !processingStatusFilter.includes(item.processingStatus)) return false;
             return true;
         }).sort((a, b) => {

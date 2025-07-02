@@ -61,8 +61,7 @@ export const EntryInfoRow = ({item, fields, data, primaryData, compareType, isMu
         state.demo.undoRedo?.changes?.original?.mobility_model_input?.[layerName]?.[itemId]?.[item.name]
     );
 
-    // Memoize delta value
-    const displayDeltaValue = useMemo(() => {
+    function getDisplayDeltaValue() {
         if ((layerName === 'road_network' || layerName === 'grid') && !isMultiSelect) {
             const changedIdx = fields.findIndex(f => f.name === 'changed');
             const isChanged = data.valueAt(changedIdx);
@@ -77,7 +76,9 @@ export const EntryInfoRow = ({item, fields, data, primaryData, compareType, isMu
             }
         }
         return null;
-    }, [layerName, isMultiSelect, data, fields, field, fieldIdx, originalValue, compareType]);
+    }
+
+    const displayDeltaValue = getDisplayDeltaValue();
 
     return (
         <Row

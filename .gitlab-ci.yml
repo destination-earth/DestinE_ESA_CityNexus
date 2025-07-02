@@ -4,12 +4,12 @@ include:
     file: 'desp-devsecops.yml'
 
 variables:
-  BACKEND_IMAGE: "citynexus/backend:0.0.38"
-  MOBILITY_API_IMAGE_CPH: "citynexus/mobility-model-api:0.0.9-cph"
-  MOBILITY_API_IMAGE_SVQ: "citynexus/mobility-model-api:0.0.9-svq"
-  MOBILITY_API_IMAGE_AAR: "citynexus/mobility-model-api:0.0.9-aar"
-  MOBILITY_API_IMAGE_BLQ: "citynexus/mobility-model-api:0.0.6-blq"
-  FRONTEND_IMAGE: "citynexus/frontend:0.0.60"
+  BACKEND_IMAGE: "citynexus/backend:0.0.46"
+  MOBILITY_API_IMAGE_CPH: "citynexus/mobility-model-api:0.0.10-cph"
+  MOBILITY_API_IMAGE_SVQ: "citynexus/mobility-model-api:0.0.10-svq"
+  MOBILITY_API_IMAGE_AAR: "citynexus/mobility-model-api:0.0.10-aar"
+  MOBILITY_API_IMAGE_BLQ: "citynexus/mobility-model-api:0.0.10-blq"
+  FRONTEND_IMAGE: "citynexus/frontend:0.0.69"
   KEYCLOAK_SERVER: $KEYCLOAK_SERVER_IVV
   BASE_URL: $BASE_URL_IVV
   BACKEND_API_ENDPOINT: $BACKEND_API_ENDPOINT_IVV

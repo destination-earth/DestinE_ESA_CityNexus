@@ -72,22 +72,22 @@ const SimulationParametersValidation = {
 }
 
 export const SimulationDataValidation = {
-    agricultural_landuse: { min: 0.0, max: 240000.0 },
-    commercial_landuse: { min: 0.0, max: 272000.0 },
-    industrial_landuse: { min: 0.0, max: 363000.0 },
-    natural_landuse: { min: 0.0, max: 320000.0 },
-    residential_landuse: { min: 0.0, max: 542000.0 },
-    food_pois: { min: 0, max: 64 },
-    fun_pois: { min: 0, max: 58 },
-    health_pois: { min: 0, max: 7 },
-    infrastructure_pois: { min: 0, max: 418 },
-    school_pois: { min: 0, max: 6 },
-    services_pois: { min: 0, max: 28 },
-    shop_pois: { min: 0, max: 108 },
-    sport_pois: { min: 0, max: 23 },
-    tourism_pois: { min: 0, max: 55 },
-    static_population: { min: 0, max: 2101 },
-    speed: { min: 5, max: 110 }
+    agricultural_landuse: { type: 'float', min: 0.0, max: 240000.0 },
+    commercial_landuse: { type: 'float', min: 0.0, max: 272000.0 },
+    industrial_landuse: { type: 'float', min: 0.0, max: 363000.0 },
+    natural_landuse: { type: 'float', min: 0.0, max: 320000.0 },
+    residential_landuse: { type: 'float', min: 0.0, max: 542000.0 },
+    food_pois: { type: 'int', min: 0, max: 64 },
+    fun_pois: { type: 'int', min: 0, max: 58 },
+    health_pois: { type: 'int', min: 0, max: 7 },
+    infrastructure_pois: { type: 'int', min: 0, max: 418 },
+    school_pois: { type: 'int', min: 0, max: 6 },
+    services_pois: { type: 'int', min: 0, max: 28 },
+    shop_pois: { type: 'int', min: 0, max: 108 },
+    sport_pois: { type: 'int', min: 0, max: 23 },
+    tourism_pois: { type: 'int', min: 0, max: 55 },
+    static_population: { type: 'int', min: 0, max: 2101 },
+    speed: { type: 'int', min: 5, max: 110 }
 }
 
 export const SimulationConfigModal = (props: any) => {
@@ -128,6 +128,18 @@ export const SimulationConfigModal = (props: any) => {
 
     const onSubmit: SubmitHandler<SimulationParameters> = async (data: SimulationParameters) => {
         try {
+            if ((Number(data.bicyclePercentage) + Number(data.eVehiclePercentage)) > 1) {
+                setError("bicyclePercentage", {
+                    type: "manual",
+                    message: "The sum of bicycle and e-vehicle percentages must not exceed 1."
+                });
+                setError("eVehiclePercentage", {
+                    type: "manual",
+                    message: "The sum of bicycle and e-vehicle percentages must not exceed 1."
+                });
+                setIsCheckingName(false);
+                return;
+            }
             const simulationInputs = SimulationInputsFactory.build(visState, data, isProjectImmerseon, showExplanation);
             setIsCheckingName(true);
             const isNameUsed = await dispatch(isPredictionNameUsed({name: data.name, scenarioId})).unwrap();

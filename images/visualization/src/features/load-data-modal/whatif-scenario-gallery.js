@@ -5,7 +5,7 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {format} from 'd3-format';
-import {LoadingDialog} from '@kepler.gl/components';
+import {LoadingDialog, Modal} from '@kepler.gl/components';
 import {FormattedMessage} from 'react-intl';
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -22,6 +22,7 @@ import {
 import PredictionScenarioGallery from "./prediction-gallery";
 import {DATA_URL} from "../../constants/default-settings";
 import {DownloadScenarioButton} from "../simulations/components/buttons/DownloadScenarioButton";
+import {clearHoverAndClicked} from "../../actions";
 
 const numFormat = format(',');
 
@@ -67,13 +68,6 @@ const StyledSampleMap = styled.div`
     font-weight: 400;
     line-height: 24px;
   }
-
-  :hover {
-    .sample-map__image__caption {
-      opacity: 0.8;
-      transition: opacity 0.4s ease;
-    }
-  }
 `;
 
 const StyledTableRow = styled.div`
@@ -87,7 +81,7 @@ const StyledImageCaption = styled.div`
   font-weight: 400;
   line-height: 16px;
   margin-top: 10px;
-  opacity: 0;
+  opacity: 0.8;
 `;
 
 const StyledError = styled.div`
@@ -154,6 +148,7 @@ const WhatIfScenarioGallery = ({
   const [showTable, setShowTable] = useState(null);
   const [hoveredCell, setHoveredCell] = useState(null);
   const [refresh, setRefresh] = useState(null);
+  const [showTutorial, setShowTutorial] = useState(false);
   const availableCities = useSelector(selectAvailableCities);
   const selectedCityType = useSelector(selectSelectedCityType);
   const [selectedCityIndex, setSelectedCityIndex] = useState(selectedCityType);
@@ -162,6 +157,8 @@ const WhatIfScenarioGallery = ({
   const selectedProjectNameFormatted = useSelector(selectSelectedProjectTypeFormattedString);
   const isProjectImmerseon = useSelector(selectIsProjectImmerseon);
   const dispatch = useDispatch();
+
+  dispatch(clearHoverAndClicked());
 
   useEffect(() => {
     dispatch(setAvailableCities([...new Set(sampleMaps.map(s => s?.city).filter(Boolean))]));
@@ -257,9 +254,21 @@ const WhatIfScenarioGallery = ({
                     ))}
                   </select>}
                   <button onClick={() => setRefresh(true)}>Reload</button>
-                </UtilityButtons>
-              </div>
+                  <button style={{backgroundColor: '#c8c8c8'}} onClick={() => setShowTutorial(true)}>Quick Help</button>
+              </UtilityButtons>
+        </div>
             </StyledSampleMap>
+            <Modal
+              isOpen={showTutorial}
+              onCancel={() => setShowTutorial(false)}
+              cssStyle={{maxWidth: '95vw', maxHeight: '90vh', padding: '20px', top: '5vh'}}
+            >
+              <img
+                src="desp/assets/tutorial.png"
+                alt="Tutorial"
+                style={{maxWidth: '100%', maxHeight: '100%'}}
+              />
+            </Modal>
             {sampleMaps // only select the scenarios that belong to the selected city or, if the selected project is immerseon, all immerseon scenarios
                 .filter(sp => sp.visible && (sp.city === selectedCityName || (isProjectImmerseon && sp.project === 'immerseon')))
                 .map((sp, index) => {
@@ -294,9 +303,11 @@ const WhatIfScenarioGallery = ({
                                   values={{rowCount: numFormat(sp.size)}}
                               /> : <span>{numFormat(sp.size)} changes</span>}
                             </div>
-                            <StyledImageCaption className="sample-map__image__caption">
-                              {sp.description}
-                            </StyledImageCaption>
+                            {(isHovered || isTableShown) && (
+                              <StyledImageCaption className="sample-map__image__caption">
+                                {sp.description}
+                              </StyledImageCaption>
+                            )}
                             {isHovered && <SampleMapButtons className="sample-map__buttons">
                               <button onClick={() => handleDelete(sp.id)}
                                       disabled={isDefaultScenarioId || isCurrentScenarioId}

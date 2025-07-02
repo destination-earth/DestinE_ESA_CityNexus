@@ -117,7 +117,7 @@
             "colorScale": "quantile",
             "strokeColorField": {
               "name": "no2",
-              "type": "integer"
+              "type": "float"
             },
             "strokeColorScale": "quantile",
             "sizeField": null,

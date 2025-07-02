@@ -1,0 +1,34 @@
+{
+  "service_tag": "citynexus",
+  "monitoring": {
+    "enabled": "False",
+    "url": "",
+    "api_key": "",
+    "verify_certs": "",
+    "index": ""
+  },
+  "auth": {
+    "iam_url": "",
+    "auth_url": {
+      "client_id": "",
+      "client_secret": "",
+      "redirect_uri": "",
+      "scope": "",
+      "response_type": "code"
+    },
+    "login": {
+      "username": "",
+      "password": "",
+      "allow_redirects": "False"
+    },
+    "token": {
+      "client_id": "",
+      "client_secret": "",
+      "redirect_uri": "",
+      "grant_type": "authorization_code",
+      "scope": ""
+    }
+  },
+  "log_file": "./outbox/kpi_suite_citynexus.log",
+  "other_parameters": "..."
+}

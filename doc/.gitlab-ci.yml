@@ -1,0 +1,19 @@
+include:
+  - project: $DEVSECOPS_TEMPLATES_REPOSITORY
+    ref: $DEVSECOPS_TEMPLATES_REF
+    file: 'desp-devsecops.yml'
+
+variables:
+    LOCAL_HTML_DIR: "build/html/"
+    LOCAL_SWAGGER_DIR: "api/"
+    PORTAL_BUCKET_URL: "desp-dev-portal.s3.gra.io.cloud.ovh.net"
+    DESP_DEV_S3_SERVER_URL: "s3.gra.io.cloud.ovh.net"
+    SERVICE_NAME: "citynexus"
+
+copy-documentations-to-s3:
+    stage: build
+    script:
+        - s3cmd --host-bucket=$PORTAL_BUCKET_URL --host=$DESP_DEV_S3_SERVER_URL --access_key=$DESP_DEV_S3_ACCESS_KEY --secret_key=$DESP_DEV_S3_SECRET_KEY sync $LOCAL_HTML_DIR s3://desp-dev-portal/$SERVICE_NAME/doc/
+        - s3cmd --host-bucket=$PORTAL_BUCKET_URL --host=$DESP_DEV_S3_SERVER_URL --access_key=$DESP_DEV_S3_ACCESS_KEY --secret_key=$DESP_DEV_S3_SECRET_KEY sync $LOCAL_SWAGGER_DIR s3://desp-dev-portal/$SERVICE_NAME/api/
+    tags:
+    - s3cmd

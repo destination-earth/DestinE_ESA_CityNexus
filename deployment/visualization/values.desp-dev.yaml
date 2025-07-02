@@ -1,6 +1,6 @@
 image:
   repository: registry-ct.dev.desp.space/citynexus/frontend
-  tag: 0.0.57
+  tag: 0.0.63
   imagePullSecrets:
     - name: harbor-image-pull
 

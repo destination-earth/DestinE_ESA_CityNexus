@@ -1,6 +1,6 @@
 image:
   repository: registry-ct.ivv.desp.space/citynexus/backend
-  tag: 0.0.38
+  tag: 0.0.46
   imagePullSecrets:
     - name: harbor-image-pull
 affinity:

@@ -5,7 +5,6 @@ import {Icons} from "@kepler.gl/components";
 import styled from "styled-components";
 import classnames from "classnames";
 import React from 'react';
-import {USER_GUIDE_DOC} from "@kepler.gl/constants";
 import {PanelAction} from "./PanelAction";
 import {LoginPanelAction} from "../../features/user/LoginPanelAction";
 import LogoWrapper from "./LogoWrapper";
@@ -46,7 +45,7 @@ export function PanelHeader() {
         }, {
             id: 'docs',
             iconComponent: Icons.Docs,
-            href: USER_GUIDE_DOC,
+            href: "https://platform.destine.eu/services/documents-and-api/doc/?service_name=citynexus",
             blank: true,
             tooltip: 'User Guide',
             onClick: () => {}

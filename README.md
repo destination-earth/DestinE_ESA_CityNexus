@@ -1,91 +1,14 @@
-<div>
-<p align="right">
-  <img style="vertical-align:middle" src="images/citynexus_logo.png" width="100" title="CityNexus logo">
-  <span style=""><h1>CITYNEXUS<h1><span style="">
-  <span style="">A novel urban digital twin application</span>
-</p>
-</div>
 
-The City of Copenhagen is addressing traffic congestion and aiming for sustainable urban development in Ørestad, a mixed-use area in the Amager Vest district. This sector, comprising residential, commercial, and university buildings, with a significant population in each, plans to transform its main thoroughfare to better manage traffic, improve air quality, and enhance living standards. Central to this initiative is understanding how the outcomes of these hypotheses of transformation for human mobility, service accessibility, air quality, and public environmental health. The city has a strong interest in exploring innovative tools for interactive assessment of different spatial planning and urban development options and for evaluating tradeoffs of climate adaptation policies and regulatory changes, hence supporting data-driven decision-making in urban planning.</span>
+# Immersive Visualization Metaverse (IMMERSIVE EO) 
 
-To respond to the needs of the Local Council of Amager Vest and the City of Copenhagen, **CityNexus** is an innovative **urban digital twin application designed to assess the environmental, social, and economic impacts of changes in road networks, mobility, and urban space design**.  CityNexus aims to evaluate baseline conditions for human mobility, including key indicators like air quality, population distribution, public health, and service accessibility and integrates live what-if scenario capabilities.
+This activity aims at developing an **immersive visualization application** associated with an EO use case. This implementation will benefit from and will allow the exploitation of some key techniques/technologies of **Virtual and Augmented Reality** and **Artificial Intelligence**. The project contributes to demonstrating how **Digital Twins can serve Policy and Decision Makers** in understanding the status of relevant environmental parameters, simulating changes/phenomena andunderstanding their effects on those parameters through the **modelling and realistic rendering of what-if scenarios** and the implementation of **sensitivity analysis leveraging AR and explainable AI**.
+The scenario proposed as use case is an **urban mobility application** for the city of Copenhagen,built on a mobility model covering a large area including the entire city and surrounding municipalities, with data from 7 million users and 1.6 billion GPSpings. The tool will enable users to comprehend the ramifications of **flood events** on the broader transportation and mobility network, facilitating the alignment of such insights with various urban development scenarios. The immersive scenario will allow the user to experience a **dynamic simulation** of the city of Copenhagen during a **hydrogeological emergency**.
 
-<h2>Solution</h2>
+Specific project objectives include:
 
-The CityNexus platform, designed for the Copenhagen Greater Metropolitan Area, aims to facilitate evidence-based decision-making at the municipality level. It targets a comprehensive set of Key Performance Indicators (KPIs) across five thematic areas. These include:
-1.	**Mobility Patterns**: CityNexus provides detailed insights into commuting patterns, travel behavior, traffic flows, congestion rates, peak traffic hours, and overall mobility dynamics in the city. This information is crucial for understanding and addressing the challenges of urban transport and traffic management.
-2.	**Air Quality**: The platform evaluates the concentration of various pollutants at ground level, like nitrogen dioxide (NO2), sulfur dioxide (SO2), carbon monoxide (CO), ozone (O3), black carbon particles, and ultrafine particles. It leverages data from mobile mapping campaigns, in-situ stations, and advanced AI techniques to downscale Sentinel-5P data to a 100m spatial resolution, providing a precise picture of the city's air quality.
-3.	**Dynamic Population Distribution**: CityNexus describes human presence patterns over time, aiding in the understanding of population movements and densities in different city areas.
-4.	**Public Environmental Health**: The platform assesses how air pollution affects public health, including the incidence of diseases associated with exposure to different pollutants.
-5.	**Service Accessibility**: It evaluates the availability, accessibility, and equity of key urban services such as transportation, healthcare, education, workplaces, commercial, and recreational facilities.
-
-<div>
-<p align="center">
-  <img style="vertical-align:middle" src="images/citynexus_rendering.png" width="300" title="">
-   <img style="vertical-align:middle" src="images/citynexus_rendering_2.png" height="263" title="">
- </p>
-</div>
-
-Furthermore, CityNexus offers functionalities for generating **"what if" simulations** based on four transformation scenarios, aligned with the development options being considered by the Municipality. These scenarios include high-speed road redesign, promoting electric and low-emission vehicles, creating Low Emission Zones, and adjusting road speed limits. Each scenario aims to contribute to a more sustainable, healthy, and livable urban environment in Copenhagen.
-
-In particular, CityNexus will employ the Cloud Infrastructure, Data & User Workflow, Dashboard, Traceability and Data Visualization Services of the **Destination Earth Service Platform DESP** to deploy the application and provide access to the users. The use of explainable AI (XAI) ensures transparency and helps foster policy adoption. Users can assess the effects of different interventions on targeted KPIs and explore their compound effects in a risk-free virtual environment before real-world implementation.
-
-This approach provides policymakers a collaborative platform to experiment with various strategies and solutions, considering diverse factors and variables crucial for successful and sustainable urban interventions, thereby facilitating a coordinated approach to decision-making.
-
-<h2>Impact</h2>
-
-The implementation of CityNexus and its "what-if" scenario capabilities is expected to have a profound and multi-faceted impact on users, particularly in terms of urban planning, environmental sustainability, transportation, and public health policies. In the short term, users, including urban planners, policymakers, and the public, will gain a powerful tool for visualizing and understanding the potential impacts of various urban development decisions. This interactive and participatory approach to planning will allow for more informed and community-driven decisions. By simulating different scenarios, CityNexus provides insights into how changes in infrastructure, such as transforming high-speed thoroughfares or promoting electric vehicles, can influence human mobility, air quality, and public health. This ability to evaluate the potential outcomes of various initiatives before implementation will be instrumental in guiding effective policy decisions and urban development strategies.
-
-In the long-term, CityNexus is expected to significantly contribute to Copenhagen's journey towards a more sustainable, healthy, and smart urban future, aligning with the city's ambitious environmental and urban quality of life goals. By integrating with key policies like the Copenhagen Climate Plan and the Copenhagen Bicycle Strategy, the platform supports the city’s endeavors to become carbon-neutral by 2025 and evolve into a premier global city for cycling.
-
-Moreover, the impact of CityNexus extends beyond regional boundaries. There is a concerted effort to connect with cities participating in the EU’s 100 Climate-Neutral and Smart Cities by 2030 initiative, as well as the Covenant of Mayors. This multi-tiered strategy not only furthers Copenhagen's local sustainability goals but also aims to inspire and motivate cities across the globe. By demonstrating the effectiveness of CityNexus in achieving substantial, long-lasting urban improvements, the project positions itself as a pioneering model for integrating advanced digital tools into urban planning and policy-making. This approach underscores the potential of collaborative, data-driven strategies in realizing the vision of sustainable, smart, and climate-neutral cities, encouraging a global movement towards more sustainable urban development.
-
-<div>
-<p align="center">
-  <img style="vertical-align:middle" src="images/citynexus_rendering_3.png" height="200" title="">
-   <img style="vertical-align:middle" src="images/citynexus_rendering_4.png" height="200" title="">
- </p>
-</div>
-
-<h2>Policy addressed</h2>
-
-- **Urban planning** policies, intended as regulations, guidelines, and strategies formulated and implemented by government authorities, urban planners, and policymakers to manage and shape the development, growth, and sustainability of urban areas.
-- **Environmental** planning policies, intended as regulations and strategies aimed at managing and enhancing the sustainability, livability, and ecological aspects of urban areas, with a focus on urban design, transportation, and environmental quality.
-- **Transportation** Policies, intended as policies related to public transportation, traffic management, road safety, and alternative transportation modes (e.g., cycling and walking), which impact both urban and environmental planning.
-- **Public Health** Policies, intended as policies that address public health concerns associated with urban environments, specifically related to air quality regulations.                               
-
- <h2>Data</h2>
- Various data portfolio will be used, from DestinE, publicly available and commercial.
-
-From DestinE Portfolio:
-
-- Sentinel-5P TROPOMI Level 2 daily tropospheric NO2, SO2, CO, O3 vertical column densities
-- ECMWF's ERA5 hourly estimates for different meteorological variables
-- Copernicus Digital Elevation Model of Europe available at 10m resolution
-- CORINE Land Cover map available from the Copernicus Land Monitoring Service at 100m resolution
-
-Publicly available:
-
-- Copenhagen Air View (CAV),Near-ground air pollution levels (National and Local network), Near-ground meteorological data (National network), Road network, the OpenStreetMap (OSM), TNO/MACC-III inventory, World Settlement Footprint – WSF suite, Copenhagen’s public transportation schedule, Copenhagen’s map of municipal trees, tree canopy coverage and land use plan.
-
-Commercial:
-
-- High Frequency Location Based (HFLB) mobility data for entire Denmark for 20 months
-
-## Contributions
-
-Tho contribute to DestinE Open Source SW collections please refer to [Rule of Participation](RULE_OF_PARTICIPATION.md)
-
-Here you can find the current [Product Backlog](https://github.com/destination-earth/DestinE_ESA_CityNexus/files/14372789/CITYNEXUS.Backlog.pdf)
-
-
-
-## Code of Conduct
-
-DestinE open source community abide to this [Code of Conduct](CODE_OF_CONDUCT.md)
-
-
-
-
-
+- Define and develop an Immersive Visualisation scenario based on an EO use-case allowing immersive data visualisation and interactivity.
+- Define, model, develop and deploy an EO-specific application (Visu4EO app) for Immersive Visualisation.
+- Explore Advanced AI Techniques from eXplainable AI, Physics-inspired AI, and/or Generative AI for modelling, rendering, and user interactions.
+- Assess societal, ethical, scientific, and business impacts of Visu4EO issues and define roadmap for scaling up and adoption of this technology in EO leading to development of new business models.
+- Foster development of a community of providers and users of extended reality and immersive visualisation for EO, including private sector and academia, and adoption by end-users and policy-makers.
 

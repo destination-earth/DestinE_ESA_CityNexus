@@ -6,7 +6,6 @@ import {handleActions} from 'redux-actions';
 
 import keplerGlReducer, {
   combinedUpdaters,
-  layerVisConfigChangeUpdater,
   layerVisualChannelChangeUpdater,
   removeDatasetUpdater,
   setPolygonFilterLayerUpdater, setSelectedFeatureUpdater, toggleSplitMapUpdater,
@@ -24,14 +23,13 @@ import {
   LOAD_REMOTE_RESOURCE_ERROR,
   SET_SAMPLE_LOADING_STATUS,
   REMOVE_ALL_DATASETS,
-  HIGHLIGHT_SELECTED_FEATURE, highlightSelectedFeature, SET_PREDICTION_LOADING_STATUS
+  HIGHLIGHT_SELECTED_FEATURE, highlightSelectedFeature, SET_PREDICTION_LOADING_STATUS, CLEAR_HOVER_AND_CLICKED
 } from '../actions';
 
 import {CLOUD_PROVIDERS_CONFIGURATION} from '../constants/default-settings';
 import {generateHashId} from '../utils/strings';
 import {default as ActionTypes} from "@kepler.gl/actions/dist/action-types";
 import {
-  layerVisConfigChange,
   layerVisualChannelConfigChange,
   removeDataset,
   setPolygonFilterLayer, setSelectedFeature, toggleSplitMap, VisStateActions
@@ -48,11 +46,9 @@ import {
   updateFilterDataId
 } from "@kepler.gl/utils";
 import {assignGpuChannel, setFilterGpuMode} from "@kepler.gl/table";
-import xor from "lodash.xor";
 import uniq from "lodash.uniq";
 import get from "lodash.get";
-import * as Console from "node:console";
-import {isSplitSelector} from "../kepler-overrides/components/map-container";
+import {floatFields} from "../features/map/field-units";
 
 export type AppState = {
   appName: String;
@@ -156,11 +152,10 @@ export const loadRemoteResourceSuccess = (state, action) => {
   };
 
   // rename osm_id to id in road network
-  datasets.data.fields.map(field => {
+  datasets.data.fields.forEach(field => {
     if (field.id === 'osm_id') {
       field.displayName = 'id';
-    }
-    if (field.id.endsWith('landuse')) {
+    } else if (field.id.endsWith('landuse') || floatFields.includes(field.id)) {
       field.type = 'real';
       field.analyzerType = 'FLOAT';
     }
@@ -536,11 +531,29 @@ export function customSetFilters(
   }
 }
 
+export const clearHoverAndClickedUpdater = (state, action) => {
+  return {
+    ...state,
+    keplerGl: {
+      ...state.keplerGl,
+      map: {
+        ...state.keplerGl.map,
+        visState: {
+          ...state.keplerGl.map.visState,
+          hoverInfo: null,
+          clicked: null
+        }
+      }
+    }
+  };
+}
+
 const composedUpdaters = {
   [LOAD_REMOTE_RESOURCE_SUCCESS]: loadRemoteResourceSuccess,
   [LOAD_REMOTE_RESOURCE_ERROR]: loadRemoteResourceError,
   [REMOVE_ALL_DATASETS]: removeAllDatasets,
   [HIGHLIGHT_SELECTED_FEATURE]: highlightSelectedFeatureUpdater,
+  [CLEAR_HOVER_AND_CLICKED]: clearHoverAndClickedUpdater,
   // Override some of the default actions/reducers
   [ActionTypes.DELETE_FEATURE]: customDeleteFeature,
   [ActionTypes.SET_FEATURES]: customSetFeatures,

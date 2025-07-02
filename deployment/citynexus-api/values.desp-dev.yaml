@@ -1,6 +1,6 @@
 image:
   repository: registry-ct.dev.desp.space/citynexus/backend
-  tag: 0.0.19
+  tag: 0.0.43
   imagePullSecrets:
     - name: harbor-image-pull
 ingress:
@@ -13,15 +13,6 @@ ingress:
       paths:
         - path: /api/v1/citynexus
           pathType: Prefix
-          backend:
-            serviceName: citynexus-api-service
-            servicePort: 8000
-        - path: /docs
-          pathType: Prefix
-          backend:
-            serviceName: citynexus-api-service
-            servicePort: 8000
-        - path: /openapi.json
           backend:
             serviceName: citynexus-api-service
             servicePort: 8000

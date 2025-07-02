@@ -19,7 +19,20 @@ import {
 
 export const CustomModalContainer = (ModalContainer) => {
     return (props: any) => {
-        return (<><ModalContainer {...props} /><SimulationConfigModal {...props} /><ScenarioCreateModal {...props} /> <ConfigureVisualizationModal {...props}/></>)
+        // We do not want to propagate keyup events (e.g. escape key to close the modal)
+        const handleKeyUp = (event) => {
+            event.stopPropagation()
+        };
+
+        // The wrapper div allows us to intercept keyup events
+        return (
+            <div onKeyUp={handleKeyUp} tabIndex={-1} style={{outline: 'none'}}>
+                <ModalContainer {...props} />
+                <SimulationConfigModal {...props} />
+                <ScenarioCreateModal {...props} />
+                <ConfigureVisualizationModal {...props}/>
+            </div>
+        );
     }
 }
 

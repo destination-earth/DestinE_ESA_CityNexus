@@ -50,6 +50,7 @@ import {replaceFieldPanelWithFieldSelect} from "./kepler-overrides/components/fi
 import {replaceDatasetInfo} from "./kepler-overrides/components/side-panel/common/dataset-info";
 import {replaceSourceDataCatalogFactory} from "./kepler-overrides/components/side-panel/common/source-data-catalog";
 import replaceDatasetSection from "./kepler-overrides/components/side-panel/layer-panel/dataset-section";
+import replaceColorLegend from "./kepler-overrides/components/common/color-legend";
 
 // order of components matters, always put the parents first, children last
 const KeplerGl = require('@kepler.gl/components').injectComponents([
@@ -74,7 +75,8 @@ const KeplerGl = require('@kepler.gl/components').injectComponents([
   replaceDatasetTitle(),
   replaceLayerConfigurator(),
   replaceAddDataButtonFactory(),
-  replaceMapDrawPanel()
+  replaceMapDrawPanel(),
+  replaceColorLegend()
 ]);
 
 const BannerHeight = 48;

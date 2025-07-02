@@ -22,14 +22,21 @@ const UserProvider = (props) => {
             if (auth.isAuthenticated) {
                 dispatch(login(auth.user));
             } else if (auth.error) {
-                console.error('Error attempting to authenticate.', auth.error);
+                if (auth.error.message.includes('No matching state found in storage')) {
+                    // Clear any stale state and restart the auth flow
+                    void auth.clearStaleState();
+                    dispatch(startLoading());
+                    void auth.signinRedirect();
+                    return;
+                }
+                console.error('Error attempting to authenticate: ', auth.error);
                 dispatch(push('/error'))
             } else if(!auth.isAuthenticated && !isLoggingOff) {
                 dispatch(startLoading());
                 void auth.signinRedirect();
             }
         }
-    }, [auth, dispatch]);
+    }, [auth]);
 
     if (isLoading === false) {
         return (

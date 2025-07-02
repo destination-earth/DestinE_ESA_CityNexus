@@ -1,0 +1,1 @@
+Install sphinx with `pip install -U sphinx`, then run `sphinx-build.exe -b html source .\build\html\` in the repository's root folder `doc/`.
