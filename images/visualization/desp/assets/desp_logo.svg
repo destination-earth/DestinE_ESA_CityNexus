@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="117.1 220.2 155.6 74.6"
+   version="1.1"
+   id="svg17370"
+   sodipodi:docname="logo_desp_solo.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview17372"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="4.6143957"
+     inkscape:cx="84.301396"
+     inkscape:cy="42.909194"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg17370" />
+  <defs
+     id="defs17366">
+    <linearGradient
+       id="linear-gradient"
+       x1="156.25"
+       y1="61.5"
+       x2=".61"
+       y2="61.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1, 0, 0, 1, 117.045799, 195.994644)">
+      <stop
+         offset="0"
+         stop-color="#5e35f2"
+         id="stop17361" />
+      <stop
+         offset="1"
+         stop-color="#f22987"
+         id="stop17363" />
+    </linearGradient>
+  </defs>
+  <path
+     class="cls-2"
+     d="M 235.416 220.215 C 225.866 220.215 216.326 223.845 209.056 231.115 C 209.006 231.165 208.956 231.215 208.916 231.265 L 168.506 271.675 C 160.686 279.495 147.956 279.495 140.126 271.675 C 136.336 267.885 134.246 262.845 134.246 257.485 C 134.246 252.125 136.336 247.085 140.126 243.295 C 147.946 235.475 160.676 235.475 168.506 243.295 L 175.946 250.735 L 188.126 238.565 L 180.686 231.125 C 166.146 216.585 142.496 216.585 127.956 231.125 C 113.416 245.665 113.416 269.315 127.956 283.855 C 134.996 290.895 144.356 294.775 154.316 294.775 C 164.276 294.775 173.636 290.895 180.676 283.855 L 221.226 243.305 C 221.226 243.305 221.306 243.225 221.346 243.185 C 229.176 235.485 241.816 235.525 249.606 243.305 C 253.396 247.095 255.486 252.135 255.486 257.495 C 255.486 262.855 253.396 267.895 249.606 271.685 C 241.786 279.505 229.056 279.505 221.226 271.685 L 214.516 264.975 L 202.336 277.145 L 209.046 283.855 C 216.086 290.895 225.446 294.775 235.406 294.775 C 245.366 294.775 254.726 290.895 261.766 283.855 C 276.306 269.315 276.306 245.665 261.766 231.125 C 254.496 223.855 244.946 220.225 235.406 220.225 L 235.416 220.215 Z"
+     style="fill: url(#linear-gradient);"
+     id="path17368" />
+</svg>

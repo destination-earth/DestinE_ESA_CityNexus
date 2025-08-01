@@ -25,16 +25,6 @@ ingress:
           backend:
             serviceName: citynexus-api-service
             servicePort: 8000
-        - path: /docs
-          pathType: Prefix
-          backend:
-            serviceName: citynexus-api-service
-            servicePort: 8000
-#        - path: /openapi.json
-#          pathType: Prefix
-#          backend:
-#            serviceName: citynexus-api-service
-#            servicePort: 8000
         - path: /api/v1/mobility-model-aarhus
           pathType: Prefix
           backend:

@@ -1,6 +1,6 @@
 image:
   repository: registry-ct.ivv.desp.space/citynexus/mobility-model-api
-  tag: "0.0.10-blq"
+  tag: "0.0.11-blq"
   imagePullSecrets:
     - name: harbor-image-pull
 affinity:

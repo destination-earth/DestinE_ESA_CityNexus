@@ -1,0 +1,6 @@
+[flood]
+url = "https://immerseon.solenix.ch/api/v1/flood-model/analysis"
+
+[mobility]
+city = "${MOBILITY_MODEL_CITY_NAME}"
+project = "${MOBILITY_MODEL_PROJECT_NAME}"
