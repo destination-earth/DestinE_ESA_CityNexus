@@ -25,7 +25,6 @@ import {setOriginalLayer} from "./features/multiple-simulations/store/MultipleSi
 
 // CONSTANTS
 export const INIT = 'INIT';
-export const CLEAR_HOVER_AND_CLICKED = 'CLEAR_HOVER_AND_CLICKED';
 export const LOAD_REMOTE_RESOURCE_SUCCESS = 'LOAD_REMOTE_RESOURCE_SUCCESS';
 export const LOAD_REMOTE_RESOURCE_ERROR = 'LOAD_REMOTE_RESOURCE_ERROR';
 export const LOAD_MAP_SAMPLE_FILE = 'LOAD_MAP_SAMPLE_FILE';
@@ -49,12 +48,6 @@ export function loadRemoteResourceSuccess(response, config, options, keepExistin
     config,
     options,
     keepExistingConfig
-  };
-}
-
-export function clearHoverAndClicked() {
-  return {
-    type: CLEAR_HOVER_AND_CLICKED
   };
 }
 
@@ -342,24 +335,6 @@ function loadRemoteScenario(scenario, userId) {
   };
 }
 
-function formatTimestamps(predictionData: null, options) {
-  const timestampCache = {};
-  predictionData.features.forEach(feature => {
-    const timeWindow = feature.properties.time_window;
-    if (typeof timeWindow === 'string') {
-      if (!timestampCache[timeWindow]) {
-        const match = timeWindow.match(/(weekend|weekday)_(\d+)/);
-        if (match) {
-          const hours = match[2];
-          const date = new Date(options.date);
-          date.setHours(parseInt(hours), 0, 0, 0);
-          timestampCache[timeWindow] = date.getTime() / 1000; // Convert to UNIX timestamp
-        }
-      }
-      feature.properties.time_window = timestampCache[timeWindow];
-    }
-  });
-}
 
 function loadRemotePrediction(options, userId) {
   return (dispatch, getState) => {
@@ -396,7 +371,22 @@ function loadRemotePrediction(options, userId) {
         predictionConfig.config.visState.layers["0"].config.dataId = predictionId;
         predictionConfig.config.visState.layers["0"].id = predictionId;
 
-        formatTimestamps(predictionData, options);
+        const timestampCache = {};
+        predictionData.features.forEach(feature => {
+          const timeWindow = feature.properties.time_window;
+          if (typeof timeWindow === 'string') {
+            if (!timestampCache[timeWindow]) {
+              const match = timeWindow.match(/(weekend|weekday)_(\d+)/);
+              if (match) {
+                const hours = match[2];
+                const date = new Date(options.date);
+                date.setHours(parseInt(hours), 0, 0, 0);
+                timestampCache[timeWindow] = date.getTime() / 1000; // Convert to UNIX timestamp
+              }
+            }
+            feature.properties.time_window = timestampCache[timeWindow];
+          }
+        });
 
         // Remove existing datasets if needed
         dispatch(removeAllDatasets("simulation", city));
@@ -459,9 +449,6 @@ function loadRemoteXai(xai, userId) {
         xaiDiffConfig.config.visState.layers["0"].config.label = xaiDiffLabel;
         xaiDiffConfig.config.visState.layers["0"].config.dataId = xaiDiffId;
         xaiDiffConfig.config.visState.layers["0"].id = xaiDiffId;
-
-        formatTimestamps(xaiImpactData, xai);
-        formatTimestamps(xaiDiffData, xai);
 
         dispatch(removeAllDatasets("xai", city));
         dispatch(loadRemoteResourceSuccess(xaiImpactData, xaiImpactConfig, {

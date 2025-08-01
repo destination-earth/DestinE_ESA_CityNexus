@@ -19,7 +19,7 @@ isal = "^1.7.1"
 orjson = "^3.10.12"
 zipfile-isal = "^0.0.3.3"
 setuptools = "70.0.0"
-python-json-logger = "^3.3.0"
+python-json-logger = "^3.2.1"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7"

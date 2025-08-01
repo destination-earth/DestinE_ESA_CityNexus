@@ -26,7 +26,3 @@ export const fieldUnits = {
     'tourism_pois': 'points',
     'static_population': 'people',
 };
-
-export const floatFields = [
-  'no2', 'co2', 'nox', 'pmx', 'hc', 'co', 'no2 mcg/m3', 'fuel'
-];

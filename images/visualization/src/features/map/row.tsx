@@ -46,11 +46,12 @@ function getRowTitle(name: string): string {
         case 'pmx':
         case 'hc':
         case 'co':
-            return `Amount of emitted ${name} pollutant on the road segment during the time slot, measured in grams`;
+            return `Amount of emitted ${name} pollutant, measured in grams`;
         case 'fuel':
             return "Total fuel consumption on the segment during the time slot, measured in grams";
         case 'no2 mcg/m3':
-            return "Average concentration of nitrogen dioxide in the air during the time slot, measured in micrograms per cubic meter";
+            // average concentration in micrograms per cubic meter on the segment
+            return "Concentration of nitrogen dioxide in the air, measured in micrograms per cubic meter";
         case 'occupancy':
             return "Average number of vehicles driving on the segment during the time slot";
         case 'time_window':
@@ -86,20 +87,6 @@ function getRowTitle(name: string): string {
     }
 }
 
-function formatDisplayValue(val: any) {
-    // Only format numbers, and only floats
-    if (typeof val === 'number' && !Number.isInteger(val)) {
-        return val.toFixed(2);
-    }
-    if (!isNaN(Number(val)) && val !== '' && val !== null && val !== undefined) {
-        const num = Number(val);
-        if (!Number.isInteger(num)) {
-            return num.toFixed(2);
-        }
-    }
-    return val ?? '';
-}
-
 export const Row: React.FC<RowProps> = React.memo(({
     name,
     value,
@@ -111,8 +98,8 @@ export const Row: React.FC<RowProps> = React.memo(({
     layerName,
     type
 }) => {
+    const oldValue = value;
     const [editedValue, setEditedValue] = useState(value);
-    const [displayValue, setDisplayValue] = useState(() => formatDisplayValue(value));
     const dispatch = useDispatch();
 
     // Memoize url, asImg, and title
@@ -125,6 +112,11 @@ export const Row: React.FC<RowProps> = React.memo(({
     }, [urlProp, value]);
     const asImg = useMemo(() => /<img>/.test(name), [name]);
     const title = useMemo(() => getRowTitle(name), [name]);
+
+    // Only update editedValue if value changes
+    useEffect(() => {
+        setEditedValue(value);
+    }, [value]);
 
     const setRoadParameter = useCallback((val: string | boolean | number, data: any[], parameterIdx: number, name: string) => {
         dispatch(applyChanges({
@@ -141,13 +133,9 @@ export const Row: React.FC<RowProps> = React.memo(({
     const handleInputChange = useCallback((fieldName: string, newValue: number, data: any[], parameterIdx: number) => {
         const validationRules = SimulationDataValidation[fieldName];
         if (validationRules) {
-            const {min, max, type} = validationRules;
-            let limitedValue = Math.max(min, Math.min(max, newValue));
-            if (type === 'int' && !Number.isInteger(limitedValue)) {
-                limitedValue = Math.round(limitedValue);
-            }
+            const {min, max} = validationRules;
+            const limitedValue = Math.max(min, Math.min(max, newValue));
             setRoadParameter(limitedValue, data, parameterIdx, name);
-            return limitedValue;
         }
     }, [setRoadParameter, name]);
 
@@ -183,32 +171,15 @@ export const Row: React.FC<RowProps> = React.memo(({
                             <input
                                 type="number"
                                 placeholder="multiple values"
-                                value={displayValue}
-                                onChange={event => {
-                                    // when the user modifies the field, we update the edited value and the display value (without formatting)
-                                    setEditedValue(event.target.value);
-                                    setDisplayValue(event.target.value);
-                                }}
-                                onBlur={event => {
-                                    // when the user leaves the field, we handle the input change (which updates the edited value)
-                                    // and we update the display value (with 2 decimals)
-                                    const val = event.target.value;
-                                    const newVal = handleInputChange(name, val === '' ? '' : Number(val), data, parameterIdx);
-                                    if (newVal !== null) {
-                                        setDisplayValue(formatDisplayValue(newVal));
-                                    }
-                                }}
-                                onFocus={event => {
-                                    // when the user enters the field, we update the display value (without formatting)
-                                    setDisplayValue(editedValue ?? '');
-                                    event.target.select();
-                                }}
+                                value={editedValue ?? ''}
+                                onChange={event => setEditedValue(Number(event.target.value))}
+                                onBlur={event => (Number(event.target.value) !== oldValue && event.target.value !== '') ? handleInputChange(name, Number(event.target.value), data, parameterIdx) : null}
                                 onKeyDown={event => {
-                                    // same functionality as onBlur
                                     if (event.key === 'Enter') {
                                         event.target.blur();
                                     }
                                 }}
+                                onFocus={event => event.target.select()}
                             />
                         </div>
                     );
@@ -228,33 +199,15 @@ export const Row: React.FC<RowProps> = React.memo(({
             return <a target="_blank" rel="noopener noreferrer" href={url}>{editedValue}</a>;
         }
         return getRowHtml();
-    }, [asImg, url, editedValue, displayValue, name, data, parameterIdx, setRoadParameter, handleInputChange, layerName, type]);
+    }, [asImg, url, editedValue, value, name, data, parameterIdx, setRoadParameter, handleInputChange, layerName, type]);
 
     const renderDeltaCell = useMemo(() => {
         if (!notNullorUndefined(deltaValue)) return null;
-        if (!(deltaValue === 'true' || deltaValue === 'false')) {
-            return (
-                <span
-                    className={`row__delta-value ${deltaValue.toString().charAt(0) === '+' ? 'positive' : 'negative'}`}
-                    title={`This field changed by ${deltaValue}`}>
-                    {deltaValue}
-                </span>
-            );
-        }
-        // else {
-        //     return (
-        //         <span className={`row__delta-value ${deltaValue === 'true' ? 'positive' : 'negative'}`}
-        //               title={`This checkbox was originally ${deltaValue ? 'unchecked' : 'checked'}`}>
-        //             (was
-        //             <input
-        //                 type="checkbox"
-        //                 checked={deltaValue === 'true'}
-        //                 disabled={true}
-        //                 style={{pointerEvents: 'none'}}
-        //             />)
-        //         </span>
-        //     );
-        // }
+        return (
+            <span className={`row__delta-value ${deltaValue.toString().charAt(0) === '+' ? 'positive' : 'negative'}`} >
+                {deltaValue}
+            </span>
+        );
     }, [deltaValue]);
 
     return (

@@ -1,7 +1,10 @@
+import logging
+import sys
 from http import HTTPStatus
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
+from pythonjsonlogger import json as json_logger
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
@@ -14,25 +17,36 @@ from citynexus_api.middleware.user_request_mapping import (
     add_user_request_mapping_middleware,
 )
 from citynexus_api.model.generic import ApiResponse
-from citynexus_api.util.logging import (
-    configure_api_logger,
-    configure_uvicorn_logger,
-)
 
 MODEL_API_PREFIX = "/api/v1/citynexus"
 
-configure_api_logger()
-configure_uvicorn_logger()
+# Application logger
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.INFO,
+    format="%(asctime)s: %(levelname)s - %(message)s",
+)
+logger = logging.getLogger(__name__)
+
+# JSON endpoint logger used in middleware
+log_handler = logging.StreamHandler()
+log_handler.setFormatter(
+    json_logger.JsonFormatter("%(event_timestamp)s %(http_method)s %(url)s %(status_code)s %(user_id)s")
+)
+middleware_logger = logging.root
+middleware_logger.setLevel(logging.INFO)
+middleware_logger.addHandler(log_handler)
+
 
 app = FastAPI(title="CityNexus API", openapi_url="/openapi.json")
 app.include_router(predictions_router, prefix=f"{MODEL_API_PREFIX}/predictions")
 app.include_router(scenarios_router, prefix=f"{MODEL_API_PREFIX}/scenarios")
 
 # order matters, last-added middleware is first in queue
-add_logging_middleware(app)
-add_user_request_mapping_middleware(app)
 add_keycloak_middleware(app)
 add_cors_middleware(app)
+add_user_request_mapping_middleware(app)
+add_logging_middleware(app, middleware_logger)
 
 
 @app.exception_handler(RequestValidationError)
