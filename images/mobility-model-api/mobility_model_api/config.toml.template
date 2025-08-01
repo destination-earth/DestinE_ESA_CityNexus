@@ -1,5 +1,0 @@
-[flood]
-url = "https://immerseon.solenix.ch/api/v1/flood-model/analysis"
-
-[mobility]
-city = "${MOBILITY_MODEL_CITY_NAME}"
