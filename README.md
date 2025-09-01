@@ -35,7 +35,7 @@ To address these limitations, CITYNEXUS offers policymakers a collaborative envi
 
 To support evidence-based decision making at the municipality level, CITYNEXUS operates at the **local scale**. To characterize the seasonal patterns of human mobility and, in turn, their relationships to the targeted KPIs, CITYNEXUS is intended to operate on a quarterly temporal scale and to differentiate the analyses between typical weekdays and weekends. On the one hand, this allows deriving statistically robust baseline conditions when characterizing the reference patterns for the human mobility and the different KPIs. On the other hand, this enables a more realistic and nuanced understanding of the effects of “what-if” mobility and infrastructural changes at different times of the year.
 
-Four cities are currently available for demonstration purposes in the platform: **Copenhagen** (Denmark), **Bologna** (Italy), **Seville** (Spain), and **Aarhus* (Denmark). These cities were selected as first targets for their alignment with the project’s focus on sustainable mobility, air quality improvement, and urban innovation. In principle all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.
+Four cities are currently available for demonstration purposes in the platform: **Copenhagen** (Denmark), **Bologna** (Italy), **Seville** (Spain), and **Aarhus** (Denmark). These cities were selected as first targets for their alignment with the project’s focus on sustainable mobility, air quality improvement, and urban innovation. In principle all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.
 
 The CITYNEXUS models have been trained using:
 
@@ -47,11 +47,12 @@ The CITYNEXUS models have been trained using:
 
 <h2>Impact</h2>
 
-The implementation of CityNexus and its "what-if" scenario capabilities is expected to have a profound and multi-faceted impact on users, particularly in terms of urban planning, environmental sustainability, transportation, and public health policies. In the short term, users, including urban planners, policymakers, and the public, will gain a powerful tool for visualizing and understanding the potential impacts of various urban development decisions. This interactive and participatory approach to planning will allow for more informed and community-driven decisions. By simulating different scenarios, CityNexus provides insights into how changes in infrastructure, such as transforming high-speed thoroughfares or promoting electric vehicles, can influence human mobility, air quality, and public health. This ability to evaluate the potential outcomes of various initiatives before implementation will be instrumental in guiding effective policy decisions and urban development strategies.
+CITYNEXUS leverages a cutting-edge platform like DestinE, EO data and advanced AI to support urban resilience and environmental management. By integrating geospatial intelligence, heterogeneous data sources, and AI modelling, it enables scenario-based decision-making for sustainable urban and regional development. CITYNEXUS’s key application areas include:
 
-In the long-term, CityNexus is expected to significantly contribute to Copenhagen's journey towards a more sustainable, healthy, and smart urban future, aligning with the city's ambitious environmental and urban quality of life goals. By integrating with key policies like the Copenhagen Climate Plan and the Copenhagen Bicycle Strategy, the platform supports the city’s endeavors to become carbon-neutral by 2025 and evolve into a premier global city for cycling.
-
-Moreover, the impact of CityNexus extends beyond regional boundaries. There is a concerted effort to connect with cities participating in the EU’s 100 Climate-Neutral and Smart Cities by 2030 initiative, as well as the Covenant of Mayors. This multi-tiered strategy not only furthers Copenhagen's local sustainability goals but also aims to inspire and motivate cities across the globe. By demonstrating the effectiveness of CityNexus in achieving substantial, long-lasting urban improvements, the project positions itself as a pioneering model for integrating advanced digital tools into urban planning and policy-making. This approach underscores the potential of collaborative, data-driven strategies in realizing the vision of sustainable, smart, and climate-neutral cities, encouraging a global movement towards more sustainable urban development.
+1.	**Climate Adaptation for Public Stakeholders.** CITYNEXUS allows European cities to simulate and assess the impacts of climate-related interventions—such as road redesigns or low-emission zones—on air quality, noise, and liveability. Currently developed for Copenhagen, Aarhus, Seville, and Bologna, the approach is scalable across Europe in alignment with the EU’s climate adaptation goals.
+2.	**Computational Geoscience & Local-Scale Modelling.** The platform combines EO, meteorological (e.g. ERA5), mobility, and sensor-based pollution data to model the environmental and mobility impacts of urban interventions. It enables predictive planning at both local and regional scales.
+3.	**Data Integration & DestinE Service Usage.** CITYNEXUS draws extensively from the DestinE Data Portfolio (e.g., Sentinel-5P, ERA5, MERRA-2, Copernicus DEM, CORINE Land Cover), and the  four-day global simulations from the DestinE Digital Twin for Weather-Induced Extremes, demonstrating full alignment with the EU’s digital infrastructure and supporting integration with broader EU data strategies.
+4.	**Urban and Regional Development Support**. Designed to inform policy and planning decisions, CITYNEXUS helps stakeholders visualize the effects of infrastructural and policy changes, promoting sustainable mobility, reduced environmental impact, and enhanced urban quality of life.
 
 <div>
 <p align="center">
@@ -60,30 +61,18 @@ Moreover, the impact of CityNexus extends beyond regional boundaries. There is a
  </p>
 </div>
 
+Possible use cases for future exploitation of CITYNEXUS include:
+
+- **Policy Impact Simulation.** Enables cities to simulate policies (e.g., low-emission zones, speed limits) and assess outcomes on traffic, emissions, and public health—supporting evidence-based decisions and stakeholder communication.
+- **Urban Design & Redevelopment Assessment**. Helps planners evaluate how urban regeneration (e.g., converting industrial zones) affects mobility, accessibility, and air quality, ensuring balanced, sustainable development.
+- **Infrastructure Change Analysis.** Models the impact of large-scale projects (e.g., tunnelling motorways) on travel patterns, pollution, and land use, supporting more effective and community-focused investments.
+
 <h2>Policy addressed</h2>
 
 - **Urban planning** policies, intended as regulations, guidelines, and strategies formulated and implemented by government authorities, urban planners, and policymakers to manage and shape the development, growth, and sustainability of urban areas.
 - **Environmental** planning policies, intended as regulations and strategies aimed at managing and enhancing the sustainability, livability, and ecological aspects of urban areas, with a focus on urban design, transportation, and environmental quality.
 - **Transportation** Policies, intended as policies related to public transportation, traffic management, road safety, and alternative transportation modes (e.g., cycling and walking), which impact both urban and environmental planning.
 - **Public Health** Policies, intended as policies that address public health concerns associated with urban environments, specifically related to air quality regulations.                               
-
- <h2>Data</h2>
- Various data portfolio will be used, from DestinE, publicly available and commercial.
-
-From DestinE Portfolio:
-
-- Sentinel-5P TROPOMI Level 2 daily tropospheric NO2, SO2, CO, O3 vertical column densities
-- ECMWF's ERA5 hourly estimates for different meteorological variables
-- Copernicus Digital Elevation Model of Europe available at 10m resolution
-- CORINE Land Cover map available from the Copernicus Land Monitoring Service at 100m resolution
-
-Publicly available:
-
-- Copenhagen Air View (CAV),Near-ground air pollution levels (National and Local network), Near-ground meteorological data (National network), Road network, the OpenStreetMap (OSM), TNO/MACC-III inventory, World Settlement Footprint – WSF suite, Copenhagen’s public transportation schedule, Copenhagen’s map of municipal trees, tree canopy coverage and land use plan.
-
-Commercial:
-
-- High Frequency Location Based (HFLB) mobility data for entire Denmark for 20 months
 
 ## Contributions
 
