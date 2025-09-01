@@ -12,11 +12,16 @@ Leveraging the DestinE system, CITYNEXUS aims to evaluate baseline conditions fo
 
 The platform is designed to provide policymakers a **collaborative platform to experiment with various strategies and solutions**, considering diverse factors and variables crucial for successful and sustainable urban interventions, thereby facilitating a coordinated approach to decision-making.
 
-<h2>Solution</h2>
+<h2>CITYNEXUS Platform Overview</h2>
 
-The CityNexus platform, designed for the Copenhagen Greater Metropolitan Area, aims to facilitate evidence-based decision-making at the municipality level. It targets a comprehensive set of Key Performance Indicators (KPIs) across five thematic areas. These include:
+The CITYNEXUS platform aims to facilitate evidence-based decision-making at the municipality level by providing capabilities to **evaluate a comprehensive set of Key Performance Indicators (KPIs)** and by implementing an **interactive system for assessing the impact of infrastructural and mobility changes on the target KPIs** through policy-relevant, user-defined ‘what-if’ scenario simulations.
+
+Currently, strategic decisions related to mobility and infrastructural interventions are primarily driven by economic constraints, thus overlooking the complex and multifaceted impacts on neighbourhoods and local communities. This issue is further exacerbated by a limited coordination and communication between districts of the same city or neighbouring municipalities, hence making it challenging to assess the holistic impact of a specific intervention on nearby areas.
+
+To address these limitations, CITYNEXUS offers policymakers a collaborative environment where they can freely experiment with different strategies and solutions. It provides a comprehensive decision-making framework that goes beyond simplistic cost considerations and considers the specific needs expressed by the user community (reflected in the selected KPIs). In this regard, CITYNEXUS targets a set of KPIs (preliminary identified together with the end users) addressing different thematic areas, namely:
+
 1.	**Mobility Patterns**: CityNexus provides detailed insights into commuting patterns, travel behavior, traffic flows, congestion rates, peak traffic hours, and overall mobility dynamics in the city. This information is crucial for understanding and addressing the challenges of urban transport and traffic management.
-2.	**Air Quality**: The platform evaluates the concentration of various pollutants at ground level, like nitrogen dioxide (NO2), sulfur dioxide (SO2), carbon monoxide (CO), ozone (O3), black carbon particles, and ultrafine particles. It leverages data from mobile mapping campaigns, in-situ stations, and advanced AI techniques to downscale Sentinel-5P data to a 100m spatial resolution, providing a precise picture of the city's air quality.
+2.	**Air Quality**: The platform evaluates the concentration of various pollutants at ground level, like nitrogen dioxide (NO2), sulfur dioxide (SO2), carbon monoxide (CO), ozone (O3), black carbon particles, and ultrafine particles.
 3.	**Dynamic Population Distribution**: CityNexus describes human presence patterns over time, aiding in the understanding of population movements and densities in different city areas.
 4.	**Public Environmental Health**: The platform assesses how air pollution affects public health, including the incidence of diseases associated with exposure to different pollutants.
 5.	**Service Accessibility**: It evaluates the availability, accessibility, and equity of key urban services such as transportation, healthcare, education, workplaces, commercial, and recreational facilities.
@@ -28,11 +33,17 @@ The CityNexus platform, designed for the Copenhagen Greater Metropolitan Area, a
  </p>
 </div>
 
-Furthermore, CityNexus offers functionalities for generating **"what if" simulations** based on four transformation scenarios, aligned with the development options being considered by the Municipality. These scenarios include high-speed road redesign, promoting electric and low-emission vehicles, creating Low Emission Zones, and adjusting road speed limits. Each scenario aims to contribute to a more sustainable, healthy, and livable urban environment in Copenhagen.
+To support evidence-based decision making at the municipality level, CITYNEXUS operates at the **local scale**. To characterize the seasonal patterns of human mobility and, in turn, their relationships to the targeted KPIs, CITYNEXUS is intended to operate on a quarterly temporal scale and to differentiate the analyses between typical weekdays and weekends. On the one hand, this allows deriving statistically robust baseline conditions when characterizing the reference patterns for the human mobility and the different KPIs. On the other hand, this enables a more realistic and nuanced understanding of the effects of “what-if” mobility and infrastructural changes at different times of the year.
 
-In particular, CityNexus will employ the Cloud Infrastructure, Data & User Workflow, Dashboard, Traceability and Data Visualization Services of the **Destination Earth Service Platform DESP** to deploy the application and provide access to the users. The use of explainable AI (XAI) ensures transparency and helps foster policy adoption. Users can assess the effects of different interventions on targeted KPIs and explore their compound effects in a risk-free virtual environment before real-world implementation.
+Four cities are currently available for demonstration purposes in the platform: **Copenhagen** (Denmark), **Bologna** (Italy), **Seville** (Spain), and **Aarhus* (Denmark). These cities were selected as first targets for their alignment with the project’s focus on sustainable mobility, air quality improvement, and urban innovation. In principle all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.
 
-This approach provides policymakers a collaborative platform to experiment with various strategies and solutions, considering diverse factors and variables crucial for successful and sustainable urban interventions, thereby facilitating a coordinated approach to decision-making.
+The CITYNEXUS models have been trained using:
+
+- High Frequency Location Based (HFLB) mobility data
+- Sentinel-5P TROPOMI Level2 daily tropospheric NO2, SO2, CO, O3 vertical column densities
+- Copernicus Digital Elevation Model of Europe at 10m resolution
+- ECMWF ERA5 hourly estimates for different meteorological variables
+- CORINE Land Cover from the Copernicus Land Monitoring Service at 100m
 
 <h2>Impact</h2>
 
