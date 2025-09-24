@@ -1,17 +1,10 @@
-| ![](media/4b6438a00e58aeae5c8736693606a46d.emf) |  ![](media/c2c66212059f3f77d379df9204ed55a0.png) |
-|-------------------------------------------------|--------------------------------------------------|
-
-![](media/b330f3488abf3708bcafa19936a31653.png)
-
-![](media/c3fc78f94d29dea2d88d0adfc71b081a.png)CITYNEXUS
-
-Service User Manual
-
-Solenix Engineering GmbH
-
-Project Ref.: SLXENGDE/CITYNEXUS/2023
-
-Doc. Ref.: SLXENGDE-CITYNEXUS-SUM
+<div>
+<p align="right">
+  <img style="vertical-align:middle" src="media/b330f3488abf3708bcafa19936a31653.png" width="100" title="CityNexus logo">
+  <span style=""><h1>CITYNEXUS<h1><span style="">
+  <span style="">Service User Manual</span>
+</p>
+</div>
 
 | Title:                | CITYNEXUS                                                                                                                                                                                                                                                                                                              |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -28,24 +21,14 @@ Doc. Ref.: SLXENGDE-CITYNEXUS-SUM
 | Company:              | Solenix Engineering GmbH Phone: +49 6151 870 91 0 Spreestrasse 3 E-Mail: info@solenix.de 64295 Darmstadt Internet: www.solenix.de Germany                                                                                                                                                                              |
 |                       | The copyright of this document is vested in the European Space Agency. This document may only be reproduced in whole or in part, stored in a retrieval system, transmitted in any form, or by any means, e.g. electronically, mechanically or by photocopying, or otherwise, with the prior permission of the Agency.  |
 
-**  
-**
-
-**Document Log**
-
-| Revision | Date       | Responsible    | Comment                                |
-|----------|------------|----------------|----------------------------------------|
-| 01.00    | 18/12/2024 | Simone Fratini | Document Creation                      |
-| 02.00    | 18/06/2025 | Simone Fratini | Update for FR. General content update. |
-
-Distribution List
+# Distribution List
 
 | Name                 | Organisation          |
 |----------------------|-----------------------|
 | Technical Officer    | Starion Italia S.p.a. |
 | CITYNEXUS Consortium | Solenix, MindEarth    |
 
-Table of Content
+# Table of Content
 
 [Distribution List](#_Toc207624417)
 
@@ -148,7 +131,9 @@ The platform is designed to provide policymakers with a **collaborative platform
 
 The CityNexus platform aims to facilitate **evidence-based decision-making at the municipality level** by providing capabilities to **evaluate a comprehensive set of Key Performance Indicators** (KPIs) and by implementing an **interactive system for assessing the impact of infrastructural and mobility changes** on the target KPIs through policy-relevant, user-defined 'what-if' scenario simulations.
 
-![A split screen of a city Description automatically generated](media/50ed6aeaadc8e03a05f019062fcded9a.png)Currently, strategic decisions related to mobility and infrastructural interventions are primarily driven by economic constraints, thus overlooking the complex and multifaceted impacts on neighborhoods and local communities. This issue is further exacerbated by limited coordination and communication between districts of the same city or neighboring municipalities, hence making it challenging to assess the holistic impact of a specific intervention on nearby areas.
+![A split screen of a city Description automatically generated](media/50ed6aeaadc8e03a05f019062fcded9a.png)
+
+Currently, strategic decisions related to mobility and infrastructural interventions are primarily driven by economic constraints, thus overlooking the complex and multifaceted impacts on neighborhoods and local communities. This issue is further exacerbated by limited coordination and communication between districts of the same city or neighboring municipalities, hence making it challenging to assess the holistic impact of a specific intervention on nearby areas.
 
 To address these limitations, CITYNEXUS offers policymakers a collaborative environment where they can freely experiment with different strategies and solutions. It provides a comprehensive decision-making framework that goes beyond simplistic cost considerations and considers the specific needs expressed by the user community (reflected in the selected KPIs). In this regard, CITYNEXUS targets a set of KPIs (preliminary identified together with the end users) addressing different thematic areas, namely:
 
@@ -158,7 +143,9 @@ To address these limitations, CITYNEXUS offers policymakers a collaborative envi
 -   Public Environmental Health: The platform assesses how air pollution affects public health, including the incidence of diseases associated with exposure to different pollutants.
 -   Service Accessibility: It evaluates the availability, accessibility, and equity of key urban services such as transportation, healthcare, education, workplaces, commercial, and recreational facilities.
 
-![A group of people around a table looking at a map Description automatically generated](media/967a9903e897d481403ab86b7b2c48f4.png)To support evidence-based decision making at the municipality level, CITYNEXUS operates at the local scale. To characterize the seasonal patterns of human mobility and, in turn, their relationships to the targeted KPIs, CITYNEXUS is intended to operate on a quarterly temporal scale and to differentiate the analyses between typical weekdays and weekends. On the one hand, this allows deriving statistically robust baseline conditions when characterizing the reference patterns for human mobility and the different KPIs. On the other hand, this enables a more realistic and nuanced understanding of the effects of “what-if” mobility and infrastructural changes at different times of the year.
+![A group of people around a table looking at a map Description automatically generated](media/967a9903e897d481403ab86b7b2c48f4.png)
+
+To support evidence-based decision making at the municipality level, CITYNEXUS operates at the local scale. To characterize the seasonal patterns of human mobility and, in turn, their relationships to the targeted KPIs, CITYNEXUS is intended to operate on a quarterly temporal scale and to differentiate the analyses between typical weekdays and weekends. On the one hand, this allows deriving statistically robust baseline conditions when characterizing the reference patterns for human mobility and the different KPIs. On the other hand, this enables a more realistic and nuanced understanding of the effects of “what-if” mobility and infrastructural changes at different times of the year.
 
 Four cities acre currently available for demonstration purposes in the platform: **Copenaghen (Denmark), Bologna (Italy), Seville (Spain), and Aarhus (Denmark)**. These cities were selected as first targets for their alignment with the project’s focus on sustainable mobility, air quality improvement, and urban innovation. In principle all cities participating in the EU Mission for 100 Climate-Neutral and Smart Cities by 2030 underscore a shared commitment to climate adaptation and sustainable urban development, hence they are candidates for future adaptations and extensions of the platform.
 
@@ -431,3 +418,4 @@ Figure 21. 24h Road Occupancy Simulation
 ![24h No2 Concentration Simulation](media/4ecc6b4ee3e662018c35df5758c086a8.gif)
 
 Figure 22. 24h NO2 Concentration Simulation
+
