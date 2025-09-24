@@ -22,14 +22,14 @@
 |                       | The copyright of this document is vested in the European Space Agency. This document may only be reproduced in whole or in part, stored in a retrieval system, transmitted in any form, or by any means, e.g. electronically, mechanically or by photocopying, or otherwise, with the prior permission of the Agency.  |
 
 
-Distribution List
+# Distribution List
 
 | Name                 | Organisation         |
 |----------------------|----------------------|
 | Technical Officer    | Starion Italia S.p.A |
 | CITYNEXUS Consortium | Solenix, MindEarth   |
 
-Table of Content
+# Table of Content
 
 [Distribution List](#_Toc202349311)
 
@@ -307,4 +307,5 @@ In addition, the validation process helped surface implementation-level challeng
 Importantly, the timing of the validation—taking place immediately following the release of CITYNEXUS on the DestinE platform in early June 2025—ensured that the feedback captured user reactions to the operational service, rather than a prototype. This makes the insights especially valuable as the project transitions into its next phase of development and engagement.
 
 The CITYNEXUS consortium remains committed to a user-driven development approach and will continue to integrate feedback iteratively, not only through structured reviews but also via ongoing usage monitoring, direct user engagement, and participation in future DestinE knowledge exchange activities.
+
 
