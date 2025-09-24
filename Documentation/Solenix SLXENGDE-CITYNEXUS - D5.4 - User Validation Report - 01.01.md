@@ -1,18 +1,11 @@
-| ![](media/4b6438a00e58aeae5c8736693606a46d.emf) |  ![](media/c2c66212059f3f77d379df9204ed55a0.png) |
-|-------------------------------------------------|--------------------------------------------------|
-
-![](media/b330f3488abf3708bcafa19936a31653.png)s
-
-![](media/c3fc78f94d29dea2d88d0adfc71b081a.png)CITYNEXUS
-
-User Validation Report
-
-Solenix Engineering GmbH
-
-Project Ref.: SLXENGDE/CITYNEXUS/2023
-
-Doc. Ref.: SLXENGDE-CITYNEXUS-D5.4
-
+<div>
+<p align="right">
+  <img style="vertical-align:middle" src="media/b330f3488abf3708bcafa19936a31653.png" width="100" title="CityNexus logo">
+  <span style=""><h1>CITYNEXUS<h1><span style="">
+  <span style="">User Validation Report </span>
+</p>
+</div>
+    
 | Title:                | CITYNEXUS                                                                                                                                                                                                                                                                                                              |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Volume:               | User Validation Report                                                                                                                                                                                                                                                                                                 |
@@ -28,15 +21,6 @@ Doc. Ref.: SLXENGDE-CITYNEXUS-D5.4
 | Company:              | Solenix Engineering GmbH Phone: +49 6151 870 91 0 Spreestrasse 3 E-Mail: info@solenix.de 64295 Darmstadt Internet: www.solenix.de Germany                                                                                                                                                                              |
 |                       | The copyright of this document is vested in the European Space Agency. This document may only be reproduced in whole or in part, stored in a retrieval system, transmitted in any form, or by any means, e.g. electronically, mechanically or by photocopying, or otherwise, with the prior permission of the Agency.  |
 
-**  
-**
-
-**Document Log**
-
-| Revision | Date       | Responsible    | Comment                                                  |
-|----------|------------|----------------|----------------------------------------------------------|
-| 01.00    | 18/06/2025 | Simone Fratini | Document Creation                                        |
-| 01.01    | 02/07/2025 | Simone Fratini | Update for RIDs resolution. Section 4.1 and 4.3 updated. |
 
 Distribution List
 
@@ -323,3 +307,4 @@ In addition, the validation process helped surface implementation-level challeng
 Importantly, the timing of the validation—taking place immediately following the release of CITYNEXUS on the DestinE platform in early June 2025—ensured that the feedback captured user reactions to the operational service, rather than a prototype. This makes the insights especially valuable as the project transitions into its next phase of development and engagement.
 
 The CITYNEXUS consortium remains committed to a user-driven development approach and will continue to integrate feedback iteratively, not only through structured reviews but also via ongoing usage monitoring, direct user engagement, and participation in future DestinE knowledge exchange activities.
+
