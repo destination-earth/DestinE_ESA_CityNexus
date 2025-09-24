@@ -1,17 +1,10 @@
-| ![](media/4b6438a00e58aeae5c8736693606a46d.emf) |  ![](media/c2c66212059f3f77d379df9204ed55a0.png) |
-|-------------------------------------------------|--------------------------------------------------|
-
-![](media/b330f3488abf3708bcafa19936a31653.png)
-
-![](media/c3fc78f94d29dea2d88d0adfc71b081a.png)CITYNEXUS
-
-Final Report
-
-Solenix Engineering GmbH
-
-Project Ref.: SLXENGDE/CITYNEXUS/2023
-
-Doc. Ref.: SLXENGDE-CITYNEXUS-FR
+<div>
+<p align="right">
+  <img style="vertical-align:middle" src="media/b330f3488abf3708bcafa19936a31653.png" width="100" title="CityNexus logo">
+  <span style=""><h1>CITYNEXUS<h1><span style="">
+  <span style="">Final Report</span>
+</p>
+</div>
 
 | Title:                | CITYNEXUS                                                                                                                                                                                                                                                                                                              |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -28,24 +21,15 @@ Doc. Ref.: SLXENGDE-CITYNEXUS-FR
 | Company:              | Solenix Engineering GmbH Phone: +49 6151 870 91 0 Spreestrasse 3 E-Mail: info@solenix.de 64295 Darmstadt Internet: www.solenix.de Germany                                                                                                                                                                              |
 |                       | The copyright of this document is vested in the European Space Agency. This document may only be reproduced in whole or in part, stored in a retrieval system, transmitted in any form, or by any means, e.g. electronically, mechanically or by photocopying, or otherwise, with the prior permission of the Agency.  |
 
-**  
-**
 
-**Document Log**
-
-| Revision | Date       | Responsible    | Comment                    |
-|----------|------------|----------------|----------------------------|
-| 01.00    | 26/06/2025 | Simone Fratini | Document Creation          |
-| 01.01    | 07/07/2025 | Simone Fratini | Update for Final Delivery. |
-
-Distribution List
+# Distribution List
 
 | Name                 | Organisation          |
 |----------------------|-----------------------|
 | Technical Officer    | Starion Italia S.p.a. |
 | CITYNEXUS Consortium | Solenix, MindEarth    |
 
-Table of Content
+# Table of Content
 
 [Distribution List](#_Toc207621915)
 
@@ -102,7 +86,8 @@ The document is organized as it follows.
 | Chapter 4            | Describes the Scenario(s)                                                                                                        |
 | Chapter 5            | Describes Data and Simulation Technology                                                                                         |
 | Chapter 6            | Presents the Application Design and the DestinE Integration Timeline                                                             |
-| Chapter 7 Chapter 8  | Discusses Stakeholder Engagement, Outreach and Validation Contains the final Conclusions and Future Exploitation of the activity |
+| Chapter 7            | Discusses Stakeholder Engagement, Outreach and Validation                                                                        |
+| Chapter 8            | Contains the final Conclusions and Future Exploitation of the activity                                                           |
 
 ## Applicable Documents
 
@@ -467,3 +452,4 @@ Identified possible use cases for commercial exploitation of CITYNEXUS include:
 ![A group of people around a table looking at a map Description automatically generated](media/967a9903e897d481403ab86b7b2c48f4.png)To ensure the long-term sustainability of **CITYNEXUS** within the **DestinE ecosystem**, the consortium successfully applied for and was awarded a contract to further develop the service and maintain its operation—providing a **free tier on DestinE for at least two years**. The enhanced version of the service will incorporate **simulation capabilities for extreme weather events**, such as **urban flooding**, as well as an **air quality model** to evaluate the environmental impacts of flooding and infrastructure interventions. These features aim to support **urban resilience** and **public health planning**.
 
 Possible future exploitation of CITYNEXUS to offer commercial "what-if" scenario services and decision-support tools tailored to the needs of **municipalities, urban planners, policymakers, and public agencies** focused on sustainable urban development is also possible. In fact, traditional planning tools often rely on static data or narrowly focused analyses, lacking integration between mobility, environmental, and infrastructural factors, lacking robust scenario simulation capabilities and offering limited scalability or transparency. CityNexus conversely addresses these gaps through a digital twin platform that integrates simulation, analytics, and AI. It enables users to test urban interventions virtually, reducing risks, optimizing decisions, and improving public trust.
+
