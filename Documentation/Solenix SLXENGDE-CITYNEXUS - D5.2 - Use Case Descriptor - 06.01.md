@@ -2,7 +2,7 @@
 <p align="right">
   <img style="vertical-align:middle" src="media/b330f3488abf3708bcafa19936a31653.png" width="100" title="CityNexus logo">
   <span style=""><h1>CITYNEXUS<h1><span style="">
-  <span style=""> Use Case Descriptor</span>
+  <span style="">Use Case Descriptor</span>
 </p>
 </div>
       
@@ -148,7 +148,11 @@ CityNexus employs the Kubernetes Infrastructure as well as Data Workflow of the 
 
 ![A split screen of a city Description automatically generated](media/50ed6aeaadc8e03a05f019062fcded9a.png)The implementation of CityNexus and its "what-if" scenario capabilities is expected to have a profound and multi-faceted impact on users, particularly in terms of urban planning, environmental sustainability, transportation, and public health policies. In the short term, users, including urban planners, policymakers, and the public, will gain **a powerful tool for visualizing and understanding the potential impacts of various urban development decisions**. This interactive and participatory approach to planning will allow for more informed and community-driven decisions. By simulating different scenarios, CityNexus provides insights into how changes in infrastructure, such as transforming high-speed thoroughfares or promoting electric vehicles, can influence human mobility, air quality, and public health. This ability to evaluate the potential outcomes of various initiatives before implementation will be instrumental in guiding effective policy decisions and urban development strategies.
 
-![A group of people around a table looking at a map Description automatically generated](media/967a9903e897d481403ab86b7b2c48f4.png)In the long-term, CityNexus is expected to significantly contribute to Copenhagen's journey towards a more sustainable, healthy, and smart urban future, aligning with the city's ambitious environmental and urban quality of life goals. By integrating with key policies like the Copenhagen Climate Plan and the Copenhagen Bicycle Strategy, the platform supports the city’s endeavours to become carbon-neutral by 2025 and evolve into a premier global city for cycling.
+<p align="center">
+  <img style="vertical-align:middle" src="media/967a9903e897d481403ab86b7b2c48f4.png" title="CityNexus graphics">
+</p>
+
+In the long-term, CityNexus is expected to significantly contribute to Copenhagen's journey towards a more sustainable, healthy, and smart urban future, aligning with the city's ambitious environmental and urban quality of life goals. By integrating with key policies like the Copenhagen Climate Plan and the Copenhagen Bicycle Strategy, the platform supports the city’s endeavours to become carbon-neutral by 2025 and evolve into a premier global city for cycling.
 
 Moreover, the impact of CityNexus extends beyond regional boundaries. There is a concerted effort to connect with cities participating in the EU’s 100 Climate-Neutral and Smart Cities by 2030 initiative. In particular, the cities of Bologna, Seville, and Aarhus, all part of the program, shall be included into the platform, demonstrating the scalability and adaptability of the application across diverse urban contexts, each facing unique challenges in mobility, air quality, and urban sustainability. This expanded network of participating cities positions CityNexus as a pioneering model for leveraging digital twin technology in urban planning and policymaking for collaborative, data-driven strategies.
 
@@ -348,5 +352,6 @@ Table 2 - Other EO and ancillary data
 | Land Use       | Copenhagen land use plan                                                | Area type designation for urban planning                          | Vector-based       | Static, updated in 2019                                                                                                 | 2019                                                                                      |
 | Documentation  | Approved motorway coverage scenarios                                    | Development scenarios for motorway coverage                       | N/A                | Provided by end-user                                                                                                    | Latest available                                                                          |
 | Mobility Data  | High Frequency Location-Based (HFLB) Data for Denmark, Spain, and Italy | Human mobility patterns, daily active user counts                 | N/A                | Two periods for Denmark (Jul 2019 - Mar 2020, Oct 2022 - Oct 2023); 12 months for Italy and Spain (Sep 2023 - Aug 2024) | Jul 2019 - Mar 2020; Oct 2022 - Oct 2023 (Denmark); Sep 2023 - Aug 2024 (Italy and Spain) |
+
 
 
