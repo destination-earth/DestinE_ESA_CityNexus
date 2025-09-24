@@ -1,17 +1,10 @@
-| ![](media/4b6438a00e58aeae5c8736693606a46d.emf) |  ![](media/c2c66212059f3f77d379df9204ed55a0.png) |
-|-------------------------------------------------|--------------------------------------------------|
-
-![](media/b330f3488abf3708bcafa19936a31653.png)F
-
-![](media/c3fc78f94d29dea2d88d0adfc71b081a.png)CITYNEXUS
-
-Use Case Promotion Package
-
-Solenix Engineering GmbH
-
-Project Ref.: SLXENGDE/CITYNEXUS/2023
-
-Doc. Ref.: SLXENGDE-CITYNEXUS-D5.5
+<div>
+<p align="right">
+  <img style="vertical-align:middle" src="media/b330f3488abf3708bcafa19936a31653.png" width="100" title="CityNexus logo">
+  <span style=""><h1>CITYNEXUS<h1><span style="">
+  <span style="">Use Case Promotion Package</span>
+</p>
+</div>
 
 | Title:                | CITYNEXUS                                                                                                                                                                                                                                                                                                              |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -28,30 +21,14 @@ Doc. Ref.: SLXENGDE-CITYNEXUS-D5.5
 | Company:              | Solenix Engineering GmbH Phone: +49 6151 870 91 0 Spreestrasse 3 E-Mail: info@solenix.de 64295 Darmstadt Internet: www.solenix.de Germany                                                                                                                                                                              |
 |                       | The copyright of this document is vested in the European Space Agency. This document may only be reproduced in whole or in part, stored in a retrieval system, transmitted in any form, or by any means, e.g. electronically, mechanically or by photocopying, or otherwise, with the prior permission of the Agency.  |
 
-**  
-**
-
-**Document Log**
-
-| Revision | Date       | Responsible    | Comment                                                               |
-|----------|------------|----------------|-----------------------------------------------------------------------|
-| 01.00    | 07/02/2024 | Simone Fratini | Document Creation                                                     |
-| 01.01    | 07/03/2024 | Simone Fratini | Document Update after RR1                                             |
-| 02.00    | 22/05/2024 | Simone Fratini | Document Update for RR2. Section 3 and 4 updated.                     |
-| 03.00    | 16/09/2024 | Simone Fratini | Document Update for RR3. Section 4 and 5 updated.                     |
-| 04.00    | 03/12/2024 | Simone Fratini | Document Update for CCN1-MS1. Section 5 Updated                       |
-| 04.01    | 18/12/2024 | Simone Fratini | Update for RIDs resolution.                                           |
-| 05.00    | 22/05/2025 | Simone Fratini | Update for FR. Section 3.4, 4 and 5 Updated. Section 6 added.         |
-| 05.01    | 02/07/2025 | Simone Fratini | Update for RIDs resolution. MOOC description updated & minor editing. |
-
-Distribution List
+# Distribution List
 
 | Name                 | Organisation         |
 |----------------------|----------------------|
 | Technical Officer    | Starion Italia S.p.A |
 | CITYNEXUS Consortium | Solenix, MindEarth   |
 
-Table of Content
+# Table of Content
 
 [Distribution List](#_Toc202801204)
 
@@ -222,9 +199,10 @@ Many municipalities reported a high proportion of citizens affected by traffic n
 
 The presentation began with an overview of the mobility data, showcasing traffic patterns and congestion points within the area, featuring specific visualizations of the mobility model and air quality data (particularly NOx) in an interactive HTML format. Displayed visualizations were crafted to be user-friendly, allowing attendees to provide comments and feedback in real time.
 
-![](media/00903214da99dbeda39779a8cbe8c578.png)
-
-![](media/4936e393507ac6d505d53807b4538923.png)
+<p align="center">
+  <img style="vertical-align:middle" src="media/00903214da99dbeda39779a8cbe8c578.png" title="CityNexus logo">
+  <img style="vertical-align:middle" src="media/4936e393507ac6d505d53807b4538923.png" title="CityNexus logo">
+</p>
 
 This visual data integration with NOx air quality measurements demonstrated how environmental impacts could be assessed using the CITYNEXUS platform. A detailed discussion ensued regarding the representativeness of the mobility data compared to actual mobility dynamics occurring in Copenhagen. The audience expressed a high level of satisfaction, agreeing that the data accurately reflected real-world conditions. This feedback was crucial as it validated the accuracy and reliability of the mobility model used by CITYNEXUS. The audience was highly satisfied with the accuracy of the data, noting that it effectively reflected real-world conditions.
 
@@ -294,7 +272,10 @@ These activities underline the consortium's active engagement with the DestinE c
 
 [^7]: [destination-earth/DestinE_ESA_CityNexus (github.com)](https://github.com/destination-earth/DestinE_ESA_CityNexus)
 
-![](media/b127419b64826d7ca8aea07fd47dbf61.png) ![](media/f0938cacee8e16e434d7e1a8370f2744.png)
+<p align="center">
+  <img style="vertical-align:middle" src="media/b127419b64826d7ca8aea07fd47dbf61.png" title="CityNexus logo">
+  <img style="vertical-align:middle" src="media/f0938cacee8e16e434d7e1a8370f2744.png" title="CityNexus logo">
+</p>
 
 # Knowledge transfer
 
@@ -326,3 +307,4 @@ The MOOC is designed for both **technical and non-technical audiences**. Urban p
 -   **Experience sharing**, including a dedicated section on onboarding to DestinE and challenges faced by the consortium during integration—intended to support future service providers.
 
 By blending theoretical background, platform training, and applied case studies, the MOOC ensures that CITYNEXUS remains accessible, usable, and relevant well beyond the project’s lifespan.
+
