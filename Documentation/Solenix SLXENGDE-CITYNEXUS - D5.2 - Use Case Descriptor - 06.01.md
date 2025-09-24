@@ -1,17 +1,8 @@
-| ![](media/4b6438a00e58aeae5c8736693606a46d.emf) |  ![](media/c2c66212059f3f77d379df9204ed55a0.png) |
-|-------------------------------------------------|--------------------------------------------------|
 
 ![](media/b330f3488abf3708bcafa19936a31653.png)
 
-![](media/c3fc78f94d29dea2d88d0adfc71b081a.png)CITYNEXUS
+# Use Case Descriptor
 
-Use Case Descriptor
-
-Solenix Engineering GmbH
-
-Project Ref.: SLXENGDE/CITYNEXUS/2023
-
-Doc. Ref.: SLXENGDE-CITYNEXUS-D5.2
 
 | Title:                | CITYNEXUS                                                                                                                                                                                                                                                                                                              |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -28,32 +19,15 @@ Doc. Ref.: SLXENGDE-CITYNEXUS-D5.2
 | Company:              | Solenix Engineering GmbH Phone: +49 6151 870 91 0 Spreestrasse 3 E-Mail: info@solenix.de 64295 Darmstadt Internet: www.solenix.de Germany                                                                                                                                                                              |
 |                       | The copyright of this document is vested in the European Space Agency. This document may only be reproduced in whole or in part, stored in a retrieval system, transmitted in any form, or by any means, e.g. electronically, mechanically or by photocopying, or otherwise, with the prior permission of the Agency.  |
 
-**  
-**
 
-**Document Log**
-
-| Revision | Date       | Responsible    | Comment                                                                                                         |
-|----------|------------|----------------|-----------------------------------------------------------------------------------------------------------------|
-| 01.00    | 27/11/2023 | Simone Fratini | Document Creation                                                                                               |
-| 02.00    | 15/02/2024 | Simone Fratini | Document Update for RR1. Section 3 added.                                                                       |
-| 02.01    | 07/03/2024 | Simone Fratini | Document Update after RR1. Sections 4.2, 4.3 and 5 updated. Section 5 - “User Manual” added.                    |
-| 03.00    | 21/05/2024 | Simone Fratini | Document update for RR2. Section 4 updated and merged with Section 5. New Section added “CITYNEXUS Application” |
-| 04.00    | 16/09/2024 | Simone Fratini | Document update for RR3. Section 5 updated.                                                                     |
-| 04.01    | 30/09/2024 | Simone Fratini | RIDs resolution, references fixed.                                                                              |
-| 05.00    | 03/12/2024 | Simone Fratini | Document update for CCN1-MS1. Sections 3,4 & 5 Updated                                                          |
-| 05.01    | 19/12/2024 | Simone Fratini | RIDs resolution. Section 5 removed.                                                                             |
-| 06.00    | 22/05/2025 | Simone Fratini | Document update for FR. Formatting and minor editing.                                                           |
-| 06.01    | 02/07/2025 | Simone Fratini | Update for Final Delivery. Minor editing.                                                                       |
-
-Distribution List
+# Distribution List
 
 | Name                 | Organisation          |
 |----------------------|-----------------------|
 | Technical Officer    | Starion Italia S.p.a. |
 | CITYNEXUS Consortium | Solenix, MindEarth    |
 
-Table of Content
+# Table of Content
 
 [Distribution List](#_Toc202790166)
 
@@ -372,3 +346,4 @@ Table 2 - Other EO and ancillary data
 | Land Use       | Copenhagen land use plan                                                | Area type designation for urban planning                          | Vector-based       | Static, updated in 2019                                                                                                 | 2019                                                                                      |
 | Documentation  | Approved motorway coverage scenarios                                    | Development scenarios for motorway coverage                       | N/A                | Provided by end-user                                                                                                    | Latest available                                                                          |
 | Mobility Data  | High Frequency Location-Based (HFLB) Data for Denmark, Spain, and Italy | Human mobility patterns, daily active user counts                 | N/A                | Two periods for Denmark (Jul 2019 - Mar 2020, Oct 2022 - Oct 2023); 12 months for Italy and Spain (Sep 2023 - Aug 2024) | Jul 2019 - Mar 2020; Oct 2022 - Oct 2023 (Denmark); Sep 2023 - Aug 2024 (Italy and Spain) |
+
